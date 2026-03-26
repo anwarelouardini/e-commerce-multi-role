@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 50%;
+}
+
+body {
+  font-family: var(--primary-font);
+  background: #fbf8ff;
+}
+
+.container {
+  max-width: var(--max-width);
+  width: 90%;
+  margin: 0 auto;
+}
+
+img,
+video {
+  width: 100%;
+}
+
+/* We use it for the mobile nav */
+main {
+  padding-bottom: 9rem;
+}
+
+/* To add some margin to the top small */
+.u-margin-top-small {
+  margin-top: 2rem;
+}
+
+/* To add some margin to the top */
+.u-margin-top-med {
+  margin-top: 4rem;
+}

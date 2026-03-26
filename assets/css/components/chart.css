@@ -1,0 +1,76 @@
+.chart-container {
+  background-color: #f5f2fb;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+}
+
+.chart-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.chart-buttons .btn-white:nth-child(1) {
+  margin-right: 0.75rem;
+}
+
+.bars-container {
+  margin-top: 5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart__bar {
+  height: 12rem;
+  width: 2.5rem;
+  border-top-left-radius: 5rem;
+  border-top-right-radius: 5rem;
+  background-color: #dcdaeb;
+}
+
+/* Active state of the chart bar */
+.chart__bar--active {
+  background-color: var(--primary);
+}
+
+.chart__label {
+  font-size: 1.3rem;
+  color: var(--secondary);
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* Selecting the second bar  */
+.bars-container .chart-bar-container:nth-child(2) .chart__bar {
+  height: 15rem;
+}
+
+/* Selecting the forth bar*/
+.bars-container .chart-bar-container:nth-child(4) .chart__bar {
+  height: 18rem;
+}
+
+/* Selecting the fifth bar */
+.bars-container .chart-bar-container:nth-child(5) .chart__bar {
+  height: 22rem;
+}
+
+/* Selecting the sixth bar */
+.bars-container .chart-bar-container:nth-child(6) .chart__bar {
+  height: 15rem;
+}
+
+/* Selecting the seventh bar */
+.bars-container .chart-bar-container:nth-child(7) .chart__bar {
+  height: 19rem;
+}

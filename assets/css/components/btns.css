@@ -1,0 +1,72 @@
+.btn-white,
+.btn-white:link,
+.btn-white:visited {
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  padding: 0.5rem 1.3rem;
+  background-color: white;
+  border-radius: 3rem;
+}
+
+.btn-secondary,
+.btn-secondary:link,
+.btn-secondary:visited {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  background-color: var(--light-grey);
+  border-radius: 2rem;
+}
+
+.btn--active {
+  color: white !important;
+  background-color: var(--primary) !important;
+  position: relative;
+}
+
+.btn-close {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-close::before,
+.btn-close::after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: inline-block;
+  content: "";
+  background-color: var(--red);
+  height: 2rem;
+  width: 2px;
+}
+
+.btn-close::before {
+  transform: rotate(45deg);
+}
+
+.btn-close::after {
+  transform: rotate(-45deg);
+}
+
+.btn-primary,
+.btn-primary:link,
+.btn-primary:visited {
+  background-color: var(--primary);
+  padding: 1.5rem 2rem;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}

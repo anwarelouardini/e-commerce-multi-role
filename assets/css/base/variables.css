@@ -1,0 +1,15 @@
+:root {
+  --primary: #1a237e;
+  --secondary: rgb(113, 116, 154);
+  --light-grey: #eae7ef;
+  --green: rgb(37, 164, 124);
+  --light-green: rgb(236, 253, 245);
+  --red: rgb(186, 26, 26);
+  --light-red: rgb(255, 244, 243);
+  --tertiary: #5c1800;
+  --neutral: #77767d;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.671);
+  --max-width: 1100px;
+  --border-radius: 1rem;
+  --primary-font: "Manrope", sans-serif;
+}

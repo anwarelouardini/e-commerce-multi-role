@@ -1,0 +1,115 @@
+.navigation {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.navigation-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navigation__icon {
+  position: relative;
+}
+
+.navigation__icon,
+.navigation__icon::before,
+.navigation__icon::after {
+  display: inline-block;
+  content: "";
+  width: 2rem;
+  height: 2px;
+  background-color: var(--primary);
+}
+
+.navigation__icon::before,
+.navigation__icon::after {
+  position: absolute;
+  left: 0;
+}
+
+.navigation__icon::before {
+  top: -0.7rem;
+}
+
+.navigation__icon::after {
+  top: 0.7rem;
+}
+
+#navigation__logo {
+  font-family: var(--primary-font);
+  font-weight: 900;
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+.navigation-profile {
+  border: 2px solid var(--neutral);
+  border-radius: 50rem;
+  overflow: hidden;
+  width: 5rem;
+  height: 5rem;
+}
+
+/* Styling Mobile Navigation */
+.navigation-card {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 2rem;
+  padding: 1rem 0;
+  z-index: 111;
+}
+
+.navigation-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.nav-item {
+  text-decoration: none;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  border-radius: 2rem;
+  transition: all 0.3s;
+}
+
+/* When we hover over the mobile navigation */
+.nav-item:hover {
+  background: #e2e2f0;
+}
+
+.nav-item:hover .navigation-mobile__icon,
+.nav-item:hover .navigation-mobile__title {
+  color: #3a3f5c;
+}
+
+/* When the current page link is active */
+.nav-item--active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.nav-item--active .navigation-mobile__icon,
+.nav-item--active .navigation-mobile__title {
+  color: white;
+}
+
+.navigation-mobile__icon {
+  color: var(--secondary);
+}
+
+.navigation-mobile__title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--secondary);
+}
