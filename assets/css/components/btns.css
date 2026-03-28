@@ -1,3 +1,4 @@
+.btn,
 .btn-white,
 .btn-white:link,
 .btn-white:visited {
@@ -8,6 +9,23 @@
   padding: 0.5rem 1.3rem;
   background-color: white;
   border-radius: 3rem;
+  cursor: pointer;
+}
+
+/* Btn without background */
+
+.btn--txt {
+  display: block;
+  color: var(--primary);
+  font-size: 1.8rem !important;
+  background: transparent;
+  text-align: center !important;
+}
+
+.btn--link {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
 }
 
 .btn-secondary,
@@ -20,6 +38,32 @@
   padding: 0.75rem 2rem;
   background-color: var(--light-grey);
   border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-secondary--big {
+  font-size: 1.8rem !important;
+  padding: 1.5rem 0 !important;
+  box-shadow: 0 4px 1rem rgba(186, 26, 26, 0.5);
+}
+
+.btn-secondary--red {
+  color: white !important;
+  background-color: var(--red) !important;
+  padding: 1rem 2rem;
+}
+
+.btn-secondary--blue {
+  color: var(--primary) !important;
+}
+
+.btn-secondary--green {
+  color: white !important;
+  background-color: var(--green) !important;
+  padding: 1rem 2rem;
 }
 
 .btn--active {
@@ -69,4 +113,18 @@
   gap: 1rem;
   font-size: 1.3rem;
   font-weight: 600;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 1rem;
+}
+
+.btn-pages {
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 60%;
 }

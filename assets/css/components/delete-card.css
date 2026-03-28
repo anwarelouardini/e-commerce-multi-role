@@ -1,0 +1,54 @@
+.delete-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--light-red);
+  padding: 2rem;
+  gap: 2rem;
+  border-radius: 2rem;
+  border: 1px solid var(--red);
+}
+
+.delete-card .paragraph {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  color: var(--red);
+}
+
+.alert__icon {
+  color: var(--red);
+  height: 20;
+  width: 20;
+  align-self: flex-start;
+}
+
+/* Styling the User Details */
+.user-details-container {
+  background-color: var(--light-grey);
+  padding: 1.5rem 2.5rem;
+  border-radius: 2rem;
+  border: 1px solid #ede9f3;
+  margin-top: 3rem;
+}
+
+.user-details-content:not(:last-child) {
+  border-bottom: 1px solid #ede9f3;
+}
+
+.user-details-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.user-details-content .sub-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral);
+}
+
+.user-details__content {
+  font-size: 1.5rem;
+  font-weight: 700;
+}

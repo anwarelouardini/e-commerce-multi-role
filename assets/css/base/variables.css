@@ -3,9 +3,10 @@
   --secondary: rgb(113, 116, 154);
   --light-grey: #eae7ef;
   --green: rgb(37, 164, 124);
+  --yellow: #fbbf24;
   --light-green: rgb(236, 253, 245);
-  --red: rgb(186, 26, 26);
-  --light-red: rgb(255, 244, 243);
+  --red: #ba1a1a;
+  --light-red: #e5dbe1;
   --tertiary: #5c1800;
   --neutral: #77767d;
   --shadow: 0 10px 25px rgba(0, 0, 0, 0.671);

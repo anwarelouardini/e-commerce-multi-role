@@ -1,0 +1,91 @@
+/* Styling Users List */
+
+.users-list-container {
+  padding: 3rem 0;
+}
+
+.user-box {
+  padding: 1.75rem 2.5rem;
+  background-color: var(--light-grey);
+  border-radius: 2rem;
+}
+
+.user-box:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.users-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.users-list-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.username {
+  font-size: 1.5rem;
+}
+
+.user__img {
+  width: 6rem;
+  border-radius: 50%;
+}
+
+/* Styling the user status */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.status--active p {
+  color: var(--green);
+}
+
+.status--pending p {
+  color: var(--yellow);
+}
+
+.status--pending .status__cercle {
+  background-color: var(--yellow);
+}
+
+.status__cercle {
+  height: 1.2rem;
+  width: 1.2rem;
+  border-radius: 50%;
+  background-color: var(--green);
+}
+
+.line__break {
+  margin-top: 2rem;
+  background-color: #f0edf6;
+  height: 1px;
+  border: none;
+}
+
+/* Styling the bottom links */
+.users-list-pages {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.users-pages-links {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}

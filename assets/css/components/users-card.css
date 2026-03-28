@@ -10,6 +10,10 @@
   width: 5rem;
 }
 
+.user-profile-content {
+  margin-left: 1rem;
+}
+
 .user-card__icon {
   border-radius: 50%;
   margin-right: 1rem;

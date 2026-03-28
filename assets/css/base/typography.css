@@ -14,6 +14,13 @@
   display: block;
 }
 
+.heading-secondary--red {
+  color: var(--red);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: normal;
+}
+
 .sub-heading {
   font-size: 1.4rem;
   font-weight: 500;
@@ -34,4 +41,12 @@
 .chart-content > h3,
 .users-items-container h3 {
   font-size: 2.5rem;
+}
+
+.username--big {
+  font-size: 1.8rem !important;
+}
+
+#user-email {
+  font-size: 1.5rem;
 }
