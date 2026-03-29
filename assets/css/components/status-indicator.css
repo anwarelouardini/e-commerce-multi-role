@@ -5,6 +5,11 @@
   border-radius: 10rem;
   color: var(--green);
   text-align: center;
+  text-transform: uppercase;
+}
+
+.status-indicator--sm {
+  width: 16rem;
 }
 
 .status-indicator--green {
@@ -12,13 +17,14 @@
 }
 
 .status-indicator--grey {
-  background-color: transparent;
+  background-color: #f1eefc;
   color: var(--secondary);
 }
 
 .status-indicator--red {
   background-color: var(--light-red);
   color: var(--red);
+  letter-spacing: 1px;
 }
 
 .status-indicator--primary {

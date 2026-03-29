@@ -118,3 +118,11 @@
   font-weight: 600;
   color: var(--secondary);
 }
+
+/* Styling the left arrow in the navigation */
+.navigation__backwards {
+  color: var(--primary);
+  font-size: 3.5rem;
+  text-decoration: none;
+  transform: translateY(-1px);
+}

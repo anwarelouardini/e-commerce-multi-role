@@ -36,6 +36,11 @@
   border-top-left-radius: 5rem;
   border-top-right-radius: 5rem;
   background-color: #dcdaeb;
+  transition: opacity 0.3s;
+}
+
+.chart__bar:hover {
+  opacity: 0.8;
 }
 
 /* Active state of the chart bar */

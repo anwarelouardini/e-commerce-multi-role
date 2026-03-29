@@ -46,3 +46,12 @@ main {
 .u-margin-top-med {
   margin-top: 4rem;
 }
+
+/* Add some margin to the bottom */
+.u-margin-bottom-sm {
+  margin-bottom: 0.75rem;
+}
+
+.status > .sub-heading {
+  font-size: 1.3rem;
+}
