@@ -5,6 +5,18 @@
   color: var(--primary);
 }
 
+.heading-primary--green {
+  color: var(--green);
+}
+
+.heading-primary--red {
+  color: var(--red);
+}
+
+.heading-primary--brown {
+  color: var(--tertiary);
+}
+
 .heading-secondary {
   font-size: 1.3rem;
   font-weight: 700;
