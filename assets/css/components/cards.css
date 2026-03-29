@@ -38,6 +38,14 @@
   border-bottom: 4px solid rgb(92, 24, 0);
 }
 
+.cards-container--green {
+  border-bottom: 4px solid var(--green);
+}
+
+.cards-container--red {
+  border-bottom: 4px solid var(--red);
+}
+
 .cards-container .heading-secondary {
   margin: 3rem 0 0.3rem 0;
 }
@@ -62,6 +70,18 @@
   justify-content: center;
 }
 
+.cards-logo__icon--green {
+  background-color: var(--light-green);
+}
+
+.cards-logo__icon--red {
+  background-color: var(--light-red);
+}
+
+.cards-logo__icon--brown {
+  background-color: #eee7e5;
+}
+
 .cards__icons {
   position: absolute;
   color: var(--primary);
@@ -77,4 +97,12 @@
 
 .cards__icons--brown {
   color: #5c1800;
+}
+
+.cards__icons--green {
+  color: var(--green);
+}
+
+.cards__icons--red {
+  color: var(--red);
 }
