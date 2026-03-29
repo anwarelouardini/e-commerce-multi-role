@@ -67,6 +67,11 @@
   z-index: 111;
 }
 
+@media (min-width: 75em) {
+  .navigation-card {
+    display: none;
+  }
+}
 .navigation-mobile {
   display: flex;
   align-items: center;

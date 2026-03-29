@@ -1,7 +1,15 @@
 /* Styling Users List */
-
 .users-list-container {
   padding: 3rem 0;
+}
+
+/* Styling User Box */
+@media (min-width: 56.25em) {
+  .user-box-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .user-box {
@@ -26,6 +34,7 @@
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 
 .user-profile {

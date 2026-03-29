@@ -1,0 +1,18 @@
+@media (min-width: 56.25em) {
+  .group-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .section-chart,
+  .section-verification {
+    flex: 1;
+  }
+
+  .chart-container,
+  .users-items-container {
+    height: 100%;
+  }
+}

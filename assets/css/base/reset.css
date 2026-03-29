@@ -10,6 +10,12 @@ html {
   font-size: 50%;
 }
 
+@media (min-width: 56.25em) {
+  html {
+    font-size: 62.5%;
+  }
+}
+
 body {
   font-family: var(--primary-font);
   background: #fbf8ff;
