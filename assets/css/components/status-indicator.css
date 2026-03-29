@@ -1,0 +1,32 @@
+.status-indicator {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 10rem;
+  color: var(--green);
+  text-align: center;
+}
+
+.status-indicator--green {
+  background-color: var(--light-green);
+}
+
+.status-indicator--grey {
+  background-color: transparent;
+  color: var(--secondary);
+}
+
+.status-indicator--red {
+  background-color: var(--light-red);
+  color: var(--red);
+}
+
+.status-indicator--primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.status-indicator--blue {
+  background-color: #dfddee;
+  color: var(--primary);
+}

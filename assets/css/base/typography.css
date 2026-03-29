@@ -1,0 +1,37 @@
+.heading-primary {
+  font-family: var(--primary-font);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.heading-secondary {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--secondary);
+  text-transform: uppercase;
+  display: block;
+}
+
+.sub-heading {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--secondary);
+  display: block;
+}
+
+.paragraph {
+  font-size: 1.1rem;
+  color: var(--neutral);
+}
+
+.heading-small {
+  font-size: 1.35rem;
+  color: var(--primary);
+}
+
+.chart-content > h3,
+.users-items-container h3 {
+  font-size: 2.5rem;
+}
