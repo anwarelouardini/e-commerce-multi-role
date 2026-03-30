@@ -40,6 +40,63 @@
   top: 0.7rem;
 }
 
+@keyframes leftToRight {
+  0% {
+    border-bottom: 0px solid var(--primary);
+  }
+
+  100% {
+    border-bottom: 2px solid var(--primary);
+  }
+}
+
+.navigation__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  font-size: 1.5rem;
+  display: none;
+}
+
+@media (min-width: 56.25em) {
+  .navigation__links {
+    display: flex;
+  }
+
+  .navigation__icon {
+    display: none;
+  }
+}
+.navigation__item a {
+  color: var(--secondary);
+  text-decoration: none;
+  padding-bottom: 0.4rem;
+  position: relative;
+}
+
+.navigation__link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.navigation__link:hover::after {
+  transform: scaleX(1);
+}
+
+.navigation__link--active::after {
+  transform: scaleX(1);
+}
+
 #navigation__logo {
   font-family: var(--primary-font);
   font-weight: 900;
@@ -49,10 +106,70 @@
 
 .navigation-profile {
   border: 2px solid var(--neutral);
-  border-radius: 50rem;
-  overflow: hidden;
+  border-radius: 50%;
   width: 5rem;
   height: 5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation-profile__icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* When we click into the profile we show this card */
+.navigation-profile-card {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 2rem;
+  background: white;
+  border-radius: 2rem;
+  padding: 2rem;
+  width: 28rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.navigation-profile-card__separator {
+  border: none;
+  border-top: 1px solid var(--light-grey);
+  margin: 1.5rem 0;
+}
+
+.navigation-profile-card .user-profile__icon {
+  width: 8rem;
+}
+
+.navigation-profile:hover {
+  border: 4px solid var(--primary);
+}
+
+.profile-card__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-card__link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: var(--secondary);
+  transition: background 0.2s ease;
+}
+
+.profile-card__link:hover {
+  background-color: var(--light-grey);
 }
 
 /* Styling Mobile Navigation */

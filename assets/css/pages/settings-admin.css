@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.user-profile-container--navigation {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
 .user-profile-img {
   width: 12rem;
   position: relative;

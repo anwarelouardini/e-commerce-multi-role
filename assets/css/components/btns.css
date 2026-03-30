@@ -62,7 +62,6 @@
   color: white !important;
   background-color: var(--red) !important;
   padding: 1rem 2rem;
-  width: 100%;
 }
 
 .btn-secondary--blue {
@@ -148,4 +147,26 @@
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
   border-radius: 60%;
+}
+
+.profile-card__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.2rem;
+  border-radius: 999px;
+  background-color: var(--light-grey);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #c0392b;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s ease;
+}
+
+.profile-card__logout:hover {
+  background-color: #fde8e8;
 }
