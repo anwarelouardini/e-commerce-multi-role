@@ -1,6 +1,6 @@
 .delete-card {
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
   background-color: var(--light-red);
   padding: 2rem;
