@@ -184,7 +184,7 @@
   z-index: 111;
 }
 
-@media (min-width: 75em) {
+@media (min-width: 56.25em) {
   .navigation-card {
     display: none;
   }
