@@ -15,4 +15,9 @@
   .users-items-container {
     height: 100%;
   }
+
+  .form-btn-box {
+    flex-direction: row;
+    gap: 3rem;
+  }
 }

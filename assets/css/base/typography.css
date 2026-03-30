@@ -5,6 +5,10 @@
   color: var(--primary);
 }
 
+.heading-primary--med {
+  font-size: 2.5rem;
+}
+
 .heading-primary--green {
   color: var(--green);
 }
@@ -61,4 +65,8 @@
 
 #user-email {
   font-size: 1.5rem;
+}
+
+.txt-center {
+  text-align: center;
 }
