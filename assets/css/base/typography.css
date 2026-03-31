@@ -9,6 +9,10 @@
   font-size: 2.5rem;
 }
 
+.heading-primary--sm {
+  font-size: 1.8rem;
+}
+
 .heading-primary--green {
   color: var(--green);
 }
@@ -30,11 +34,20 @@
   display: block;
 }
 
+.heading-secondary--orange {
+  color: #c8a89c;
+  font-weight: 800;
+}
+
 .heading-secondary--red {
   color: var(--red);
   font-weight: 900;
   font-size: 1.5rem;
   letter-spacing: normal;
+}
+
+.heading-secondary--blue {
+  color: var(--light-primary);
 }
 
 .sub-heading {

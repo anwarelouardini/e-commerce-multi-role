@@ -1,0 +1,124 @@
+@media (min-width: 56.5em) {
+  .grid-container--product {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .core-information-container {
+    grid-column: 1 / 3;
+  }
+
+  .logistics-container {
+    grid-column: 3 / 3;
+  }
+
+  .media-gallery-container {
+    grid-column: 1 / 3;
+  }
+
+  .categorization-container {
+    grid-column: 3 / 3;
+    flex: 1;
+  }
+
+  .btn-primary {
+    grid-column: 2 / 3;
+  }
+}
+
+.core-information-container,
+.logistics-container,
+.media-gallery-container,
+.categorization-container {
+  background-color: white;
+  padding: 2.75rem;
+  border-radius: 2rem;
+}
+
+.core-information-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary);
+}
+
+.core-information-main .form-input {
+  font-size: 1.3rem;
+}
+
+/* Styling the logistics card */
+.logistics-container {
+  background-color: var(--primary);
+}
+
+.logistics-container .core-information-header h2,
+.logistics__icon {
+  color: var(--light-grey);
+}
+
+/* Styling the Media gallery */
+.media-gallery-container {
+  background-color: #f5f2fb;
+}
+
+/* Grid layout media container */
+.media-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 56.5em) {
+  .media-container {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 2rem;
+  }
+
+  .media-container > *:first-child {
+    margin: 0;
+  }
+
+  .right-container {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .categorization-container {
+    flex: 1;
+  }
+}
+
+.media-container > *:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Styling the main media image container */
+.media-img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-grey);
+  padding: 6rem;
+  border-radius: 2rem;
+  text-align: center;
+  background-color: var(--light-grey);
+}
+
+.add-img {
+  color: var(--secondary);
+  font-size: 3rem;
+}
+
+.media-img-container--1 {
+  background-color: white;
+  border: 2px solid var(--secondary);
+  border-style: dashed;
+}
+
+/* Styling the sub media image container */

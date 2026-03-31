@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <title>Seller inventory</title>
+  </head>
+  <body>
+    <nav class="navigation">
+      <div class="navigation-left">
+        <div class="navigation__icon">&nbsp;</div>
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM Admin</h1>
+        </div>
+      </div>
+
+      <ul class="navigation__links">
+        <li class="navigation__item">
+          <a
+            class="navigation__link navigation__link--active"
+            href="./dashboard.html"
+            >Dashboard</a
+          >
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="./sellers.html">Sellers</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="./users.html">Users</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="./settings.html">Settings</a>
+        </li>
+      </ul>
+
+      <!-- Profile Card -->
+      <div class="navigation-profile">
+        <img
+          class="navigation-profile__icon"
+          src="../../assets/images/avatars/admin-icon.jpg"
+          alt="Admin Profile"
+        />
+      </div>
+
+      <div class="navigation-profile-card">
+        <div class="user-profile-container user-profile-container--navigation">
+          <div class="user-profile-img">
+            <img
+              class="user-profile__icon"
+              src="../../assets/images/avatars/admin-icon.jpg"
+              alt="Admin profile"
+            />
+          </div>
+          <h2 class="username">Julianne Sterling</h2>
+          <span class="sub-heading txt-center">Lead Platform Architect</span>
+        </div>
+
+        <hr class="navigation-profile-card__separator" />
+
+        <ul class="profile-card__links">
+          <li class="profile-card__item">
+            <a class="profile-card__link" href="./settings.html">
+              <span class="profile-card__icon"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-people-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"
+                  /></svg
+              ></span>
+              Account Settings
+            </a>
+          </li>
+        </ul>
+
+        <hr class="navigation-profile-card__separator" />
+
+        <a class="profile-card__logout" href="#">
+          <span>&#8594;</span>
+          Log Out
+        </a>
+      </div>
+    </nav>
+
+    <div class="navigation-card container">
+      <nav class="navigation-mobile">
+        <a href="./dashboard.html" class="nav-item nav-item--active">
+          <!-- Home Icon -->
+          <svg
+            class="navigation-mobile__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-house"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"
+            />
+          </svg>
+          <span class="navigation-mobile__title">Home</span>
+        </a>
+        <a href="./users.html" class="nav-item">
+          <!-- Users Icon -->
+          <svg
+            class="navigation-mobile__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-people"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+            />
+          </svg>
+          <span class="navigation-mobile__title">Users</span>
+        </a>
+        <a href="./sellers.html" class="nav-item">
+          <!-- Sellers Icon -->
+          <svg
+            class="navigation-mobile__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-shop-window"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5m2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5"
+            />
+          </svg>
+          <span class="navigation-mobile__title">Sellers</span>
+        </a>
+        <a href="./settings.html" class="nav-item">
+          <!-- Settings Icon -->
+          <svg
+            class="navigation-mobile__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-gear"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
+            />
+            <path
+              d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
+            />
+          </svg>
+          <span class="navigation-mobile__title">Settings</span>
+        </a>
+      </nav>
+    </div>
+
+    <header class="header container u-margin-top-med">
+      <h1 class="heading-primary">
+        Add Product
+        <span class="sub-heading"
+          >Creat a new listing in your curated collection. All entries are
+          review for quality assurance before going live.</span
+        >
+      </h1>
+    </header>
+
+    <main class="container">
+      <div class="grid-container--product">
+        <!-- Core information container -->
+        <div class="core-information-container u-margin-top-small">
+          <div class="core-information-header">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-file-earmark-text-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z"
+              />
+            </svg>
+            <h2 class="heading-primary heading-primary--sm">
+              Core information
+            </h2>
+          </div>
+
+          <div class="core-information-main">
+            <form class="form u-margin-top-med">
+              <label
+                class="heading-secondary heading-secondary--orange"
+                for="productTitle"
+                >Product title</label
+              >
+              <input
+                class="form-input"
+                type="text"
+                placeholder="e.g Silk Meridian Evening Gown"
+              />
+
+              <label
+                class="heading-secondary heading-secondary--orange"
+                for="productDescription"
+                >Descriptif</label
+              >
+              <textarea
+                class="form-input"
+                name="product-description"
+                id="productDescription"
+                placeholder="Describe the craftsmanship materials and fit..."
+              ></textarea>
+            </form>
+          </div>
+        </div>
+
+        <!-- Price Container -->
+        <div class="logistics-container u-margin-top-small">
+          <div class="core-information-header">
+            <svg
+              class="logistics__icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-tag-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+              />
+            </svg>
+            <h2 class="heading-primary heading-primary--sm">Logistics</h2>
+          </div>
+
+          <form class="form u-margin-top-med" action="">
+            <label class="heading-secondary heading-secondary--blue" for="price"
+              >Base price</label
+            >
+            <div class="input-wrap">
+              <svg
+                class="form-input__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-currency-dollar"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"
+                />
+              </svg>
+              <input
+                class="form-input--2 form-input--logo"
+                type="number"
+                id="price"
+                placeholder="0.00"
+              />
+            </div>
+
+            <label
+              class="heading-secondary heading-secondary--blue"
+              for="stockQuantity"
+              >Stock Quantity</label
+            >
+            <input
+              class="form-input--2"
+              type="number"
+              id="stockQuantity"
+              placeholder="0"
+            />
+          </form>
+        </div>
+
+        <!-- Gallery Container -->
+        <div class="media-gallery-container u-margin-top-small">
+          <div class="core-information-header">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-image-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"
+              />
+            </svg>
+            <h2 class="heading-primary heading-primary--sm">
+              Core information
+            </h2>
+          </div>
+
+          <div class="media-container">
+            <div
+              class="media-img-container media-img-container--1 u-margin-top-med"
+            >
+              <!-- input field -->
+              <input
+                type="file"
+                id="mainImage"
+                accept="image/png, image/jpeg"
+                style="display: none"
+              />
+
+              <!-- upload icon and text -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="currentColor"
+                class="bi bi-cloud-arrow-up-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0z"
+                />
+              </svg>
+              <h3 class="heading-secondary u-margin-top-small">
+                Upload Main Image
+              </h3>
+              <p class="paragraph">PNG, JPG up to 10MB</p>
+            </div>
+
+            <div class="media-img-container">
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                style="display: none"
+              />
+
+              <div class="add-img">+</div>
+            </div>
+            <div class="media-img-container">
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                style="display: none"
+              />
+
+              <div class="add-img">+</div>
+            </div>
+            <div class="media-img-container">
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                style="display: none"
+              />
+
+              <div class="add-img">+</div>
+            </div>
+            <div class="media-img-container">
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                style="display: none"
+              />
+
+              <div class="add-img">+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-container">
+          <!-- Categorization -->
+          <div class="categorization-container u-margin-top-small">
+            <div class="core-information-header">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-tag-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+                />
+              </svg>
+              <h2 class="heading-primary heading-primary--sm">
+                Categorization
+              </h2>
+            </div>
+            <div class="btn-container btn-container--2 u-margin-top-small">
+              <a href="#" class="btn btn-secondary btn--active">Appareil</a>
+              <a href="#" class="btn btn-secondary">Accessories</a>
+              <a href="#" class="btn btn-secondary">Home</a>
+              <a href="#" class="btn btn-secondary">Beauty</a>
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <a href="#" class="btn btn-primary u-margin-top-med"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-floppy-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"
+              />
+              <path
+                d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"
+              /></svg
+            >Save product</a
+          >
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

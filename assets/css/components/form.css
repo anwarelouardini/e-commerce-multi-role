@@ -1,13 +1,51 @@
-form {
+.form-settings {
   width: 80%;
 }
-
 .form-input {
   width: 100%;
   background-color: var(--light-grey);
   border: none;
   padding: 2rem;
   border-radius: 5rem;
+}
+
+/* form-input blue */
+.form-input--2 {
+  width: 100%;
+  border: none;
+  padding: 1.75rem 2rem;
+  background-color: #31398b;
+  border-radius: 5px;
+  color: var(--secondary);
+}
+
+.form .heading-secondary--blue {
+  margin-top: 2.5rem;
+}
+.form-input--2:focus {
+  outline: 2px solid var(--secondary);
+}
+
+/* Form input with logo */
+.input-wrap {
+  position: relative;
+}
+
+/* Icon of the form input */
+.form-input__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+  color: var(--light-primary);
+}
+
+.form-input--logo {
+  padding-left: 3.6rem;
+}
+
+.form-input-- .form-input--logo .form__input--blue {
+  color: var(--light-blue);
 }
 
 .form-input:focus {
