@@ -167,4 +167,5 @@ input[name="stock"] {
 
 .form-btn__icon {
   color: var(--primary);
+  cursor: pointer;
 }
