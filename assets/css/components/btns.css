@@ -179,3 +179,34 @@
 .profile-card__logout:hover {
   background-color: #fde8e8;
 }
+
+.btn-icon {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.btn-icon--view {
+  background-color: #1e2a6e;
+  color: #fff;
+}
+
+.btn-icon--suspend {
+  background-color: #fde8e8;
+  color: #c0392b;
+}
+
+.btn-icon--primary {
+  color: var(--light-primary);
+}
+
+.form__btn {
+  background: transparent;
+  border: none;
+}
