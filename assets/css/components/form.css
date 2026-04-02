@@ -1,13 +1,56 @@
-form {
+.form-settings {
   width: 80%;
 }
-
 .form-input {
   width: 100%;
   background-color: var(--light-grey);
   border: none;
   padding: 2rem;
   border-radius: 5rem;
+}
+
+/* form-input blue */
+.form-input--2 {
+  width: 100%;
+  border: none;
+  padding: 1.75rem 2rem;
+  background-color: #31398b;
+  border-radius: 5px;
+  color: var(--secondary);
+}
+
+.form .heading-secondary--blue {
+  margin-top: 2.5rem;
+}
+.form-input--2:focus {
+  outline: 2px solid var(--secondary);
+}
+
+/* Form input with logo */
+.input-wrap {
+  position: relative;
+}
+
+/* Icon of the form input */
+.form-input__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+  color: var(--light-primary);
+}
+
+.form-input--logo {
+  padding-left: 3.6rem;
+}
+
+.form-input-- .form-input--logo .form__input--blue {
+  color: var(--light-blue);
+}
+
+.form-input--small {
+  padding: 1rem 2rem;
+  background-color: white;
 }
 
 .form-input:focus {
@@ -41,4 +84,88 @@ form button:not(:last-child) {
   justify-content: space-between;
   margin-top: 2rem;
   gap: 0.5rem;
+}
+
+input[name="stock"] {
+  display: none;
+}
+
+.filter-bar {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: #f5f2fb;
+  padding: 1.5rem 1.5rem;
+  border-radius: 999px;
+}
+
+.filter-bar__select {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  color: var(--secondary);
+  cursor: pointer;
+  outline: none;
+  background-color: white;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+}
+
+.filter-tabs {
+  display: flex;
+  align-items: center;
+  background-color: var(--light-grey);
+  border-radius: 2rem;
+}
+
+.filter-tab {
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  color: var(--secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
+  padding: 1rem 2rem;
+}
+
+.filter-tab--active {
+  background-color: var(--primary);
+  color: white;
+  height: 100%;
+}
+
+.filter-search {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (min-width: 56.25em) {
+  .filter-search {
+    display: flex;
+  }
+
+  .form-input--small {
+    margin-bottom: 0 !important;
+  }
+}
+.filter-search input {
+  margin-bottom: 0;
+}
+
+/* active state */
+#all:checked ~ .filter-tabs label[for="all"],
+#in-stock:checked ~ .filter-tabs label[for="in-stock"],
+#low-stock:checked ~ .filter-tabs label[for="low-stock"] {
+  background-color: var(--primary);
+  color: white;
+}
+
+.form-btn__icon {
+  color: var(--primary);
+  cursor: pointer;
 }
