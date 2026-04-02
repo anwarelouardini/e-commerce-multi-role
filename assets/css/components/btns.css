@@ -54,8 +54,15 @@
 
 .btn-secondary--big {
   font-size: 1.8rem !important;
-  padding: 1.5rem 0 !important;
+  padding: 1.5rem 2rem !important;
   box-shadow: 0 4px 1rem rgba(186, 26, 26, 0.5);
+}
+
+@media (min-width: 56.25em) {
+  .form-btn-box .btn-secondary--big,
+  .form-btn-box .btn--txt {
+    width: auto;
+  }
 }
 
 .btn-secondary--red {
