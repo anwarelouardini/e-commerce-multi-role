@@ -15,6 +15,18 @@
 
 /* Btn without background */
 
+.btn-add {
+  border: 1px solid var(--secondary);
+  background-color: transparent !important;
+  border-style: dashed;
+}
+
+.btn-add:hover {
+  background: var(--green) !important;
+  color: white !important;
+  border-color: var(--light-green);
+}
+
 .btn--txt {
   display: block;
   color: var(--primary);
@@ -54,8 +66,15 @@
 
 .btn-secondary--big {
   font-size: 1.8rem !important;
-  padding: 1.5rem 0 !important;
+  padding: 1.5rem 2rem !important;
   box-shadow: 0 4px 1rem rgba(186, 26, 26, 0.5);
+}
+
+@media (min-width: 56.25em) {
+  .form-btn-box .btn-secondary--big,
+  .form-btn-box .btn--txt {
+    width: auto;
+  }
 }
 
 .btn-secondary--red {
@@ -134,6 +153,12 @@
   color: var(--secondary);
 }
 
+.btn-primary--transparent {
+  background-color: transparent !important;
+  color: var(--secondary) !important;
+  font-size: 1.5rem;
+}
+
 .btn-primary:hover {
   transform: scale(1.1);
   opacity: 0.6;
@@ -149,6 +174,23 @@
 .btn-container--2 {
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.btn-container--3 {
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (min-width: 56.25em) {
+  .btn-container--3 {
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+}
+.btn-container--3 a {
+  width: 100%;
 }
 
 .btn-pages {

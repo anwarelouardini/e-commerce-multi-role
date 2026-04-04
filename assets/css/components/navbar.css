@@ -204,6 +204,10 @@
   transition: all 0.3s;
 }
 
+.nav-item--small {
+  padding: 1rem 1.25rem;
+}
+
 /* When we hover over the mobile navigation */
 .nav-item:hover {
   background: #e2e2f0;

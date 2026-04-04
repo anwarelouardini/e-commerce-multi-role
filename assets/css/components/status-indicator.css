@@ -46,3 +46,8 @@
   background-color: var(--light-yellow);
   color: var(--orange);
 }
+
+.status-indicator--brown {
+  background-color: var(--brown);
+  color: var(--orange);
+}

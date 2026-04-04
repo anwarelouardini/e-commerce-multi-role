@@ -52,6 +52,13 @@
   border-radius: 50%;
 }
 
+.user__img--product {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 1.5rem !important;
+}
+
 /* Styling the user status */
 .status {
   display: flex;

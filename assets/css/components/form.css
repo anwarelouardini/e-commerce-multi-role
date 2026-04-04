@@ -82,8 +82,8 @@ form button:not(:last-child) {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
   margin-top: 2rem;
-  gap: 0.5rem;
 }
 
 input[name="stock"] {
@@ -101,6 +101,10 @@ input[name="stock"] {
   border-radius: 999px;
 }
 
+.filter-bar--aligned {
+  justify-content: left;
+}
+
 .filter-bar__select {
   border: none;
   background: transparent;
@@ -113,6 +117,11 @@ input[name="stock"] {
   border-radius: 2rem;
 }
 
+.filter-bar__select--grey {
+  background-color: var(--light-grey);
+  padding: 0.75rem;
+}
+
 .filter-tabs {
   display: flex;
   align-items: center;
@@ -121,14 +130,13 @@ input[name="stock"] {
 }
 
 .filter-tab {
-  padding: 0.6rem 1.5rem;
   border-radius: 999px;
   font-size: 1.2rem;
   color: var(--secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
 }
 
 .filter-tab--active {
