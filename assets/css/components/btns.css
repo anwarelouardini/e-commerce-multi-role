@@ -14,7 +14,6 @@
 }
 
 /* Btn without background */
-
 .btn-add {
   border: 1px solid var(--secondary);
   background-color: transparent !important;
@@ -39,6 +38,23 @@
   background-color: var(--primary);
   color: white;
   font-weight: 600;
+}
+
+.btn--light-blue {
+  color: white;
+  background-color: #31398b;
+  padding: 1.5rem 4rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s;
+}
+
+.btn--light-blue:hover {
+  transform: scale(1.1);
+  opacity: 0.7;
 }
 
 .btn-secondary,
@@ -98,6 +114,11 @@
   color: white !important;
   background-color: var(--primary) !important;
   position: relative;
+}
+
+.btn--active-2 {
+  background-color: #e0e0ff !important;
+  font-size: 1.5rem !important;
 }
 
 .btn-close {
@@ -245,10 +266,19 @@
 }
 
 .btn-icon--primary {
-  color: var(--light-primary);
+  color: var(--primary);
+  background-color: #e0e0ff;
 }
 
 .form__btn {
   background: transparent;
   border: none;
+}
+
+.btn-box {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  gap: 1.5rem;
 }

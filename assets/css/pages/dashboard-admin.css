@@ -1,7 +1,8 @@
 .section-statistics,
 .section-chart,
-.section-verification {
-  padding: 5rem 0;
+.section-verification,
+.section-quick-actions {
+  padding: 5rem 0 0 0;
 }
 
 /* Styling The verification queue */
@@ -16,4 +17,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
+}
+
+.section-quick-actions {
+  flex: 1;
 }
