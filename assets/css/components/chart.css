@@ -79,3 +79,51 @@
 .bars-container .chart-bar-container:nth-child(7) .chart__bar {
   height: 19rem;
 }
+
+/* White background version */
+.chart-container--white {
+  background-color: white;
+}
+
+/* Title and buttons on same row */
+.chart-content-container--row {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.chart-content-container--row .chart-buttons {
+  flex-shrink: 0;
+}
+
+/* peak tooltip above active bar */
+.chart-bar-container--peak {
+  position: relative;
+}
+
+.chart-bar-container--peak::before {
+  content: "Peak";
+  position: absolute;
+  top: -3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 0.8rem;
+  white-space: nowrap;
+}
+
+/* Small arrow under the tooltip */
+.chart-bar-container--peak::after {
+  content: "";
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: var(--primary) transparent transparent transparent;
+}

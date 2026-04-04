@@ -30,3 +30,18 @@
 .cards-total__icon--grey {
   color: #dedbe7;
 }
+
+/* Cercle container modifier */
+.cards-total-cercle-container {
+  position: absolute;
+  top: -5rem;
+  right: -4rem;
+}
+
+/* Cercle Icon */
+.cercle__icon {
+  height: 13rem;
+  width: 13rem;
+  background-color: #252e84;
+  border-radius: 50%;
+}
