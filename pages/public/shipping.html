@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="../../assets/css/pages/cart.css">
+    <link rel="stylesheet" href="../../assets/css/pages/shipping.css">
+  <title>Checkout cart</title>
+</head>
+<body>
+  <nav class="navigation">
+      <div class="navigation-left">
+        <div class="navigation__icon">&nbsp;</div>
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM SHOP</h1>
+        </div>
+      </div>
+
+      <ul class="navigation__links">
+        <li class="navigation__item">
+          <a
+            class="navigation__link navigation__link--active"
+            href="./shop.html"
+            >SHOP</a
+          >
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="./collections.html">COLLECTIONS</a>
+        </li>
+      </ul>
+   <div class="navigation__icons-wrapper">
+    <a href="#" class="nav-icon-link">
+      <img src="../../assets/images/avatars/icons8-search-50.png" alt="Search" class="nav-icon">
+    </a>
+    <a href="#" class="nav-icon-link nav-icon-link--active">
+      <img src="../../assets/images/avatars/bag-shopping-solid.png" alt="Cart" class="nav-icon">
+    </a>
+    <a href="#" class="nav-icon-link">
+      <img src="../../assets/images/avatars/icons8-profile-48.png" alt="Profile" class="nav-icon">
+    </a>
+  </div>
+  </nav>
+  <main class="checkout-container container">
+  <div class="stepper">
+    <div class="step step--completed">
+      <span class="step__icon">✓</span>
+      <span class="step__label">CART</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step step--active">
+      <span class="step__number">2</span>
+      <span class="step__label">SHIPPING</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <span class="step__number">3</span>
+      <span class="step__label">PAYMENT</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <span class="step__number">4</span>
+      <span class="step__label">REVIEW</span>
+    </div>
+  </div>
+
+  <div class="checkout-content">
+    <section class="checkout-form">
+      <h2 class="section-title">Shipping Address <span class="step-hint">Step 2 of 4</span></h2>
+      
+      <form class="form-grid">
+        <div class="input-group">
+          <label>FIRST NAME</label>
+          <input type="text" placeholder="Julian">
+        </div>
+        <div class="input-group">
+          <label>LAST NAME</label>
+          <input type="text" placeholder="Meridian">
+        </div>
+        <div class="input-group full-width">
+          <label>ADDRESS</label>
+          <input type="text" placeholder="1248 Editorial Way, Suite 400">
+        </div>
+        <div class="input-group">
+          <label>CITY</label>
+          <input type="text" placeholder="New York">
+        </div>
+        <div class="input-group">
+          <label>POSTAL CODE</label>
+          <input type="text" placeholder="10001">
+        </div>
+      </form>
+
+      <h2 class="section-title u-margin-top-med">Delivery Method</h2>
+      <div class="delivery-options">
+        <label class="delivery-card delivery-card--active">
+          <input type="radio" name="delivery" checked>
+          <div class="card-content">
+            <span class="check-circle">✓</span>
+            <div class="delivery-info">
+              <h3>Express Courier</h3>
+              <p>Delivery in 1-2 business days. Fully tracked.</p>
+              <span class="delivery-price">$24.00</span>
+            </div>
+          </div>
+        </label>
+
+        <label class="delivery-card">
+          <input type="radio" name="delivery">
+          <div class="card-content">
+            <div class="delivery-info">
+              <h3>Standard Editorial</h3>
+              <p>Delivery in 4-7 business days. Sustainably packed.</p>
+              <span class="delivery-price">Free</span>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="form-footer">
+        <a href="cart.html" class="back-link">← Back to Cart</a>
+        <button class="btn-primary">Proceed to Payment →</button>
+      </div>
+    </section>
+
+    <aside class="order-summary order-summary--mini">
+  <h3 class="summary-title">Order Summary</h3>
+
+  <div class="summary-items-list">
+    <div class="item-mini">
+      <div class="item-mini__img">
+        <img src="../../assets/images/avatars/chaire.png" alt="Sneakers">
+      </div>
+      <div class="item-mini__content">
+        <h4>Archetype Lounge Chair</h4>
+        <p class="sub-heading">SPECIAL EDITION</p>
+        <div class="item-mini__footer">
+          <span>Qty: 1</span>
+          <span class="price-small">$340.00</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  <hr class="summary-divider">
+
+  <div class="summary-row">
+    <span>Subtotal</span>
+    <span class="summary-value">$450.00</span>
+  </div>
+  <div class="summary-row">
+    <span>Shipping (Express)</span>
+    <span class="summary-value">$24.00</span>
+  </div>
+  <div class="summary-row">
+    <span>Tax</span>
+    <span class="summary-value">$38.00</span>
+  </div>
+
+  <hr class="summary-divider">
+
+  <div class="summary-row total-row">
+    <span>TOTAL</span>
+    <span class="total-price">$512.00</span>
+  </div>
+
+  <div class="promo-container">
+    <input type="text" placeholder="Promo Code" class="promo-input">
+    <button class="btn-apply">APPLY</button>
+  </div>
+</aside>
+  </div>
+  </main>
+  <footer class="footer">
+  <div class="footer__content container">
+    <div class="footer__brand">
+      <h2 class="footer__logo">GAAM Shop</h2>
+      <p class="footer__description">
+        Elevating living spaces through a meticulously curated collection of modernist furniture and fine architectural details in the GAAM shop.
+      </p>
+    </div>
+
+    <ul class="footer__links">
+      <li><a href="#" class="footer__link">Shipping</a></li>
+      <li><a href="#" class="footer__link">Returns</a></li>
+      <li><a href="#" class="footer__link">Privacy</a></li>
+      <li><a href="#" class="footer__link">Bespoke Service</a></li>
+    </ul>
+  </div>
+
+  <div class="footer__bottom container">
+    <p class="footer__copyright">&copy; 2026 THE GAAM Shop</p>
+  </div>
+</footer>
+</html>

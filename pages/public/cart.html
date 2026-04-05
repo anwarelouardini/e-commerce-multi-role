@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="../../assets/css/pages/cart.css">
+  <title>Shopping cart</title>
+</head>
+<body>
+  <nav class="navigation">
+      <div class="navigation-left">
+        <div class="navigation__icon">&nbsp;</div>
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM SHOP</h1>
+        </div>
+      </div>
+
+      <ul class="navigation__links">
+        <li class="navigation__item">
+          <a
+            class="navigation__link navigation__link--active"
+            href="./shop.html"
+            >SHOP</a
+          >
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="./collections.html">COLLECTIONS</a>
+        </li>
+      </ul>
+   <div class="navigation__icons-wrapper">
+    <a href="#" class="nav-icon-link">
+      <img src="../../assets/images/avatars/icons8-search-50.png" alt="Search" class="nav-icon">
+    </a>
+    <a href="#" class="nav-icon-link nav-icon-link--active">
+      <img src="../../assets/images/avatars/bag-shopping-solid.png" alt="Cart" class="nav-icon">
+    </a>
+    <a href="#" class="nav-icon-link">
+      <img src="../../assets/images/avatars/icons8-profile-48.png" alt="Profile" class="nav-icon">
+    </a>
+  </div>
+  </nav>
+  <header class="header container u-margin-top-med">
+        <h1 class="heading-primary">
+          Your Cart
+          <span class="sub-heading">3 items curated for your collection</span>
+        </h1>
+  </header>
+<main class="cart-container">
+  <div class="cart-items">
+    <section class="card-shop">
+    <div class="img-design">
+      <img src="../../assets/images/avatars/chaire.png" alt="Archetype Lounge Chair">
+    </div>
+
+    <div class="contenu-card">
+      <div class="text-content">
+        <h2>Archetype Lounge Chair</h2>
+        <span class="sub-heading">SPECIAL EDITION</span>
+      </div>
+
+      <div class="bottom-content">
+        <div class="quantity">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </div>
+        <div class="price">$1,240</div>
+      </div>
+    </div>
+    </section>
+    <section class="card-shop">
+    <div class="img-design">
+      <img src="../../assets/images/avatars/monolite_vase.png" alt="Monolite vase">
+    </div>
+
+    <div class="contenu-card">
+      <div class="text-content">
+        <h2>Monolite Ceramic vase</h2>
+        <span class="sub-heading">Bespoke Series</span>
+      </div>
+
+      <div class="bottom-content">
+        <div class="quantity">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </div>
+        <div class="price">$540</div>
+      </div>
+    </div>
+    </section>
+    <section class="card-shop">
+    <div class="img-design">
+      <img src="../../assets/images/avatars/linearLamp.png" alt="Monolite vase">
+    </div>
+
+    <div class="contenu-card">
+      <div class="text-content">
+        <h2>Linear Brass Lamp</h2>
+        <span class="sub-heading">New Arrival</span>
+      </div>
+
+      <div class="bottom-content">
+        <div class="quantity">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </div>
+        <div class="price">$840</div>
+      </div>
+    </div>
+  </section>
+  </div>
+  <aside class="order-summary">
+    <h2 class="summary-title">Order Summary</h2>
+    
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span class="summary-value">$2,300.00</span>
+    </div>
+    <div class="summary-row">
+      <span>Shipping Estimate</span>
+      <span class="summary-value">$45.00</span>
+    </div>
+    <div class="summary-row">
+      <span>Tax Calculation</span>
+      <span class="summary-value">$184.00</span>
+    </div>
+
+    <hr class="summary-divider">
+
+    <div class="summary-row total-row">
+      <span>TOTAL</span>
+      <span class="total-price">$2,529.00</span>
+    </div>
+    <a href="../../pages/public/shipping.html" style="text-decoration: none;">
+      <button class="btn-checkout">PROCEED TO CHECKOUT</button>
+    </a>
+  
+
+    <div class="summary-features">
+      <p>🛡️ SECURE CHECKOUT GUARANTEED</p>
+      <p>🚚 COMPLIMENTARY WHITE-GLOVE DELIVERY</p>
+    </div>
+
+    <div class="summary-footer">
+      Need assistance? Contact our <a href="#">Concierge Service</a> or view our <a href="#">Shipping Policy</a>.
+    </div>
+  </aside>
+  </main>
+  <footer class="footer">
+  <div class="footer__content container">
+    <div class="footer__brand">
+      <h2 class="footer__logo">GAAM Shop</h2>
+      <p class="footer__description">
+        Elevating living spaces through a meticulously curated collection of modernist furniture and fine architectural details in the GAAM shop.
+      </p>
+    </div>
+
+    <ul class="footer__links">
+      <li><a href="#" class="footer__link">Shipping</a></li>
+      <li><a href="#" class="footer__link">Returns</a></li>
+      <li><a href="#" class="footer__link">Privacy</a></li>
+      <li><a href="#" class="footer__link">Bespoke Service</a></li>
+    </ul>
+  </div>
+
+  <div class="footer__bottom container">
+    <p class="footer__copyright">&copy; 2026 THE GAAM Shop</p>
+  </div>
+</footer>
+</body>
+</html>
