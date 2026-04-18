@@ -105,3 +105,15 @@
   align-items: center;
   gap: 0.2rem;
 }
+
+.users-pages__left,
+.users-pages__right {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.users-pages__left:hover,
+.users-pages__right:hover {
+  text-decoration: underline;
+  transform: skewY(2deg) scale(1.1);
+}

@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <title>Admin Dashbaord</title>
+    <script defer src="../../assets/js/components/navbar.js"></script>
   </head>
   <body>
     <nav class="navigation">
@@ -91,6 +92,28 @@
           <span>&#8594;</span>
           Log Out
         </a>
+      </div>
+
+      <!-- Navigation Mobile Menu -->
+      <div class="navigation-mobile-menu">
+        <ul class="navigation-mobile__list">
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./dashboard.html"
+              >Dashboard</a
+            >
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./sellers.html">Sellers</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./users.html">Users</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./settings.html"
+              >Settings</a
+            >
+          </li>
+        </ul>
       </div>
     </nav>
 
@@ -276,7 +299,7 @@
       </section>
 
       <div class="group-container container">
-        <section class="section-chart container">
+        <section class="section-chart">
           <div class="chart-container">
             <div class="chart-content-container">
               <div class="chart-content">
@@ -324,7 +347,7 @@
           </div>
         </section>
 
-        <section class="section-verification container">
+        <section class="section-verification">
           <div class="users-items-container">
             <div class="users-items-content">
               <h3 class="heading-primary">Verification Queue</h3>
