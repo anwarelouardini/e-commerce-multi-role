@@ -1,5 +1,7 @@
 "use strict";
 
+import { searchInput } from "../../components/search-input.js";
+
 const tRows = document.querySelectorAll(".table-content tr");
 const tableContent = document.querySelector(".table-content");
 const totalItemsCard = document.querySelectorAll(".total__items");
@@ -107,23 +109,6 @@ const filterByStock = function (clickedBtn = "all", filter = "all-stock") {
   });
 };
 
-const searchProduct = function () {
-  const userInput = searchProductInput.value.toLowerCase();
-
-  tRows.forEach((row) => {
-    const productName = row
-      .querySelector(".product-name")
-      .textContent.toLowerCase()
-      .trim();
-
-    if (productName.includes(userInput)) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
-};
-
 // Filter Results by Categories (filter = "": means that all by default)
 const filterResults = function (filter = "") {
   tRows.forEach((tRow) => {
@@ -167,11 +152,14 @@ filterStockBtnsContainer.addEventListener("change", (e) => {
   filterByStock(e.target, e.target.dataset.filter);
 });
 
-searchBtn.addEventListener("click", searchProduct);
+searchBtn.addEventListener(
+  "click",
+  searchInput(tRows, searchProductInput, "product-name"),
+);
 
 // If the use clicks on "Enter" it will trigger the searchProduct()
 searchProductInput.addEventListener("keypress", (e) => {
-  e.key === "Enter" && searchProduct();
+  e.key === "Enter" && searchInput(tRows, searchProductInput, "product-name");
 });
 
 // Passing data in the URL for delete-product page
