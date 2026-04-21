@@ -11,13 +11,19 @@
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <title>Admin Dashbaord</title>
+    <script defer src="../../assets/js/components/navbar.js"></script>
+    <script
+      type="module"
+      defer
+      src="../../assets/js/pages/vendor/orders.js"
+    ></script>
   </head>
   <body>
     <nav class="navigation">
       <div class="navigation-left">
         <div class="navigation__icon">&nbsp;</div>
         <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM Admin</h1>
+          <h1 id="navigation__logo">GAAM</h1>
         </div>
       </div>
 
@@ -42,12 +48,79 @@
         </li>
       </ul>
 
+      <!-- Profile Card -->
       <div class="navigation-profile">
         <img
           class="navigation-profile__icon"
           src="../../assets/images/avatars/admin-icon.jpg"
           alt="Admin Profile"
         />
+      </div>
+
+      <div class="navigation-profile-card">
+        <div class="user-profile-container user-profile-container--navigation">
+          <div class="user-profile-img">
+            <img
+              class="user-profile__icon"
+              src="../../assets/images/avatars/admin-icon.jpg"
+              alt="Admin profile"
+            />
+          </div>
+          <h2 class="username">Julianne Sterling</h2>
+          <span class="sub-heading txt-center">Lead Platform Architect</span>
+        </div>
+
+        <hr class="navigation-profile-card__separator" />
+
+        <ul class="profile-card__links">
+          <li class="profile-card__item">
+            <a class="profile-card__link" href="./settings.html">
+              <span class="profile-card__icon"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-people-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"
+                  /></svg
+              ></span>
+              Account Settings
+            </a>
+          </li>
+        </ul>
+
+        <hr class="navigation-profile-card__separator" />
+
+        <a class="profile-card__logout" href="#">
+          <span>&#8594;</span>
+          Log Out
+        </a>
+      </div>
+
+      <!-- Navigation Mobile Menu -->
+      <div class="navigation-mobile-menu">
+        <ul class="navigation-mobile__list">
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./dashboard.html"
+              >Dashboard</a
+            >
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./sellers.html">Sellers</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./users.html">Users</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="./settings.html"
+              >Settings</a
+            >
+          </li>
+        </ul>
       </div>
     </nav>
 
@@ -257,26 +330,50 @@
         <div class="filter-bar">
           <div class="flex">
             <h2 class="heading-secondary">Filter By:</h2>
-            <div class="filter-tabs">
-              <input type="radio" name="stock" id="all" checked />
-              <input type="radio" name="stock" id="in-stock" />
-              <input type="radio" name="stock" id="low-stock" />
+            <div class="filter-tabs orders-status">
+              <input
+                type="radio"
+                name="orders-status"
+                id="allOrders"
+                data-filter="all-orders"
+                checked
+              />
+              <input
+                type="radio"
+                name="orders-status"
+                id="processing"
+                data-filter="pending"
+              />
+              <input
+                type="radio"
+                name="orders-status"
+                id="shipped"
+                data-filter="shipped"
+              />
+              <input
+                type="radio"
+                name="orders-status"
+                id="cancelled"
+                data-filter="refunded"
+              />
 
-              <label for="all" class="filter-tab filter-tab--active"
+              <label for="allOrders" class="filter-tab filter-tab--active"
                 >All Orders</label
               >
-              <label for="in-stock" class="filter-tab">Processing</label>
-              <label for="low-stock" class="filter-tab">Shipped</label>
+              <label for="processing" class="filter-tab">Processing</label>
+              <label for="shipped" class="filter-tab">Shipped</label>
+              <label for="cancelled" class="filter-tab">Cancelled</label>
             </div>
           </div>
 
           <div class="filter-search">
             <input
+              id="searchCustomer"
               class="form-input form-input--small"
               type="text"
               placeholder="Search..."
             />
-            <button class="form__btn">
+            <button id="searchOrderBtn" class="form__btn">
               <svg
                 class="form-btn__icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -306,47 +403,22 @@
                 <th>Fulfillment</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody class="tbody-orders">
+              <tr data-orders="">
                 <td><h3 class="heading-primary--sm">#ORD-1</h3></td>
                 <td>
                   <div class="product-table-img">
                     <div class="store-avatar">AE</div>
-                    <span class="heading-small">Anwar EL OUARDINI</span>
+                    <span class="heading-small order-customer"
+                      >Anwar EL OUARDINI</span
+                    >
                   </div>
                 </td>
                 <td class="paragraph">Oct 24, 2023</td>
                 <td class="heading-small heading-small--bold">$1,240.50</td>
                 <td>
-                  <span class="status-indicator status-indicator--green"
-                    >Paid</span
-                  >
-                </td>
-                <td>
-                  <select
-                    name="category"
-                    class="filter-bar__select filter-bar__select--grey"
-                  >
-                    <option value="" disabled selected>Status</option>
-                    <option value="shipped">Shipped</option>
-                    <option value="devlivered">Delivered</option>
-                    <option value="cancelled">Cancelled</option>
-                  </select>
-                </td>
-              </tr>
-
-              <tr>
-                <td><h3 class="heading-primary--sm">#ORD-2</h3></td>
-                <td>
-                  <div class="product-table-img">
-                    <div class="store-avatar">GM</div>
-                    <span class="heading-small">Ghita EL MIR</span>
-                  </div>
-                </td>
-                <td class="paragraph">Oct 25, 2023</td>
-                <td class="heading-small heading-small--bold">$3,890.00</td>
-                <td>
-                  <span class="status-indicator status-indicator--yellow"
+                  <span
+                    class="status-indicator status-indicator--yellow order-status"
                     >Pending</span
                   >
                 </td>
@@ -357,24 +429,56 @@
                   >
                     <option value="" disabled selected>Status</option>
                     <option value="shipped">Shipped</option>
-                    <option value="devlivered">Delivered</option>
+                    <option value="delivered">Delivered</option>
                     <option value="cancelled">Cancelled</option>
                   </select>
                 </td>
               </tr>
-              <tr>
+
+              <tr data-orders="">
+                <td><h3 class="heading-primary--sm">#ORD-2</h3></td>
+                <td>
+                  <div class="product-table-img">
+                    <div class="store-avatar">GM</div>
+                    <span class="heading-small order-customer"
+                      >Ghita EL MIR</span
+                    >
+                  </div>
+                </td>
+                <td class="paragraph">Oct 25, 2023</td>
+                <td class="heading-small heading-small--bold">$3,890.00</td>
+                <td>
+                  <span
+                    class="status-indicator status-indicator--yellow order-status"
+                    >Pending</span
+                  >
+                </td>
+                <td>
+                  <select
+                    name="category"
+                    class="filter-bar__select filter-bar__select--grey select-order__status"
+                  >
+                    <option value="" disabled selected>Status</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </td>
+              </tr>
+              <tr data-orders="">
                 <td><h3 class="heading-primary--sm">#ORD-3</h3></td>
                 <td>
                   <div class="product-table-img">
                     <div class="store-avatar">AS</div>
-                    <span class="heading-small">Adam Sahmi</span>
+                    <span class="heading-small order-customer">Adam Sahmi</span>
                   </div>
                 </td>
                 <td class="paragraph">Oct 25, 2023</td>
                 <td class="heading-small heading-small--bold">$920.00</td>
                 <td>
-                  <span class="status-indicator status-indicator--red"
-                    >Refunded</span
+                  <span
+                    class="status-indicator status-indicator--yellow order-status"
+                    >Pending</span
                   >
                 </td>
                 <td>
@@ -384,7 +488,7 @@
                   >
                     <option value="" disabled selected>Status</option>
                     <option value="shipped">Shipped</option>
-                    <option value="devlivered">Delivered</option>
+                    <option value="delivered">Delivered</option>
                     <option value="cancelled">Cancelled</option>
                   </select>
                 </td>
