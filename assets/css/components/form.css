@@ -53,6 +53,11 @@
   background-color: white;
 }
 
+.form-input--grey {
+  background-color: var(--light-grey);
+  display: none;
+}
+
 .form-input:focus {
   outline: 2px solid var(--secondary);
 }
@@ -92,13 +97,18 @@ input[name="stock"] {
 
 .filter-bar {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   background-color: #f5f2fb;
   padding: 1.5rem 1.5rem;
   border-radius: 999px;
+}
+
+.filter-bar--column {
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
 }
 
 .filter-bar--aligned {
@@ -152,13 +162,26 @@ input[name="stock"] {
   gap: 1rem;
 }
 
-@media (min-width: 56.25em) {
+@media (min-width: 37.5em) {
+  .filter-bar--column {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+  }
+
   .filter-search {
     display: flex;
+    margin: 0;
   }
 
   .form-input--small {
     margin-bottom: 0 !important;
+  }
+}
+@media (min-width: 56.25em) {
+  .form-input--grey {
+    display: block;
   }
 }
 .filter-search input {

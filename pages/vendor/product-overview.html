@@ -11,6 +11,11 @@
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <title>Admin Dashbaord</title>
+    <script
+      defer
+      type="module"
+      src="../../assets/js/pages/vendor/products.js"
+    ></script>
   </head>
   <body>
     <nav class="navigation">
@@ -146,49 +151,83 @@
     <header class="header container u-margin-top-med">
       <h1 class="heading-primary">My product</h1>
       <div class="status-indicator status-indicator--primary">
-        Total Items: 156
+        Total Items: <span class="total__items">0</span>
       </div>
     </header>
 
     <main>
       <section class="section-sellers-table container">
-        <div class="filter-bar">
+        <div class="filter-bar filter-bar--column">
           <div class="filter-select">
             <select name="category" class="filter-bar__select">
-              <option value="">All Categories</option>
-              <option value="electronics">Electronics</option>
-              <option value="clothing">Clothing</option>
+              <option value="" data-filter="all-categories">
+                All Categories
+              </option>
+              <option value="electronics" data-filter="electronics">
+                Electronics
+              </option>
+              <option value="clothing" data-filter="clothing">Clothing</option>
+              <option value="watches" data-filter="watches">Watches</option>
+              <option value="audio" data-filter="audio">Audio</option>
+              <option value="photography" data-filter="photography">
+                Photography
+              </option>
             </select>
           </div>
 
           <div class="filter-tabs">
-            <input type="radio" name="stock" id="all" checked />
-            <input type="radio" name="stock" id="in-stock" />
-            <input type="radio" name="stock" id="low-stock" />
+            <input
+              type="radio"
+              name="stock"
+              id="all"
+              data-filter="all-stock"
+              checked
+            />
+            <input
+              type="radio"
+              name="stock"
+              id="in-stock"
+              data-filter="in-stock"
+            />
+            <input
+              type="radio"
+              name="stock"
+              id="low-stock"
+              data-filter="low-stock"
+            />
+            <input
+              type="radio"
+              name="stock"
+              id="out-stock"
+              data-filter="out-stock"
+            />
 
             <label for="all" class="filter-tab filter-tab--active">All</label>
             <label for="in-stock" class="filter-tab">In Stock</label>
             <label for="low-stock" class="filter-tab">Low Stock</label>
+            <label for="out-stock" class="filter-tab">Out Of Stock</label>
           </div>
 
           <div class="filter-search">
             <input
+              id="search-product"
               class="form-input form-input--small"
               type="text"
               placeholder="Search..."
+              name="product-name"
             />
-            <button class="form__btn">
+            <button id="search-btn" class="form__btn">
               <svg
                 class="form-btn__icon"
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="16"
+                height="16"
                 fill="currentColor"
-                class="bi bi-filter-circle-fill"
+                class="bi bi-search"
                 viewBox="0 0 16 16"
               >
                 <path
-                  d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M3.5 5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1M5 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
                 />
               </svg>
             </button>
@@ -208,7 +247,15 @@
               </tr>
             </thead>
             <tbody class="table-content">
-              <tr>
+              <tr
+                data-category=""
+                data-stock="in-stock"
+                data-id=""
+                data-name=""
+                data-image=""
+                data-price=""
+                data-qty=""
+              >
                 <td>
                   <div class="product-table-img">
                     <img
@@ -217,20 +264,25 @@
                       alt="Watch"
                     />
                     <h2 class="heading-small">
-                      Zenith Quartz Minimalist
-                      <spa class="sub-heading">Added 12 Oct</spa>
+                      <span class="product-name">Zenith Quartz Minimalist</span>
+
+                      <span class="sub-heading">Added 12 Oct</span>
                     </h2>
                   </div>
                 </td>
                 <td>
-                  <span class="status-indicator status-indicator--grey"
+                  <span
+                    class="status-indicator status-indicator--grey product-category"
                     >Watches</span
                   >
                 </td>
-                <td class="heading-small heading-small--bold">$129.00</td>
-                <td><span id="productQte">42</span> Units</td>
+                <td class="heading-small heading-small--bold">
+                  $<span class="product__price">129.00</span>
+                </td>
+                <td><span class="product__qte">20</span> Units</td>
                 <td>
-                  <span class="status-indicator status-indicator--green"
+                  <span
+                    class="status-indicator status-indicator--green qte__status"
                     >In stock</span
                   >
                 </td>
@@ -238,7 +290,7 @@
                   <div class="table-btns">
                     <a
                       href="./edit-product.html"
-                      class="btn-icon btn-icon--primary"
+                      class="btn-icon btn-icon--primary edit-product-btn"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +307,7 @@
                     </a>
                     <a
                       href="./delete-product.html"
-                      class="btn-icon btn-icon--suspend"
+                      class="btn-icon btn-icon--suspend delete-product-btn"
                     >
                       <svg
                         class="cards__icon--red"
@@ -274,7 +326,15 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr
+                data-category=""
+                data-stock="low-stock"
+                data-id=""
+                data-name=""
+                data-image=""
+                data-price=""
+                data-qty=""
+              >
                 <td>
                   <div class="product-table-img">
                     <img
@@ -283,20 +343,24 @@
                       alt="Headset"
                     />
                     <h2 class="heading-small">
-                      Acoustic Pro Wireless
-                      <spa class="sub-heading">Added 05 Nov 2026</spa>
+                      <span class="product-name">Acoustic Pro Wireless</span>
+                      <span class="sub-heading">Added 05 Nov 2026</span>
                     </h2>
                   </div>
                 </td>
                 <td>
-                  <span class="status-indicator status-indicator--grey"
+                  <span
+                    class="status-indicator status-indicator--grey product-category"
                     >audio</span
                   >
                 </td>
-                <td class="heading-small heading-small--bold">$249.00</td>
-                <td><span id="productQte">5</span> Units</td>
+                <td class="heading-small heading-small--bold">
+                  $<span class="product__price">249.00</span>
+                </td>
+                <td><span class="product__qte">5</span> Units</td>
                 <td>
-                  <span class="status-indicator status-indicator--yellow"
+                  <span
+                    class="status-indicator status-indicator--yellow qte__status"
                     >Low stock</span
                   >
                 </td>
@@ -304,7 +368,7 @@
                   <div class="table-btns">
                     <a
                       href="./edit-product.html"
-                      class="btn-icon btn-icon--primary"
+                      class="btn-icon btn-icon--primary edit-product-btn"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +385,7 @@
                     </a>
                     <a
                       href="./delete-product.html"
-                      class="btn-icon btn-icon--suspend"
+                      class="btn-icon btn-icon--suspend delete-product-btn"
                     >
                       <svg
                         class="cards__icon--red"
@@ -340,7 +404,15 @@
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr
+                data-category=""
+                data-stock="out-stock"
+                data-id=""
+                data-name=""
+                data-image=""
+                data-price=""
+                data-qty=""
+              >
                 <td>
                   <div class="product-table-img">
                     <img
@@ -349,20 +421,24 @@
                       alt="Headset"
                     />
                     <h2 class="heading-small">
-                      Lumix Core Prime
+                      <span class="product-name">Lumix Core Prime</span>
                       <spa class="sub-heading">Added 18 Nov 2026</spa>
                     </h2>
                   </div>
                 </td>
                 <td>
-                  <span class="status-indicator status-indicator--grey"
+                  <span
+                    class="status-indicator status-indicator--grey product-category"
                     >Photography</span
                   >
                 </td>
-                <td class="heading-small heading-small--bold">$899.00</td>
-                <td><span id="productQte">0</span> Units</td>
+                <td class="heading-small heading-small--bold">
+                  $<span class="product__price">899.00</span>
+                </td>
+                <td><span class="product__qte">0</span> Units</td>
                 <td>
-                  <span class="status-indicator status-indicator--red"
+                  <span
+                    class="status-indicator status-indicator--red qte__status"
                     >Out of stock</span
                   >
                 </td>
@@ -370,7 +446,7 @@
                   <div class="table-btns">
                     <a
                       href="./edit-product.html"
-                      class="btn-icon btn-icon--primary"
+                      class="btn-icon btn-icon--primary edit-product-btn"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -387,7 +463,7 @@
                     </a>
                     <a
                       href="./delete-product.html"
-                      class="btn-icon btn-icon--suspend"
+                      class="btn-icon btn-icon--suspend delete-product-btn"
                     >
                       <svg
                         class="cards__icon--red"
@@ -415,7 +491,7 @@
         <div class="cards-total cards-total--primary">
           <h2 class="heading-primary heading-primary--white">
             <span class="sub-heading">inventory value</span>
-            $24,850.00
+            <span class="inventory__price">$0</span>
           </h2>
 
           <div class="cards-total-icon-container">
@@ -439,8 +515,8 @@
         </div>
         <div class="cards-total">
           <h2 class="heading-primary heading-primary">
-            <span class="sub-heading">inventory value</span>
-            12 Items
+            <span class="sub-heading">inventory items</span>
+            <span class="total__items">&nbsp;</span> Items
           </h2>
 
           <div class="cards-total-icon-container">

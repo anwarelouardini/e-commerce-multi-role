@@ -11,6 +11,11 @@
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <title>Admin Dashbaord</title>
+    <script
+      defer
+      type="module"
+      src="../../assets/js/pages/vendor/delete-product.js"
+    ></script>
   </head>
   <body>
     <nav class="navigation">
@@ -78,13 +83,14 @@
       <div class="user-box u-margin-top-small">
         <div class="user-profile">
           <img
+            id="productImg"
             class="user__img user__img--product"
             src="../../assets/images/products/headset.jpg"
             alt="Product"
           />
           <div>
             <h4 class="sub-heading">Product Name</h4>
-            <h1 class="username username--big">
+            <h1 id="productName" class="username username--big">
               Eames Style Lounge Chair & Ottoman
             </h1>
           </div>
@@ -95,11 +101,13 @@
       <div class="user-details-container">
         <div class="user-details-content">
           <h4 class="sub-heading">Category</h4>
-          <p class="user-details__content">Audio</p>
+          <p id="deleteProductCategory" class="user-details__content">Audio</p>
         </div>
         <div class="user-details-content">
           <h4 class="sub-heading">Status</h4>
-          <p class="user-details__content">Active Inventory</p>
+          <p id="deleteProductStatus" class="user-details__content">
+            Active Inventory
+          </p>
         </div>
       </div>
 
@@ -116,7 +124,11 @@
           href="./product-overview.html"
           >Cancel and Go Back</a
         >
-        <a class="btn-secondary btn-secondary--big btn-secondary--red" href="#">
+        <a
+          id="delete-product"
+          class="btn-secondary btn-secondary--big btn-secondary--red"
+          href="#"
+        >
           Delete Product
         </a>
       </div>

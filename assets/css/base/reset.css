@@ -61,3 +61,16 @@ main {
   align-items: center;
   justify-content: space-between;
 }
+
+.show {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.show-block {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
