@@ -7,12 +7,60 @@ const tRows = document.querySelectorAll(".tbody-orders tr");
 const searchCustomerInput = document.getElementById("searchCustomer");
 const searchBtn = document.getElementById("searchOrderBtn");
 const filterBtnsContainer = document.querySelector(".orders-status");
+const totalOrderCard = document.querySelector(".card-total-orders p");
+const pendingFulfillmentCard = document.querySelector(
+  ".card-pending-fulfillment p",
+);
+const outDeliveryCard = document.querySelector(".card-out-delivery p");
+const monthlyRevenueCard = document.querySelector(".card-price-order p");
+
+let totalPaymentOrders = 0;
+let ordersOutForDelivery = 0;
+let pendingFulfillment = 0;
+let totalOrders = tRows.length;
+
+// This function will show the card data
+const showCardData = function () {
+  totalOrderCard.textContent = totalOrders;
+  pendingFulfillmentCard.textContent = pendingFulfillment;
+  outDeliveryCard.textContent = ordersOutForDelivery;
+  monthlyRevenueCard.textContent = `$${totalPaymentOrders.toFixed(2)}`;
+};
+
+// This function will update the dashboard data
+const calculateCardData = function () {
+  // Reset values
+  pendingFulfillment = 0;
+  ordersOutForDelivery = 0;
+  totalPaymentOrders = 0;
+
+  tRows.forEach((row) => {
+    const orderStatus = row
+      .querySelector(".order-status")
+      .textContent.toLowerCase()
+      .trim();
+
+    const totalPaymentPerUser = Number(
+      row.querySelector(".order-price").textContent,
+    );
+
+    totalPaymentOrders += totalPaymentPerUser;
+
+    orderStatus === "pending" && pendingFulfillment++;
+    orderStatus === "delivered" && ordersOutForDelivery++;
+  });
+  showCardData();
+};
+
+calculateCardData();
 
 const updateOrdersStatus = function (select) {
   const row = select.closest("tr");
   const statusBadge = row.querySelector(".order-status");
   const selectedValue = select.value;
   statusBadge.textContent = selectedValue;
+
+  calculateCardData();
 
   // Remove all the existing style
   statusBadge.classList.remove(
