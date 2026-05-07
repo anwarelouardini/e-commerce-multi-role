@@ -1,6 +1,7 @@
 <?php 
 $pathJS = 'assets/js/pages/admin/users.js';
 $headerTitle = 'Admin Users';
+$header = 'standard-nav';
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
@@ -54,7 +55,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -87,7 +88,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -130,7 +131,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +156,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -198,7 +199,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +224,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -266,7 +267,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +292,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -334,7 +335,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -359,7 +360,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -402,7 +403,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +428,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -470,7 +471,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -495,7 +496,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -538,7 +539,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -563,7 +564,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -606,7 +607,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 >
                 <a
                   class="btn-secondary btn-secondary--red txt-right delete-btn"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -632,7 +633,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="user-profile">
                   <img
                     class="user__img"
-                    src="../../assets/images/avatars/users1-icon.jpg"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                     alt="Profile 1"
                   />
                   <h1>
@@ -656,7 +657,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="btn-container u-margin-top-small">
                 <a
                   class="btn-secondary btn-secondary--red txt-right"
-                  href="./delete-user.html"
+                  href="<?= BASE_URL ?>pages/admin/delete-user.php"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

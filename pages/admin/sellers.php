@@ -1,6 +1,7 @@
 <?php 
 $pathJS = 'assets/js/pages/admin/sellers.js';
 $headerTitle = 'Admin Sellers';
+$header = 'standard-nav';
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 

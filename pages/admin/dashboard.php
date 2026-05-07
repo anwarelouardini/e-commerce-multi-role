@@ -1,5 +1,6 @@
 <?php
 $headerTitle = 'Admin Dashboard';
+$header = 'standard-nav';
 require_once __DIR__ . '/../../includes/header.php';
 ?>
   <main>
@@ -170,7 +171,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
-                  src="../../assets/images/avatars/users1-icon.jpg"
+                  src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
                   alt="User Profile"
                 />
               </div>
@@ -188,7 +189,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
-                  src="../../assets/images/avatars/users2-icon.avif"
+                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
                   alt="User Profile"
                 />
               </div>
@@ -206,7 +207,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
-                  src="../../assets/images/avatars/users2-icon.avif"
+                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
                   alt="User Profile"
                 />
               </div>
@@ -224,7 +225,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
-                  src="../../assets/images/avatars/users2-icon.avif"
+                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
                   alt="User Profile"
                 />
               </div>
@@ -242,7 +243,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
-                  src="../../assets/images/avatars/users2-icon.avif"
+                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
                   alt="User Profile"
                 />
               </div>
@@ -260,7 +261,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
-                  src="../../assets/images/avatars/users2-icon.avif"
+                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
                   alt="User Profile"
                 />
               </div>

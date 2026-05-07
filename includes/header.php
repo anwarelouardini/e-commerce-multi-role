@@ -21,6 +21,7 @@ define('BASE_URL', '/e-commerce-platform/');
     <?php endif; ?>
   </head>
   <body>
+  <?php if(isset($header) && $header === 'standard-nav'): ?>
     <nav class="navigation">
       <div class="navigation-left">
         <div class="navigation__icon">&nbsp;</div>
@@ -199,3 +200,21 @@ define('BASE_URL', '/e-commerce-platform/');
       </a>
     </nav>
   </div>
+<?php elseif(isset($header) && $header === 'custom-nav'): ?>
+    <nav class="navigation">
+      <div class="navigation-left">
+        <a class="navigation__backwards" href="<?= BASE_URL ?>pages/admin/users.php">&lsaquo;</a>
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM Admin</h1>
+        </div>
+      </div>
+
+      <div class="navigation-profile">
+        <img
+          class="navigation-profile__icon"
+          src="../../assets/images/avatars/admin-icon.jpg"
+          alt="Admin Profile"
+        />
+      </div>
+    </nav>
+  <?php endif; ?>
