@@ -98,19 +98,25 @@ searchUserInput.addEventListener("keyup", (e) =>
   searchUser(e.target.value.toLowerCase().trim()),
 );
 
-prevBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (currentPage > 1) {
-    currentPage--;
-    paginate();
-  }
-});
+if (prevBtn) {
+  prevBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (currentPage > 1) {
+      currentPage--;
+      paginate();
+    }
+  });
+}
 
-nextBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  currentPage++;
-  paginate();
-});
+if (nextBtn) {
+  nextBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    currentPage++;
+    paginate();
+  });
+}
 
 // By default all is active
 click(categoryBtn[0]);
+
+console.log(userBox.length);
