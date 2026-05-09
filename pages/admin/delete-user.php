@@ -1,8 +1,24 @@
 <?php 
-$headerTitle = 'Admin Delete User';
-$header = 'custom-nav';
+  require_once __DIR__ . '/../../includes/config.php';
+  require_once __DIR__ . '/../../includes/db.php';
+  require_once __DIR__ . '/../../includes/functions.php';
 
-require __DIR__ . '/../../includes/header.php';
+  $id = e($_GET['id']) ?? '';
+  $user = getUserById($pdo, $_GET['id']);
+  $timestamp = strtotime($user['created_at']);
+
+  if(!empty($_POST)) {
+    $userId = e($_POST['id']);
+    deleteUserById($pdo, $userId);
+
+    header("Location: " . BASE_URL . 'pages/admin/users.php');
+    die();
+  }
+
+  $headerTitle = 'Admin Delete User';
+  $header = 'custom-nav';
+  require_once __DIR__ . '/../../includes/header.php';
+
 ?>
 
   <header class="header container u-margin-top-med">
@@ -56,8 +72,8 @@ require __DIR__ . '/../../includes/header.php';
           alt="Profile 1"
         />
         <h1 class="username username--big">
-          EL OUARDINI Anwar
-          <span id="user-email" class="sub-heading">email@gmail.com</span>
+          <?= e(strtoupper($user['lastname'])) . ' ' . e(ucfirst($user['username'])) ?>
+          <span id="user-email" class="sub-heading"><?= e($user['email']) ?></span>
         </h1>
       </div>
     </div>
@@ -65,24 +81,18 @@ require __DIR__ . '/../../includes/header.php';
     <div class="user-details-container">
       <div class="user-details-content">
         <h4 class="sub-heading">Assigned Role</h4>
-        <p class="user-details__content">Platform Architect</p>
+        <p class="user-details__content"><?= e(ucfirst($user['role_name'])) ?></p>
       </div>
       <div class="user-details-content">
         <h4 class="sub-heading">Active Since</h4>
-        <p class="user-details__content">Oct 24, 2023</p>
+        <p class="user-details__content"><?= e(date('d/m/Y', $timestamp)) ?></p>
       </div>
     </div>
-
-    <div class="form-btn-box">
-      <a
-        class="btn-secondary btn-secondary--big btn-secondary--red u-margin-top-med"
-        href="#"
-        >Delete Account</a
-      >
-      <a class="btn btn--txt u-margin-top-small" href="<?= BASE_URL ?>pages/admin/users.php"
-        >Cancel and Go Back</a
-      >
-    </div>
+      <form class="form-btn-box" method="POST" action="<?= BASE_URL ?>pages/admin/delete-user.php">
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <button class="btn-secondary btn-secondary--big btn-secondary--red u-margin-top-med" type="submit">Delete Account</button>
+        <button class="btn btn--txt" href="<?= BASE_URL ?>">Cancel and Go Back</button>
+      </form>
   </main>
   </body>
 </html>

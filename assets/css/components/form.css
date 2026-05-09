@@ -91,6 +91,14 @@ form button:not(:last-child) {
   margin-top: 2rem;
 }
 
+.form-btn-box button {
+  border: none !important;
+}
+
+.form-btn-box > button {
+  flex: 1;
+}
+
 input[name="stock"] {
   display: none;
 }
