@@ -30,4 +30,20 @@ function getStatusClass(string $status): string {
     };
 }
 
+function getUserById($pdo, $id) {
+    $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.profile_image, Users.created_at, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
+    $statement->bindValue(':id', $id);
+    
+    $statement->execute();
+    $result = $statement->fetch();
+
+    return $result;
+}
+
+function deleteUserById($pdo, $id) {
+    $statement = $pdo->prepare('DELETE FROM Users WHERE :id');
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+}
+
 

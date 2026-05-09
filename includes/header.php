@@ -1,6 +1,6 @@
 <?php 
 require_once __DIR__ . '/functions.php';
-define('BASE_URL', '/e-commerce-platform/');
+require_once __DIR__ . '/config.php';
 ?>
 <!doctype html>
 <html lang="en">
