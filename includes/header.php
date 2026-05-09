@@ -200,6 +200,9 @@ require_once __DIR__ . '/config.php';
       </a>
     </nav>
   </div>
+  <script>
+    const BASE_URL = "<?= BASE_URL ?>";
+  </script>
 <?php elseif(isset($header) && $header === 'custom-nav'): ?>
     <nav class="navigation">
       <div class="navigation-left">

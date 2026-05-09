@@ -11,10 +11,11 @@ const storeSearchInput = document.getElementById("storeSearch");
 let isSorted = false;
 let suspendedSellers = 0;
 let activeSellers = 0;
-const totalSellers = tbody.querySelectorAll("tr").length;
 
 const storeAvatar = document.querySelectorAll(".store-avatar");
 const originalRows = Array.from(tbody.querySelectorAll("tr"));
+
+console.log(originalRows);
 
 const populateAvatars = function () {
   const rows = tbody.querySelectorAll("tr");
@@ -87,13 +88,14 @@ const exportTableToCSV = function () {
 // Getting The Total Number of Users by Category
 const getUsersNumber = function (userStatus) {
   userStatus.forEach((stats) => {
-    stats.textContent === "Active" ? activeSellers++ : suspendedSellers++;
+    stats.textContent.toLowerCase() === "active"
+      ? activeSellers++
+      : suspendedSellers++;
   });
 };
 
 // Update Admin Sellers Statistics
 const updateStatistics = function () {
-  totalSellersCard.textContent = totalSellers;
   activeSellersCard.textContent = activeSellers;
   suspendedSellersCard.textContent = suspendedSellers;
 };
@@ -125,6 +127,15 @@ const toggleSellerStatus = function (row, newStatus, newColor) {
   }
 
   updateStatistics();
+
+  const sellerId = row.dataset.id;
+  const dbStatus = newStatus === "Suspended" ? "inactive" : "active";
+
+  fetch(BASE_URL + "pages/admin/update-seller-status.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: sellerId, status: dbStatus }),
+  });
 };
 
 const suspendSeller = function (e) {

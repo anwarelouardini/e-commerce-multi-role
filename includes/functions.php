@@ -30,6 +30,14 @@ function getStatusClass(string $status): string {
     };
 }
 
+function getSellerStatusClass(string $status): string {
+    return match($status) {
+        'active' => 'green',
+        'inactive' => 'red',
+        default => 'grey'
+    };
+}
+
 function getUserById($pdo, $id) {
     $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.profile_image, Users.created_at, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
     $statement->bindValue(':id', $id);
@@ -46,4 +54,19 @@ function deleteUserById($pdo, $id) {
     $statement->execute();
 }
 
+function getSellers($pdo) {
+    $statement = $pdo->prepare('SELECT Users.id_user, Users.username, Users.lastname, Users.status, Sellers.store_name, Sellers.seller_rating, Roles.role_name FROM Users JOIN Sellers ON Users.id_user = Sellers.id_user JOIN Roles ON Roles.id_role = Users.id_role');
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+    return $result;
+}
+
+function updateSellerStatus($pdo, $id, $status) {
+    $statement = $pdo->prepare('UPDATE Users SET status = :status WHERE id_user = :id');
+    $statement->bindValue(':status', $status);
+    $statement->bindValue(':id', $id);
+
+    $statement->execute();
+}
 

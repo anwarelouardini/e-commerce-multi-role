@@ -1,4 +1,12 @@
 <?php 
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
+$sellers = getSellers($pdo);
+$activeSellers = array_filter($sellers, fn($seller) => $seller['status'] === 'active');
+$pendingSellers = array_filter($sellers, fn($seller) => $seller['status'] === 'pending');
+$inactiveSellers = array_filter($sellers, fn($seller) => $seller['status'] === 'inactive');
+
 $pathJS = 'assets/js/pages/admin/sellers.js';
 $headerTitle = 'Admin Sellers';
 $header = 'standard-nav';
@@ -34,7 +42,7 @@ require_once __DIR__ . '/../../includes/header.php';
             </div>
           </div>
           <h2 class="heading-secondary">Total Sellers</h2>
-          <p id="totalSellers" class="heading-primary">1,284</p>
+          <p id="totalSellers" class="heading-primary"><?= e(count($sellers)) ?></p>
         </div>
         <div class="cards-container cards-container--brown">
           <div class="cards-logo">
@@ -55,7 +63,7 @@ require_once __DIR__ . '/../../includes/header.php';
             </div>
           </div>
           <h2 class="heading-secondary">Pending Approvals</h2>
-          <p class="heading-primary heading-primary--brown">42</p>
+          <p class="heading-primary heading-primary--brown"><?= e(count($pendingSellers)) ?></p>
         </div>
         <div class="cards-container cards-container--green">
           <div class="cards-logo">
@@ -81,7 +89,7 @@ require_once __DIR__ . '/../../includes/header.php';
             id="activeSellers"
             class="heading-primary heading-primary--green"
           >
-            1,210
+            <?= e(count($activeSellers)) ?>
           </p>
         </div>
         <div class="cards-container cards-container--red">
@@ -107,7 +115,7 @@ require_once __DIR__ . '/../../includes/header.php';
             id="suspendedSellers"
             class="heading-primary heading-primary--red"
           >
-            1402
+            <?= e(count($inactiveSellers)) ?>
           </p>
         </div>
       </div>
@@ -173,112 +181,65 @@ require_once __DIR__ . '/../../includes/header.php';
             </tr>
           </thead>
           <tbody class="sellers-table__body">
-            <tr>
-              <td>
-                <div class="store-name">
-                  <div class="store-avatar">V</div>
-                  <span class="store__tag">Electronics</span>
-                </div>
-              </td>
-              <td class="owner__name">EL MIR Ghita</td>
-              <td>
-                <div class="rating"><span class="stars">★★★★★</span>4.2</div>
-              </td>
-              <td>1,204</td>
-              <td>8,432</td>
-              <td>
-                <span
-                  class="status-indicator status-indicator--green user--status"
-                  >Active</span
-                >
-              </td>
-              <td>
-                <div class="table-btns">
-                  <button class="btn-icon btn-icon--primary btn-approve hide">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
-                      />
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon--suspend">
-                    <svg
-                      class="cards__icons--red"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-slash-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="store-name">
-                  <div class="store-avatar">V</div>
-                  <span class="store__tag">Aelvet & Vine</span>
-                </div>
-              </td>
-              <td class="owner__name">EL OUARDINI Anwar</td>
-              <td>
-                <div class="rating"><span class="stars">★★★★★</span>4.2</div>
-              </td>
-              <td>1,204</td>
-              <td>8,432</td>
-              <td>
-                <span
-                  class="status-indicator status-indicator--green user--status"
-                  >Active</span
-                >
-              </td>
-              <td>
-                <div class="table-btns">
-                  <button class="btn-icon btn-icon--primary btn-approve hide">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-check-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
-                      />
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon--suspend">
-                    <svg
-                      class="cards__icons--red"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-slash-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
+            <?php if(!empty($sellers)):?>
+              <?php foreach($sellers AS $seller): ?>
+                <?php if($seller['status'] === 'active'): ?>
+              <tr data-id="<?= e($seller['id_user']) ?>">
+                <td>
+                  <div class="store-name">
+                    <div class="store-avatar">V</div>
+                    <span class="store__tag"><?= e($seller['store_name']) ?></span>
+                  </div>
+                </td>
+                <td class="owner__name"><?= e(strtoupper($seller['lastname'])) . ' ' . e(ucfirst($seller['username'])) ?></td>
+                <td>
+                  <div class="rating"><span class="stars">★★★★★</span><?= e($seller['seller_rating']) ?></div>
+                </td>
+                <td>1,204</td>
+                <td>8,432</td>
+                <td>
+                  <span
+                    class="status-indicator status-indicator--<?= e(getSellerStatusClass($seller['status'])) ?> user--status"
+                    ><?= e($seller['status']) ?></span
+                  >
+                </td>
+                <td>
+                  <div class="table-btns">
+                    <button class="btn-icon btn-icon--primary btn-approve hide">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check-circle-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+                        />
+                      </svg>
+                    </button>
+                    <button class="btn-icon btn-icon--suspend">
+                      <svg
+                        class="cards__icons--red"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-slash-circle-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <?php endif; ?>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
