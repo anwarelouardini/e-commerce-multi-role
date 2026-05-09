@@ -3,7 +3,13 @@
   require_once __DIR__ . '/../../includes/db.php';
   require_once __DIR__ . '/../../includes/functions.php';
 
-  $id = e($_GET['id']) ?? '';
+  $id = isset($_GET['id']) ? e($_GET['id']) : '';
+
+  if(empty($id)) {
+    header("Location: " . BASE_URL . 'pages/admin/users.php');
+    die();
+  }
+
   $user = getUserById($pdo, $_GET['id']);
   $timestamp = strtotime($user['created_at']);
 

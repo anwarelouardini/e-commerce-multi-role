@@ -45,9 +45,11 @@ const paginate = function () {
     .slice(start, end)
     .forEach((box) => box.classList.remove("hide"));
 
-  prevBtn.style.visibility = currentPage === 1 ? "hidden" : "visible";
-  nextBtn.style.visibility =
-    currentPage === totalPages || totalPages === 0 ? "hidden" : "visible";
+  if (prevBtn)
+    prevBtn.style.visibility = currentPage === 1 ? "hidden" : "visible";
+  if (nextBtn)
+    nextBtn.style.visibility =
+      currentPage === totalPages || totalPages === 0 ? "hidden" : "visible";
 
   renderPageBtns(totalPages);
 };
@@ -118,5 +120,3 @@ if (nextBtn) {
 
 // By default all is active
 click(categoryBtn[0]);
-
-console.log(userBox.length);

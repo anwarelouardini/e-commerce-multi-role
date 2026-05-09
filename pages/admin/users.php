@@ -1,11 +1,14 @@
 <?php 
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
+$users = getUsers($pdo);
+
 $pathJS = 'assets/js/pages/admin/users.js';
 $headerTitle = 'Admin Users';
 $header = 'standard-nav';
 require_once __DIR__ . '/../../includes/header.php';
-require_once __DIR__ . '/../../includes/functions.php';
-
-$users = getUsers($pdo);
 ?>
 
 
@@ -131,6 +134,17 @@ $users = getUsers($pdo);
             </div>
             <?php endforeach; ?>
         </div>
+
+        <div class="users-list-pages u-margin-top-small">
+          <div class="users-pages__left">
+              <a id="prevBtn" class="sub-heading">&lsaquo; Previous</a>
+          </div>
+          <div class="users-pages-links"></div>
+          <div class="users-pages__right">
+              <a id="nextBtn" class="sub-heading">Next &rsaquo;</a>
+          </div>
+        </div>
+        
       </div>
     </main>
 

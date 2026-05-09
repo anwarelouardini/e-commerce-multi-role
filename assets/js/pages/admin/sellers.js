@@ -15,8 +15,6 @@ let activeSellers = 0;
 const storeAvatar = document.querySelectorAll(".store-avatar");
 const originalRows = Array.from(tbody.querySelectorAll("tr"));
 
-console.log(originalRows);
-
 const populateAvatars = function () {
   const rows = tbody.querySelectorAll("tr");
 
