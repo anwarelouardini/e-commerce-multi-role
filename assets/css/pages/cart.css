@@ -90,11 +90,49 @@
   letter-spacing: 1px;
 }
 
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.price {
+  font-size: 1.8rem; /* Adjusted for your design's scale */
+  font-weight: 600;
+  color: #1a237e; /* Brand blue */
+  margin-top: 2px; /* Fine-tunes alignment with the h2 */
+}
+
+/* Bottom Row: Spacing out the quantity and remove button */
 .bottom-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 15px;
+}
+
+/* --- The New Remove Button --- */
+.btn-remove {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #5a5a7a; /* Muted grey-blue color matching the design */
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-remove:hover {
+  color: #1a237e; /* Turns dark blue when hovered */
+}
+
+.btn-remove svg {
+  color: inherit; /* Makes the SVG match the text color */
 }
 
 .quantity {
@@ -113,11 +151,6 @@
   cursor: pointer;
 }
 
-.price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1a237e;
-}
 /* Layout Container */
 .cart-container {
   display: flex;
