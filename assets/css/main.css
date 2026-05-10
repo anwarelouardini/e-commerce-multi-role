@@ -11,12 +11,14 @@
 @import url(../../assets/css/components/search-box.css);
 @import url(../../assets/css/components/delete-card.css);
 @import url(../../assets/css/components/form.css);
-
-@import url(../../assets/css/pages/sellers-admin.css);
+@import url(../css/components/cards-total.css);
 
 @import url(../../assets/css/layouts/grid.css);
 @import url(../../assets/css/layouts/flex.css);
 
+@import url(../../assets/css/pages/sellers-admin.css);
 @import url(../css/pages/dashboard-admin.css);
 @import url(../css/pages/users.css);
 @import url(../css/pages/settings-admin.css);
+@import url(../css/pages/add-products.css);
+@import url(../css/pages/vendor-product-overview.css);

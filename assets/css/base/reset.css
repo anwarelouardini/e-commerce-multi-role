@@ -55,3 +55,26 @@ main {
 .status > .sub-heading {
   font-size: 1.3rem;
 }
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.show {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.show-block {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.filtered-out {
+  display: none;
+}

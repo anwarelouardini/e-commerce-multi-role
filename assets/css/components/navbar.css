@@ -4,16 +4,20 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  z-index: 1000;
 }
 
 .navigation-left {
   display: flex;
   align-items: center;
   gap: 2rem;
+  position: relative;
+  z-index: 1000;
 }
 
 .navigation__icon {
   position: relative;
+  z-index: 1000;
 }
 
 .navigation__icon,
@@ -38,6 +42,28 @@
 
 .navigation__icon::after {
   top: 0.7rem;
+}
+
+/* When the menu is opened change the style of the hamburger icon */
+.navigation__icon--menu,
+.navigation__icon--menu::before,
+.navigation__icon--menu::after {
+  background-color: #ffff !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation__icon--menu::before {
+  top: 0;
+  transform: rotate(130deg);
+}
+
+.navigation__icon--menu::after {
+  top: 0;
+  transform: rotate(-130deg);
+}
+
+.navigation__icon--menu {
+  background: transparent !important;
 }
 
 @keyframes leftToRight {
@@ -104,6 +130,11 @@
   font-size: 2rem;
 }
 
+/* Make the navigation logo hidden */
+.navigation__logo--hide {
+  visibility: hidden;
+}
+
 .navigation-profile {
   border: 2px solid var(--neutral);
   border-radius: 50%;
@@ -111,6 +142,10 @@
   height: 5rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+
+.navigation-profile--active {
+  border: 4px solid var(--primary);
 }
 
 .navigation-profile__icon {
@@ -123,16 +158,19 @@
 
 /* When we click into the profile we show this card */
 .navigation-profile-card {
-  display: none;
+  opacity: 0;
+  visibility: none;
   position: absolute;
   top: 100%;
   right: 2rem;
   background: white;
   border-radius: 2rem;
   padding: 2rem;
-  width: 28rem;
+  width: 22rem;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  transition: all 0.3s;
+  pointer-events: none;
 }
 
 .navigation-profile-card__separator {
@@ -143,10 +181,6 @@
 
 .navigation-profile-card .user-profile__icon {
   width: 8rem;
-}
-
-.navigation-profile:hover {
-  border: 4px solid var(--primary);
 }
 
 .profile-card__links {
@@ -204,6 +238,10 @@
   transition: all 0.3s;
 }
 
+.nav-item--small {
+  padding: 1rem 1.25rem;
+}
+
 /* When we hover over the mobile navigation */
 .nav-item:hover {
   background: #e2e2f0;
@@ -242,4 +280,79 @@
   font-size: 3.5rem;
   text-decoration: none;
   transform: translateY(-1px);
+}
+
+/* Navigation Mobile Menu Styles */
+.navigation-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translateX(-100%); /* 👈 slide from left */
+  transition: all 0.3s ease-in-out;
+
+  z-index: 999;
+}
+
+.navigation-mobile-menu--active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+
+  transform: translateX(0);
+}
+
+/* Styling Navigation Mobile Unordered List */
+.navigation-mobile__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  list-style: none;
+}
+
+.navigation-mobile__item {
+  transition: transform 0.3s ease;
+}
+
+.navigation-mobile__item:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.navigation-mobile__item:hover {
+  transform: translateX(1rem);
+}
+
+.navigation-mobile__link,
+.navigation-mobile__link:active,
+.navigation-mobile__link:visited {
+  padding: 1rem 4rem;
+  text-decoration: none;
+  color: #ffff;
+  font-size: 3rem;
+  font-weight: 900;
+
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1)
+  );
+
+  background-size: 250%;
+  transition: all 0.4s;
+}
+
+.navigation-mobile__link:hover {
+  background-position: 100%;
+  color: white;
 }

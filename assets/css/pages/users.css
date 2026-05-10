@@ -52,6 +52,13 @@
   border-radius: 50%;
 }
 
+.user__img--product {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 1.5rem !important;
+}
+
 /* Styling the user status */
 .status {
   display: flex;
@@ -97,4 +104,16 @@
   display: flex;
   align-items: center;
   gap: 0.2rem;
+}
+
+.users-pages__left,
+.users-pages__right {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.users-pages__left:hover,
+.users-pages__right:hover {
+  text-decoration: underline;
+  transform: skewY(2deg) scale(1.1);
 }

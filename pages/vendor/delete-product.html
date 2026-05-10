@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <title>Admin Dashbaord</title>
+    <script
+      defer
+      type="module"
+      src="../../assets/js/pages/vendor/delete-product.js"
+    ></script>
+    <script defer src="../../assets/js/components/navbar.js"></script>
+  </head>
+  <body>
+    <nav class="navigation">
+      <div class="navigation-left">
+        <a class="navigation__backwards" href="./product-overview.html"
+          >&lsaquo;</a
+        >
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM</h1>
+        </div>
+      </div>
+
+      <div class="navigation-profile">
+        <img
+          class="navigation-profile__icon"
+          src="../../assets/images/avatars/admin-icon.jpg"
+          alt="Admin Profile"
+        />
+      </div>
+    </nav>
+
+    <header class="header container u-margin-top-med">
+      <h1 class="heading-primary">
+        Delete Product Confirmation
+        <span class="sub-heading"
+          >Review the product details before finalizing deletion</span
+        >
+      </h1>
+    </header>
+
+    <main class="main container">
+      <!-- Warning banner -->
+      <div class="delete-card u-margin-top-small">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="60"
+          fill="currentColor"
+          class="bi bi-exclamation-diamond alert__icon"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.48 1.48 0 0 1 0-2.098zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"
+          />
+          <path
+            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"
+          />
+        </svg>
+        <div class="delete-card-content">
+          <h3 class="heading-secondary heading-secondary--red">
+            Irreversible Action
+          </h3>
+          <p class="paragraph">
+            Deletions cannot be undone in the inventory system.
+          </p>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h1 class="heading-primary u-margin-top-med">
+        Delete Product Confirmation
+      </h1>
+
+      <!-- Product box -->
+      <div class="user-box u-margin-top-small">
+        <div class="user-profile">
+          <img
+            id="productImg"
+            class="user__img user__img--product"
+            src="../../assets/images/products/headset.jpg"
+            alt="Product"
+          />
+          <div>
+            <h4 class="sub-heading">Product Name</h4>
+            <h1 id="productName" class="username username--big">
+              Eames Style Lounge Chair & Ottoman
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product details -->
+      <div class="user-details-container">
+        <div class="user-details-content">
+          <h4 class="sub-heading">Category</h4>
+          <p id="deleteProductCategory" class="user-details__content">Audio</p>
+        </div>
+        <div class="user-details-content">
+          <h4 class="sub-heading">Status</h4>
+          <p id="deleteProductStatus" class="user-details__content">
+            Active Inventory
+          </p>
+        </div>
+      </div>
+
+      <p class="paragraph u-margin-top-med">
+        You are about to permanently remove
+        <strong>Eames Style Lounge Chair & Ottoman</strong>
+        from the catalog. This will also remove associated analytics, order
+        history links, and stock alerts.
+      </p>
+
+      <div class="form-btn-box">
+        <a
+          class="btn btn--txt u-margin-top-small"
+          href="./product-overview.html"
+          >Cancel and Go Back</a
+        >
+        <a
+          id="delete-product"
+          class="btn-secondary btn-secondary--big btn-secondary--red"
+          href="#"
+        >
+          Delete Product
+        </a>
+      </div>
+    </main>
+  </body>
+</html>

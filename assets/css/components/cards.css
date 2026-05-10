@@ -26,6 +26,19 @@
   transform: translateY(-1rem);
 }
 
+.cards-container--bg-primary {
+  background-color: var(--primary);
+}
+
+.cards-container--bg-primary .heading-primary,
+.cards-container--bg-primary .cards__icons {
+  color: white;
+}
+
+.cards-container--bg-primary .heading-secondary {
+  color: var(--light-primary);
+}
+
 .cards-container--grey {
   border-bottom: 4px solid var(--secondary);
 }

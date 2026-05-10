@@ -1,9 +1,13 @@
 :root {
   --primary: #1a237e;
-  --secondary: rgb(113, 116, 154);
+  --light-primary: #95a3ee;
+  --secondary: #71749a;
   --light-grey: #eae7ef;
   --green: rgb(37, 164, 124);
   --yellow: #fbbf24;
+  --light-yellow: #ffedd5;
+  --orange: #c27d5f;
+  --brown: #5c1800;
   --light-green: #dcfce7;
   --red: #ba1a1a;
   --light-red: #e5dbe1;

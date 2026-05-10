@@ -1,3 +1,17 @@
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 @media (min-width: 56.25em) {
   .group-container {
     display: flex;
@@ -19,5 +33,23 @@
   .form-btn-box {
     flex-direction: row;
     gap: 3rem;
+  }
+
+  .flex-container {
+    flex-direction: row;
+  }
+
+  .bars-container--full {
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  .bars-container--full .chart-bar-container {
+    flex: 1;
+  }
+
+  .bars-container--full .chart__bar {
+    width: 85%;
   }
 }

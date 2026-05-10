@@ -5,8 +5,21 @@
   color: var(--primary);
 }
 
+.heading-primary--white {
+  color: white;
+  font-size: 3.5rem;
+}
+
 .heading-primary--med {
   font-size: 2.5rem;
+}
+
+.heading-primary--sm {
+  font-size: 1.8rem;
+}
+
+.heading-primary--med {
+  font-size: 2.3rem;
 }
 
 .heading-primary--green {
@@ -30,11 +43,20 @@
   display: block;
 }
 
+.heading-secondary--orange {
+  color: #c8a89c;
+  font-weight: 800;
+}
+
 .heading-secondary--red {
   color: var(--red);
   font-weight: 900;
   font-size: 1.5rem;
   letter-spacing: normal;
+}
+
+.heading-secondary--blue {
+  color: var(--light-primary);
 }
 
 .sub-heading {
@@ -52,6 +74,10 @@
 .heading-small {
   font-size: 1.35rem;
   color: var(--primary);
+}
+
+.heading-small--bold {
+  font-weight: 700;
 }
 
 .chart-content > h3,
