@@ -1,8 +1,30 @@
 <?php
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
+$stats = getDashboardStats($pdo);
+
+$allSellers = getSellers($pdo);
+$pendingSellers = array_filter($allSellers, fn($seller) => $seller['status'] === 'pending');
+
+$pendingLevel = getPendingLevel(count($pendingSellers));
+
+$sellersStats = getSellerHealthStatus($stats['active_sellers'], count($allSellers));
+
+$usersPerDay = getUserPerDay($pdo);
+
 $headerTitle = 'Admin Dashboard';
 $header = 'standard-nav';
+$labels = array_column($usersPerDay, 'day');
+$data = array_column($usersPerDay, 'count');
 require_once __DIR__ . '/../../includes/header.php';
 ?>
+
+<script>
+  const chartLabels = <?= json_encode($labels) ?>;
+  const chartData = <?= json_encode($data) ?>;
+</script>
+
   <main>
     <section class="section-statistics container">
       <h1 class="heading-primary">
@@ -56,10 +78,10 @@ require_once __DIR__ . '/../../includes/header.php';
                 />
               </svg>
             </div>
-            <div class="status-indicator status-indicator--green">+842</div>
+            <div class="status-indicator status-indicator--green">+<?= e($stats['new_users'])?></div>
           </div>
-          <h2 class="heading-secondary">New Users</h2>
-          <p class="heading-primary">24,892</p>
+          <h2 class="heading-secondary">Total Users</h2>
+          <p class="heading-primary"><?= e($stats['total_users']) ?></p>
         </div>
         <div class="cards-container cards-container--purple">
           <div class="cards-logo">
@@ -78,10 +100,10 @@ require_once __DIR__ . '/../../includes/header.php';
                 />
               </svg>
             </div>
-            <div class="status-indicator status-indicator--grey">Stable</div>
+            <div class="status-indicator status-indicator--<?= e($sellersStats['class']) ?>"><?= e($sellersStats['label']) ?></div>
           </div>
           <h2 class="heading-secondary">Active Sellers</h2>
-          <p class="heading-primary">1402</p>
+          <p class="heading-primary"><?= e($stats['active_sellers']) ?></p>
         </div>
         <div class="cards-container cards-container--brown">
           <div class="cards-logo">
@@ -100,10 +122,10 @@ require_once __DIR__ . '/../../includes/header.php';
                 />
               </svg>
             </div>
-            <div class="status-indicator status-indicator--red">High</div>
+            <div class="status-indicator status-indicator--<?= e($pendingLevel['class']) ?>"><?= e($pendingLevel['label']) ?></div>
           </div>
           <h2 class="heading-secondary">Pending Approvals</h2>
-          <p class="heading-primary">42</p>
+          <p class="heading-primary"><?= e($stats['pending_approvals']) ?></p>
         </div>
       </div>
     </section>
@@ -120,39 +142,11 @@ require_once __DIR__ . '/../../includes/header.php';
             </div>
             <div class="chart-buttons">
               <a class="btn-white btn--active" href="#">Week</a>
-              <a class="btn-white" href="#">Month</a>
             </div>
           </div>
 
           <div class="bars-container">
-            <div class="chart-bar-container">
-              <div class="chart__bar">&nbsp;</div>
-              <p class="chart__label">Mon</p>
-            </div>
-            <div class="chart-bar-container">
-              <div class="chart__bar">&nbsp;</div>
-              <p class="chart__label">Tue</p>
-            </div>
-            <div class="chart-bar-container">
-              <div class="chart__bar">&nbsp;</div>
-              <p class="chart__label">Tue</p>
-            </div>
-            <div class="chart-bar-container">
-              <div class="chart__bar">&nbsp;</div>
-              <p class="chart__label">Tue</p>
-            </div>
-            <div class="chart-bar-container">
-              <div class="chart__bar chart__bar--active">&nbsp;</div>
-              <p class="chart__label">Fri</p>
-            </div>
-            <div class="chart-bar-container">
-              <div class="chart__bar">&nbsp;</div>
-              <p class="chart__label">Fri</p>
-            </div>
-            <div class="chart-bar-container">
-              <div class="chart__bar">&nbsp;</div>
-              <p class="chart__label">Fri</p>
-            </div>
+           <canvas id="usersChart"></canvas>
           </div>
         </div>
       </section>
@@ -162,12 +156,13 @@ require_once __DIR__ . '/../../includes/header.php';
           <div class="users-items-content">
             <h3 class="heading-primary">Verification Queue</h3>
             <div class="status-indicator status-indicator--primary">
-              8 New
+              <?= e(count($pendingSellers)) ?> New
             </div>
           </div>
 
           <div class="users-cards-wrapper">
-            <div class="user-card">
+            <?php foreach($pendingSellers AS $pendingSeller): ?>
+            <div class="user-card" data-id=<?= e($pendingSeller['id_user']) ?>>
               <div class="user-card-profile">
                 <img
                   class="user-card__icon"
@@ -176,8 +171,8 @@ require_once __DIR__ . '/../../includes/header.php';
                 />
               </div>
               <div class="user-profile-content">
-                <h6 class="heading-small">Anwar EL OUARDINI</h6>
-                <p class="paragraph">Applied: Today, 10.45AM</p>
+                <h6 class="heading-small"><?= strtoupper($pendingSeller['lastname']) . ' ' . ucfirst($pendingSeller['username']) ?></h6>
+                <p class="paragraph">Applied: <?= date('d/m/Y', strtotime($pendingSeller['created_at'])) ?></p>
               </div>
 
               <div class="user-profile-btns">
@@ -185,96 +180,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <div class="btn-white btn--active">Review</div>
               </div>
             </div>
-            <div class="user-card">
-              <div class="user-card-profile">
-                <img
-                  class="user-card__icon"
-                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
-                  alt="User Profile"
-                />
-              </div>
-              <div class="user-profile-content">
-                <h6 class="heading-small">Ghita EL MIR</h6>
-                <p class="paragraph">Applied: Today, 12.45AM</p>
-              </div>
-
-              <div class="user-profile-btns">
-                <div class="btn-close">&nbsp;</div>
-                <div class="btn-white btn--active">Review</div>
-              </div>
-            </div>
-            <div class="user-card">
-              <div class="user-card-profile">
-                <img
-                  class="user-card__icon"
-                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
-                  alt="User Profile"
-                />
-              </div>
-              <div class="user-profile-content">
-                <h6 class="heading-small">Ghita EL MIR</h6>
-                <p class="paragraph">Applied: Today, 12.45AM</p>
-              </div>
-
-              <div class="user-profile-btns">
-                <div class="btn-close">&nbsp;</div>
-                <div class="btn-white btn--active">Review</div>
-              </div>
-            </div>
-            <div class="user-card">
-              <div class="user-card-profile">
-                <img
-                  class="user-card__icon"
-                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
-                  alt="User Profile"
-                />
-              </div>
-              <div class="user-profile-content">
-                <h6 class="heading-small">Ghita EL MIR</h6>
-                <p class="paragraph">Applied: Today, 12.45AM</p>
-              </div>
-
-              <div class="user-profile-btns">
-                <div class="btn-close">&nbsp;</div>
-                <div class="btn-white btn--active">Review</div>
-              </div>
-            </div>
-            <div class="user-card">
-              <div class="user-card-profile">
-                <img
-                  class="user-card__icon"
-                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
-                  alt="User Profile"
-                />
-              </div>
-              <div class="user-profile-content">
-                <h6 class="heading-small">Ghita EL MIR</h6>
-                <p class="paragraph">Applied: Today, 12.45AM</p>
-              </div>
-
-              <div class="user-profile-btns">
-                <div class="btn-close">&nbsp;</div>
-                <div class="btn-white btn--active">Review</div>
-              </div>
-            </div>
-            <div class="user-card">
-              <div class="user-card-profile">
-                <img
-                  class="user-card__icon"
-                  src="<?= BASE_URL ?>assets/images/avatars/users2-icon.avif"
-                  alt="User Profile"
-                />
-              </div>
-              <div class="user-profile-content">
-                <h6 class="heading-small">Ghita EL MIR</h6>
-                <p class="paragraph">Applied: Today, 12.45AM</p>
-              </div>
-
-              <div class="user-profile-btns">
-                <div class="btn-close">&nbsp;</div>
-                <div class="btn-white btn--active">Review</div>
-              </div>
-            </div>
+            <?php endforeach; ?>
           </div>
         </div>
       </section>

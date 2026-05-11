@@ -3,6 +3,7 @@
   require_once __DIR__ . '/../../includes/db.php';
   require_once __DIR__ . '/../../includes/functions.php';
 
+  
   $id = isset($_GET['id']) ? e($_GET['id']) : '';
 
   if(empty($id)) {

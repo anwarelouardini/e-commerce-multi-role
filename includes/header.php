@@ -19,6 +19,11 @@ require_once __DIR__ . '/config.php';
     <?php if(isset($pathJS)): ?>
     <script defer src="<?= BASE_URL . $pathJS ?>"></script>
     <?php endif; ?>
+
+    <?php if($headerTitle === 'Admin Dashboard'): ?>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script defer src="<?= BASE_URL . 'assets/js/pages/admin/dashboard.js' ?>"></script>
+    <?php endif; ?>
   </head>
   <body>
   <?php if(isset($header) && $header === 'standard-nav'): ?>
