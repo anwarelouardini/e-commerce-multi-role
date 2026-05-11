@@ -1,6 +1,34 @@
 <?php 
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
 $headerTitle = 'Admin Settings';
 $header = 'standard-nav';
+
+$adminId = 48;
+$admin = getAdminById($pdo, $adminId);
+
+if(!empty($_POST)) {
+  $data = [
+    'firstname' => $_POST['firstname'],
+    'lastname' => $_POST['lastname'],
+    'email' => $_POST['email'],
+    'bio' => $_POST['bio'] ?? ''
+  ];
+
+  updateAdmin($pdo, $adminId, $data);
+
+  if(!empty($_POST['password'])) {
+    $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    updateAdminPassword($pdo, $adminId, $hashedPassword);
+  }
+
+
+  header("Location: " . BASE_URL . "pages/admin/settings.php");
+  die();
+}
+
 
 require __DIR__ . '/../../includes/header.php';
 ?>
@@ -34,27 +62,55 @@ require __DIR__ . '/../../includes/header.php';
           </h2>
         </div>
 
-        <form class="form form-settings u-margin-top-med" action="">
+        <form class="form form-settings u-margin-top-med"  method="POST" action="settings.php">
           <div class="grid-container--2">
             <div class="form-box">
-              <label class="heading-secondary" for="fullName">Full Name</label>
+              <label class="heading-secondary" for="firstname">First Name*</label>
               <input
                 class="form-input"
                 type="text"
-                id="fullName"
-                name="fullName"
-                placeholder="Full Name"
+                id="firstname"
+                name="firstname"
+                placeholder="First Name"
+                value="<?= e($admin['username']) ?>"
+                
+              />
+            </div>
+            <div class="form-box">
+              <label class="heading-secondary" for="lastname">Last Name*</label>
+              <input
+                class="form-input"
+                type="text"
+                id="lastname"
+                name="lastname"
+                placeholder="Last Name"
+                value="<?= e($admin['lastname']) ?>"
+                
               />
             </div>
 
             <div class="form-box">
-              <label class="heading-secondary" for="email">Email Address</label>
+              <label class="heading-secondary" for="email">Email Address*</label>
               <input
                 class="form-input"
                 type="email"
                 id="email"
                 name="email"
                 placeholder="example@mail.com"
+                value="<?= e($admin['email']) ?>"
+                
+              />
+            </div>
+
+            <div class="form-box">
+              <label class="heading-secondary" for="password">Password*</label>
+              <input
+                class="form-input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="*******"
+                
               />
             </div>
 
@@ -64,15 +120,15 @@ require __DIR__ . '/../../includes/header.php';
               >
               <textarea
                 class="form-input"
-                name="adminBio"
+                name="bio"
                 id="bio"
                 placeholder="Describe yourself..."
-              ></textarea>
+              ><?= e($admin['bio']) ?></textarea>
             </div>
           </div>
 
           <div class="form-btn-box">
-            <button class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
             <button class="btn btn-primary btn-primary--purple">
               Discard Changes
             </button>

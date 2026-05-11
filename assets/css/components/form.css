@@ -212,3 +212,8 @@ input[name="stock"] {
   color: var(--primary);
   cursor: pointer;
 }
+
+.input--error {
+  border: 2px solid red !important;
+  outline: none;
+}

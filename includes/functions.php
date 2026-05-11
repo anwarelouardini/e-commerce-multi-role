@@ -125,3 +125,45 @@ function getUserPerDay($pdo) {
     
     return $result;
 }
+
+function getAdminById($pdo, $id) {
+    $statement = $pdo->prepare("
+    SELECT Users.username, Users.lastname, Users.email, Users.bio FROM Users JOIN Roles
+    ON Users.id_role = Roles.id_role
+    WHERE id_user = :id
+    ");
+    
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+    return $result;
+}
+
+function updateAdmin($pdo, $id, $data) {
+    $statement = $pdo->prepare("
+    UPDATE Users
+    SET username = :username, lastname = :lastname, email = :email, bio = :bio
+    WHERE id_user = :id
+    ");
+
+    $statement->bindValue(':username', $data['firstname']);
+    $statement->bindValue(':lastname', $data['lastname']);
+    $statement->bindValue(':email', $data['email']);
+    $statement->bindValue(':bio', $data['bio']);
+    $statement->bindValue(':id', $id);
+
+    $statement->execute();
+}
+
+function updateAdminPassword($pdo, $id, $password) {
+    $statement = $pdo->prepare("
+    UPDATE Users
+    SET password = :password
+    WHERE id_user = :id
+    ");
+
+    $statement->bindValue(':password', $password);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+}

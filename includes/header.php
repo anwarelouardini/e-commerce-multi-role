@@ -16,6 +16,7 @@ require_once __DIR__ . '/config.php';
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
     <title><?php echo isset($headerTitle) ? e($headerTitle) : "GAAM"; ?></title>
     <script defer src="<?= BASE_URL ?>assets/js/components/navbar.js"></script>
+    <script defer src="<?= BASE_URL ?>assets/js/components/form.js"></script>
     <?php if(isset($pathJS)): ?>
     <script defer src="<?= BASE_URL . $pathJS ?>"></script>
     <?php endif; ?>
