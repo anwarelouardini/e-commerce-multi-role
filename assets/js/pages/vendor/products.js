@@ -1,6 +1,6 @@
 "use strict";
 
-import { searchInput } from "../../components/search-input.js";
+import { searchInput } from "/e-commerce-multi-role/assets/js/components/search-input.js";
 
 const tRows = document.querySelectorAll(".table-content tr");
 const tableContent = document.querySelector(".table-content");
@@ -19,7 +19,6 @@ const totalItems = tableContent.querySelectorAll("tr").length;
 // Update Product Dataset to share it with delete product page
 const updateProductDataSet = function () {
   tRows.forEach((row, i) => {
-    console.log(row);
     row.dataset.id = i;
     row.dataset.name = row.querySelector(".product-name").textContent.trim();
     row.dataset.image = row.querySelector("img").src;
@@ -89,8 +88,6 @@ const filterByStock = function (clickedBtn = "all", filter = "all-stock") {
   const clickedBtnLabel = document.querySelector(
     `label[for="${clickedBtn.id}"]`,
   );
-
-  console.log(clickedBtnLabel);
 
   btnLabels.forEach((btn) => {
     btn.classList.remove("filter-tab--active");
@@ -163,7 +160,7 @@ searchProductInput.addEventListener("keypress", (e) => {
 });
 
 // Passing data in the URL for delete-product page
-passDataToURL(deleteProductBtns, "./delete-product.html");
+passDataToURL(deleteProductBtns, `${BASE_URL}pages/vendor/delete-product.php`);
 
 // Passing data in the URL for edit-product page
-passDataToURL(editProductBtns, "./edit-product.html");
+passDataToURL(editProductBtns, `${BASE_URL}pages/vendor/edit-product.php`);

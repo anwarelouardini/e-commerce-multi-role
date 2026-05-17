@@ -125,3 +125,14 @@ function getUserPerDay($pdo) {
     
     return $result;
 }
+
+function getProductBySeller($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+        SELECT id_product, name_product, description_product, quantity_product, product_image, price, Categories.name_categorie FROM Products JOIN categories ON Products.id_categorie = Categories.id_categorie WHERE id_seller = :id
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}

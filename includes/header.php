@@ -20,6 +20,11 @@ require_once __DIR__ . '/config.php';
     <script defer src="<?= BASE_URL . $pathJS ?>"></script>
     <?php endif; ?>
 
+    <?php if(isset($pathJSModule)): ?>
+    <script type="module" defer src="<?= BASE_URL . $pathJSModule ?>"></script>
+    <?php endif; ?>
+
+
     <?php if($headerTitle === 'Admin Dashboard'): ?>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script defer src="<?= BASE_URL . 'assets/js/pages/admin/dashboard.js' ?>"></script>
@@ -129,7 +134,7 @@ require_once __DIR__ . '/config.php';
         </ul>
       </div>
     </nav>
-
+  
   <div class="navigation-card container">
     <nav class="navigation-mobile">
       <a href="<?= BASE_URL ?>pages/admin/dashboard.php" class="nav-item nav-item--active">
@@ -211,7 +216,7 @@ require_once __DIR__ . '/config.php';
 <?php elseif(isset($header) && $header === 'custom-nav'): ?>
     <nav class="navigation">
       <div class="navigation-left">
-        <a class="navigation__backwards" href="<?= BASE_URL ?>pages/admin/users.php">&lsaquo;</a>
+        <a class="navigation__backwards" href="<?= $backLink ?? '#' ?>">&lsaquo;</a>
         <div class="navigation__logo">
           <h1 id="navigation__logo">GAAM Admin</h1>
         </div>
@@ -220,9 +225,108 @@ require_once __DIR__ . '/config.php';
       <div class="navigation-profile">
         <img
           class="navigation-profile__icon"
-          src="../../assets/images/avatars/admin-icon.jpg"
+          src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg"
           alt="Admin Profile"
         />
       </div>
     </nav>
-  <?php endif; ?>
+    <script>const BASE_URL = "<?= BASE_URL ?>"</script>
+
+
+    <?php elseif(isset($header) && $header === 'vendor-nav'): ?>
+    <nav class="navigation">
+      <div class="navigation-left">
+        <div class="navigation__icon">&nbsp;</div>
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM</h1>
+        </div>
+      </div>
+
+      <ul class="navigation__links">
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/vendor/dashboard.php">Home</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/vendor/product-overview.php">Products</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/vendor/add-product.php">Add Products</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/vendor/orders.php">Orders</a>
+        </li>
+      </ul>
+
+      <div class="navigation-profile">
+        <img class="navigation-profile__icon" src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg" alt="Vendor Profile"/>
+      </div>
+
+      <div class="navigation-profile-card">
+        <div class="user-profile-container user-profile-container--navigation">
+          <div class="user-profile-img">
+            <img class="user-profile__icon" src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg" alt="Vendor profile"/>
+          </div>
+          <h2 class="username">Vendor User</h2>
+          <span class="sub-heading txt-center">Store Manager</span>
+        </div>
+        <hr class="navigation-profile-card__separator" />
+        <ul class="profile-card__links">
+          <li class="profile-card__item">
+            <a class="profile-card__link" href="#">
+              <span class="profile-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg></span>
+              Account Settings
+            </a>
+          </li>
+        </ul>
+        <hr class="navigation-profile-card__separator" />
+        <a class="profile-card__logout" href="#"><span>&#8594;</span> Log Out</a>
+      </div>
+
+      <div class="navigation-mobile-menu">
+        <ul class="navigation-mobile__list">
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/vendor/dashboard.php">Dashboard</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/vendor/product-overview.php">Products</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/vendor/add-product.php">Add Products</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/vendor/orders.php">Orders</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="navigation-card container">
+      <nav class="navigation-mobile">
+        <a href="<?= BASE_URL ?>pages/vendor/dashboard.php" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+          </svg>
+          <span class="navigation-mobile__title">Home</span>
+        </a>
+        <a href="<?= BASE_URL ?>pages/vendor/product-overview.php" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+          </svg>
+          <span class="navigation-mobile__title">Products</span>
+        </a>
+        <a href="<?= BASE_URL ?>pages/vendor/add-product.php" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+          </svg>
+          <span class="navigation-mobile__title">Add Product</span>
+        </a>
+        <a href="<?= BASE_URL ?>pages/vendor/orders.php" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z"/>
+          </svg>
+          <span class="navigation-mobile__title">Orders</span>
+        </a>
+      </nav>
+    </div>
+    <script>const BASE_URL = "<?= BASE_URL ?>";</script>
+<?php endif; ?>
