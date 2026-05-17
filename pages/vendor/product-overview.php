@@ -8,6 +8,7 @@ $sellerId = 27;
 $products = getProductBySeller($pdo, $sellerId);
 $categories = getCategories($pdo);
 
+
 $header = 'vendor-nav';
 $headerTitle = 'GAAM Seller';
 $pathJSModule = 'assets/js/pages/vendor/products.js';
@@ -111,7 +112,9 @@ require_once __DIR__ . '/../../includes/header.php';
             </thead>
             <tbody class="table-content">
               <?php foreach($products as $product): ?>
+                <?php var_dump($product['name_product']); ?>
               <tr
+              
                 data-category="<?= e(strtolower($product['name_categorie'])) ?>"
                 data-stock=""
                 data-id="<?= e($product['id_product']) ?>"
@@ -128,7 +131,7 @@ require_once __DIR__ . '/../../includes/header.php';
                       alt="Watch"
                     />
                     <h2 class="heading-small">
-                      <span class="product-name"><?= e($product['name_product']) ?></span>
+                      <span class="product-name"><?= e(ucfirst($product['name_product'])) ?></span>
 
                       <span class="sub-heading"><?= e($product['description_product']) ?></span>
                     </h2>
