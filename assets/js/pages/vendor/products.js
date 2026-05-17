@@ -16,21 +16,6 @@ const editProductBtns = document.querySelectorAll(".edit-product-btn");
 
 const totalItems = tableContent.querySelectorAll("tr").length;
 
-// Update Product Dataset to share it with delete product page
-const updateProductDataSet = function () {
-  tRows.forEach((row, i) => {
-    row.dataset.id = i;
-    row.dataset.name = row.querySelector(".product-name").textContent.trim();
-    row.dataset.image = row.querySelector("img").src;
-    row.dataset.category = row
-      .querySelector(".product-category")
-      .textContent.toLowerCase()
-      .trim();
-    row.dataset.price = row.querySelector(".product__price").textContent.trim();
-    row.dataset.qty = row.querySelector(".product__qte").textContent.trim();
-  });
-};
-
 // Update The Total Items Available
 const updateTotal = function () {
   totalItemsCard.forEach((item) => {
@@ -141,7 +126,6 @@ selectCategoryBtn.addEventListener("change", (e) => {
 });
 
 updateTotal();
-updateProductDataSet();
 
 hasStock();
 

@@ -6,7 +6,6 @@ require_once __DIR__ . '/../../includes/functions.php';
 $sellerId = 27;
 
 $products = getProductBySeller($pdo, $sellerId);
-var_dump($products);
 
 $header = 'vendor-nav';
 $headerTitle = 'GAAM Seller';

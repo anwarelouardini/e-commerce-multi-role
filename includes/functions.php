@@ -136,3 +136,9 @@ function getProductBySeller($pdo, $sellerId) {
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function deleteProduct($pdo, $id) {
+    $statement = $pdo->prepare("DELETE FROM Products WHERE id_product = :id");
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+}

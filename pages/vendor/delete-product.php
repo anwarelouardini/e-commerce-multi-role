@@ -1,43 +1,32 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <title>Admin Dashbaord</title>
-    <script
-      defer
-      type="module"
-      src="../../assets/js/pages/vendor/delete-product.js"
-    ></script>
-    <script defer src="../../assets/js/components/navbar.js"></script>
-  </head>
-  <body>
-    <nav class="navigation">
-      <div class="navigation-left">
-        <a class="navigation__backwards" href="./product-overview.html"
-          >&lsaquo;</a
-        >
-        <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM</h1>
-        </div>
-      </div>
+<?php 
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
-      <div class="navigation-profile">
-        <img
-          class="navigation-profile__icon"
-          src="../../assets/images/avatars/admin-icon.jpg"
-          alt="Admin Profile"
-        />
-      </div>
-    </nav>
+var_dump($_GET);
 
+$id = isset($_GET['id']) ? e($_GET['id']) : '';
+$productName = isset($_GET['name']) ? e($_GET['name']) : '';
+$productImage = isset($_GET['image']) ? e($_GET['image']) : '';
+$productPrice = isset($_GET['price']) ? e($_GET['price']) : '';
+$productCategory = isset($_GET['category']) ? e($_GET['category']) : '';
+
+if(empty($id)) {
+  header('Location: ' . BASE_URL . 'pages/vendor/product-overview.php');
+  die();
+}
+
+if(!empty($_POST)) {
+  deleteProduct($pdo, $id);
+  header("Location: " . BASE_URL . 'pages/vendor/product-overview.php');
+  die();
+}
+
+$header = 'custom-nav';
+$headerTitle = 'GAAM Sellers';
+$backLink = BASE_URL . 'pages/vendor/product-overview.php';
+require_once __DIR__ . '/../../includes/header.php';
+?>
     <header class="header container u-margin-top-med">
       <h1 class="heading-primary">
         Delete Product Confirmation
@@ -92,7 +81,7 @@
           <div>
             <h4 class="sub-heading">Product Name</h4>
             <h1 id="productName" class="username username--big">
-              Eames Style Lounge Chair & Ottoman
+              <?= $productName ?>
             </h1>
           </div>
         </div>
@@ -102,7 +91,7 @@
       <div class="user-details-container">
         <div class="user-details-content">
           <h4 class="sub-heading">Category</h4>
-          <p id="deleteProductCategory" class="user-details__content">Audio</p>
+          <p id="deleteProductCategory" class="user-details__content"><?= ucfirst($productCategory) ?></p>
         </div>
         <div class="user-details-content">
           <h4 class="sub-heading">Status</h4>
@@ -114,25 +103,26 @@
 
       <p class="paragraph u-margin-top-med">
         You are about to permanently remove
-        <strong>Eames Style Lounge Chair & Ottoman</strong>
+        <strong><?= $productName ?></strong>
         from the catalog. This will also remove associated analytics, order
         history links, and stock alerts.
       </p>
 
-      <div class="form-btn-box">
+      <form class="form-btn-box" method="POST">
+        <input type="hidden" name="id" value="<?= $id ?>">
         <a
           class="btn btn--txt u-margin-top-small"
-          href="./product-overview.html"
+          href="<?= BASE_URL ?>pages/vendor/product-overview.php"
           >Cancel and Go Back</a
         >
-        <a
+        <button
           id="delete-product"
           class="btn-secondary btn-secondary--big btn-secondary--red"
-          href="#"
+          type="submit"
         >
           Delete Product
-        </a>
-      </div>
+        </button>
+      </form>
     </main>
   </body>
 </html>

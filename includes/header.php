@@ -218,7 +218,7 @@ require_once __DIR__ . '/config.php';
       <div class="navigation-left">
         <a class="navigation__backwards" href="<?= $backLink ?? '#' ?>">&lsaquo;</a>
         <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM Admin</h1>
+          <h1 id="navigation__logo"><?= e($headerTitle) ?></h1>
         </div>
       </div>
 
