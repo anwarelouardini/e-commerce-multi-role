@@ -49,7 +49,7 @@ function getUserById($pdo, $id) {
 }
 
 function deleteUserById($pdo, $id) {
-    $statement = $pdo->prepare('DELETE FROM Users WHERE :id');
+    $statement = $pdo->prepare('DELETE FROM Users WHERE id_user = :id');
     $statement->bindValue(':id', $id);
     $statement->execute();
 }
