@@ -22,21 +22,27 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// ── Modal Edit Profil (user & seller) ────────────────────────
 function toggleEditModal() {
   const modal = document.getElementById('editModal');
   if (!modal) return;
-  modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
+  modal.classList.toggle('modal--open');
 }
 
-// Fermer le modal en cliquant hors du contenu
 document.addEventListener('click', function(e) {
   const modal = document.getElementById('editModal');
   if (modal && e.target === modal) {
-    modal.style.display = 'none';
+    modal.classList.remove('modal--open');
   }
 });
 
+// Fermer le modal après succès
+window.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('editModal');
+  const successMsg = document.querySelector('.msg--success');
+  if (modal && successMsg) {
+    modal.classList.remove('modal--open');
+  }
+});
 // ── VALIDATION LOGIN ─────────────────────────────────────────
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {

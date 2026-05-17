@@ -132,6 +132,41 @@ function statusLabel(string $status): string {
   <title>Profile — <?= htmlspecialchars($user['username'] . ' ' . $user['lastname']) ?></title>
   <link rel="stylesheet" href="../../assets/css/main.css" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+  #editModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#editModal.modal--open {
+  display: flex !important;
+}
+.modal-box {
+  padding: 32px !important;
+  width: min(90%, 500px) !important;
+  border-radius: 16px !important;
+}
+
+.modal-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 24px !important;
+}
+
+.modal-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+</style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -230,7 +265,14 @@ function statusLabel(string $status): string {
 
       <?php if ($updateMsg): ?>
         <div class="msg msg--success"><?= htmlspecialchars($updateMsg) ?></div>
+        <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('editModal');
+                if (modal) modal.classList.remove('modal--open');
+            });
+        </script>
       <?php endif; ?>
+      
       <?php if ($updateErr): ?>
         <div class="msg msg--error"><?= htmlspecialchars($updateErr) ?></div>
       <?php endif; ?>
@@ -359,7 +401,7 @@ function statusLabel(string $status): string {
   </main>
 
   <!-- ── MODAL EDIT PROFIL ── -->
-  <div id="editModal" class="modal-overlay" style="display:none;">
+  <div id="editModal" class="modal-overlay">
     <div class="modal-box card">
       <div class="modal-header">
         <h3>Edit Profile</h3>
@@ -392,6 +434,6 @@ function statusLabel(string $status): string {
     </div>
   </div>
 
-  <script src="auth.js"></script>
+  <script src="../authentification/auth.js"></script>
 </body>
 </html>

@@ -111,6 +111,41 @@ $gridItems  = array_slice($products, 1, 4);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seller Profile — <?= htmlspecialchars($seller['store_name']) ?></title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+  #editModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  #editModal.modal--open {
+    display: flex !important;
+  }
+  .modal-box {
+  padding: 32px !important;
+  width: min(90%, 500px) !important;
+  border-radius: 16px !important;
+}
+
+.modal-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 24px !important;
+}
+
+.modal-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+</style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="../../assets/css/main.css">
 </head>
@@ -189,8 +224,14 @@ $gridItems  = array_slice($products, 1, 4);
     <!-- LEFT COLUMN -->
     <aside class="desktop-sidebar">
 
-      <?php if ($updateMsg): ?>
-        <div class="msg msg--success"><?= htmlspecialchars($updateMsg) ?></div>
+     <?php if ($updateMsg): ?>
+      <div class="msg msg--success"><?= htmlspecialchars($updateMsg) ?></div>
+      <script>
+          window.addEventListener('DOMContentLoaded', function() {
+              const modal = document.getElementById('editModal');
+              if (modal) modal.classList.remove('modal--open');
+          });
+      </script>
       <?php endif; ?>
       <?php if ($updateErr): ?>
         <div class="msg msg--error"><?= htmlspecialchars($updateErr) ?></div>
@@ -319,7 +360,7 @@ $gridItems  = array_slice($products, 1, 4);
   </div>
 
   <!-- ── MODAL EDIT PROFIL SELLER ── -->
-  <div id="editModal" class="modal-overlay" style="display:none;">
+  <div id="editModal" class="modal-overlay">
     <div class="modal-box card">
       <div class="modal-header">
         <h3>Edit Seller Profile</h3>
@@ -356,6 +397,6 @@ $gridItems  = array_slice($products, 1, 4);
     <a href="product-overview.php" class="nav-item"><i class="fa-solid fa-chart-line"></i><span>STATS</span></a>
   </nav>
 
-  <script src="auth.js"></script>
+  <script src="../authentification/auth.js"></script>
 </body>
 </html>
