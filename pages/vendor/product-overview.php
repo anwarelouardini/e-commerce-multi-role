@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../includes/functions.php';
 $sellerId = 27;
 
 $products = getProductBySeller($pdo, $sellerId);
+$categories = getCategories($pdo);
 
 $header = 'vendor-nav';
 $headerTitle = 'GAAM Seller';
@@ -29,15 +30,11 @@ require_once __DIR__ . '/../../includes/header.php';
               <option value="" data-filter="all-categories">
                 All Categories
               </option>
-              <option value="electronics" data-filter="electronics">
-                Electronics
+              <?php foreach($categories as $category): ?>
+              <option value="<?= e(strtolower($category['name_categorie'])) ?>" >
+                <?= e(strtolower($category['name_categorie'])) ?>
               </option>
-              <option value="clothing" data-filter="clothing">Clothing</option>
-              <option value="watches" data-filter="watches">Watches</option>
-              <option value="audio" data-filter="audio">Audio</option>
-              <option value="photography" data-filter="photography">
-                Photography
-              </option>
+              <?php endforeach; ?>
             </select>
           </div>
 
@@ -115,10 +112,10 @@ require_once __DIR__ . '/../../includes/header.php';
             <tbody class="table-content">
               <?php foreach($products as $product): ?>
               <tr
-                data-category="<?= e($product['name_categorie']) ?>"
+                data-category="<?= e(strtolower($product['name_categorie'])) ?>"
                 data-stock=""
                 data-id="<?= e($product['id_product']) ?>"
-                data-name="<?= e($product['name_product']) ?>"
+                data-name="<?= e(ucfirst($product['name_product'])) ?>"
                 data-image="<?= e($product['product_image']) ?>"
                 data-price="<?= e($product['price']) ?>"
                 data-qty="<?= e($product['quantity_product']) ?>"
@@ -127,7 +124,7 @@ require_once __DIR__ . '/../../includes/header.php';
                   <div class="product-table-img">
                     <img
                       class="product-table__icon"
-                      src="<?= BASE_URL ?>assets/images/products/watche.jpg"
+                      src="<?= BASE_URL ?>assets/images/products/<?= e($product['product_image']) ?>"
                       alt="Watch"
                     />
                     <h2 class="heading-small">

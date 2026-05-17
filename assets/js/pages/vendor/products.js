@@ -26,11 +26,12 @@ const updateTotal = function () {
 const getTotalInventoryPrice = function () {
   let totalInventory = 0;
   rows.forEach((row) => {
-    totalInventory += Number(
+    const price = Number(
       row.querySelector(".product__price").textContent.trim(),
     );
+    const qty = Number(row.querySelector(".product__qte").textContent.trim());
+    totalInventory += price * qty;
   });
-
   return totalInventory;
 };
 
