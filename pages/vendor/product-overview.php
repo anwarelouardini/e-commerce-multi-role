@@ -112,7 +112,6 @@ require_once __DIR__ . '/../../includes/header.php';
             </thead>
             <tbody class="table-content">
               <?php foreach($products as $product): ?>
-                <?php var_dump($product['name_product']); ?>
               <tr
               
                 data-category="<?= e(strtolower($product['name_categorie'])) ?>"
