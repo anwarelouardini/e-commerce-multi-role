@@ -96,3 +96,8 @@
 .txt-center {
   text-align: center;
 }
+
+.error {
+  color: darkred;
+  font-weight: 600;
+}

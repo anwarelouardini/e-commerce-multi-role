@@ -142,3 +142,28 @@ function deleteProduct($pdo, $id) {
     $statement->bindValue(':id', $id);
     $statement->execute();
 }
+
+function getCategories($pdo) {
+    $statement = $pdo->prepare('SELECT * FROM categories');
+
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC
+    );
+    return $result;
+}
+
+function addProduct($pdo, $data) {
+    $statement = $pdo->prepare("
+        INSERT INTO Products (name_product, description_product, quantity_product, product_image, id_seller, id_categorie, price) VALUES
+        (:name, :description, :qte, :img, :sellerId, :categorieId, :price)
+    ");
+
+    $statement->bindValue(':name', $data['name']);
+    $statement->bindValue(':description', $data['description']);
+    $statement->bindValue(':qte', $data['quantity']);
+    $statement->bindValue(':img', $data['image']);
+    $statement->bindValue(':sellerId', $data['seller_id']);
+    $statement->bindValue(':categorieId', $data['id_categorie']);
+    $statement->bindValue(':price', $data['price']);
+    $statement->execute();
+}

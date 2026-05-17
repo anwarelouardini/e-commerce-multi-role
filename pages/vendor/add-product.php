@@ -1,222 +1,55 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <title>Seller inventory</title>
-    <script defer src="../../assets/js/components/navbar.js"></script>
-    <script
-      type="module"
-      defer
-      src="../../assets/js/pages/vendor/add-product.js"
-    ></script>
-  </head>
-  <body>
-    <nav class="navigation">
-      <div class="navigation-left">
-        <div class="navigation__icon">&nbsp;</div>
-        <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM</h1>
-        </div>
-      </div>
+<?php 
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
-      <ul class="navigation__links">
-        <li class="navigation__item">
-          <a class="navigation__link" href="./dashboard.html">Home</a>
-        </li>
-        <li class="navigation__item">
-          <a class="navigation__link" href="./product-overview.html"
-            >Products</a
-          >
-        </li>
-        <li class="navigation__item">
-          <a
-            class="navigation__link navigation__link--active"
-            href="./add-product.html"
-            >Add Products</a
-          >
-        </li>
-        <li class="navigation__item">
-          <a class="navigation__link" href="./orders.html">Orders</a>
-        </li>
-      </ul>
+$sellerId = 27;
+$categories = getCategories($pdo);
 
-      <!-- Profile Card -->
-      <div class="navigation-profile">
-        <img
-          class="navigation-profile__icon"
-          src="../../assets/images/avatars/admin-icon.jpg"
-          alt="Admin Profile"
-        />
-      </div>
+if(!empty($_POST)) {
+  $errs = [];
 
-      <div class="navigation-profile-card">
-        <div class="user-profile-container user-profile-container--navigation">
-          <div class="user-profile-img">
-            <img
-              class="user-profile__icon"
-              src="../../assets/images/avatars/admin-icon.jpg"
-              alt="Admin profile"
-            />
-          </div>
-          <h2 class="username">Julianne Sterling</h2>
-          <span class="sub-heading txt-center">Lead Platform Architect</span>
-        </div>
+  if(empty($_POST['productName'])) $errs[] = 'Product name is required';
+  if(empty($_POST['price'])) $errs[] = 'Price is required';
+  if(empty($_POST['stockQuantity'])) $errs[] = 'Stock quantity is required';
+  if(empty($_POST['category'])) $errs[] = 'Category is required';
+  if(empty($_FILES['mainImage'])) $errs[] = 'Main image is required';
 
-        <hr class="navigation-profile-card__separator" />
+  if(empty($errs)) {
 
-        <ul class="profile-card__links">
-          <li class="profile-card__item">
-            <a class="profile-card__link" href="./settings.html">
-              <span class="profile-card__icon"
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-people-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"
-                  /></svg
-              ></span>
-              Account Settings
-            </a>
-          </li>
-        </ul>
+    if($_FILES['mainImage']['error'] === 0 && $_FILES['mainImage']['size'] !== 0) {
 
-        <hr class="navigation-profile-card__separator" />
+      $nameWithoutExtension = pathinfo($_FILES['mainImage']['name'], PATHINFO_FILENAME);
+      $name = preg_replace('/[^a-zA-Z0-9]/', '', $nameWithoutExtension);
 
-        <a class="profile-card__logout" href="#">
-          <span>&#8594;</span>
-          Log Out
-        </a>
-      </div>
+      $extension = pathinfo($_FILES['mainImage']['name'], PATHINFO_EXTENSION);
+      $filename = $name . '-' . time() . '.' . $extension;
 
-      <!-- Navigation Mobile Menu -->
-      <div class="navigation-mobile-menu">
-        <ul class="navigation-mobile__list">
-          <li class="navigation-mobile__item">
-            <a class="navigation-mobile__link" href="./dashboard.html"
-              >Dashboard</a
-            >
-          </li>
-          <li class="navigation-mobile__item">
-            <a class="navigation-mobile__link" href="./sellers.html">Sellers</a>
-          </li>
-          <li class="navigation-mobile__item">
-            <a class="navigation-mobile__link" href="./users.html">Users</a>
-          </li>
-          <li class="navigation-mobile__item">
-            <a class="navigation-mobile__link" href="./settings.html"
-              >Settings</a
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
+      move_uploaded_file($_FILES['mainImage']['tmp_name'], __DIR__ . '/../../assets/images/products/' . $filename);
+    } 
 
-    <div class="navigation-card container">
-      <nav class="navigation-mobile">
-        <a href="./dashboard.html" class="nav-item nav-item--small">
-          <!-- Home Icon -->
-          <svg
-            class="navigation-mobile__icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="currentColor"
-            class="bi bi-house"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"
-            />
-          </svg>
-          <span class="navigation-mobile__title">Home</span>
-        </a>
-        <a href="./product-overview.html" class="nav-item nav-item--small">
-          <!-- Products Icon -->
-          <svg
-            class="navigation-mobile__icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-box-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"
-            />
-          </svg>
-          <span class="navigation-mobile__title">Products</span>
-        </a>
-        <a
-          href="./add-product.html"
-          class="nav-item nav-item--small nav-item--active"
-        >
-          <!-- Add Product Icon -->
-          <svg
-            class="navigation-mobile__icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-plus-circle-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"
-            />
-          </svg>
-          <span class="navigation-mobile__title">Add Product</span>
-        </a>
-        <a href="./orders.html" class="nav-item nav-item--small">
-          <!-- Orders Icon -->
-          <svg
-            class="navigation-mobile__icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-basket3-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z"
-            />
-          </svg>
-          <span class="navigation-mobile__title">Orders </span>
-        </a>
-        <a href="#" class="nav-item nav-item--small">
-          <!-- Settings Icon -->
-          <svg
-            class="navigation-mobile__icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-person-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
-            />
-          </svg>
-          <span class="navigation-mobile__title">Profile</span>
-        </a>
-      </nav>
-    </div>
+    $data = [
+      'name' => $_POST['productName'],
+      'description' => $_POST['productDescription'],
+      'price' => $_POST['price'],
+      'quantity' => $_POST['stockQuantity'],
+      'id_categorie' => $_POST['category'],
+      'image' => $filename,
+      'seller_id' => $sellerId,
+    ];
+
+    addProduct($pdo, $data);
+    header("Location: " . BASE_URL . 'pages/vendor/product-overview.php');
+    die();
+  }
+
+}
+
+$header = 'vendor-nav';
+$headerTitle = 'GAAM Seller';
+$pathJSModule = 'assets/js/pages/vendor/add-product.js';
+require_once __DIR__ . '/../../includes/header.php';
+?>
 
     <header class="header container u-margin-top-med">
       <h1 class="heading-primary">
@@ -229,7 +62,8 @@
     </header>
 
     <main class="container">
-      <div class="grid-container--product">
+      <form method="post" enctype="multipart/form-data" action="add-product.php">
+        <div class="grid-container--product">
         <!-- Core information container -->
         <div class="core-information-container u-margin-top-small">
           <div class="core-information-header">
@@ -251,7 +85,7 @@
           </div>
 
           <div class="core-information-main">
-            <form class="form u-margin-top-med">
+            <div class="form u-margin-top-med">
               <label
                 class="heading-secondary heading-secondary--orange"
                 for="productTitle"
@@ -261,20 +95,21 @@
                 class="form-input"
                 type="text"
                 placeholder="e.g Silk Meridian Evening Gown"
+                name="productName"
               />
 
               <label
                 class="heading-secondary heading-secondary--orange"
                 for="productDescription"
-                >Descriptif</label
+                >Description</label
               >
               <textarea
                 class="form-input"
-                name="product-description"
+                name="productDescription"
                 id="productDescription"
                 placeholder="Describe the craftsmanship materials and fit..."
               ></textarea>
-            </form>
+            </div>
           </div>
         </div>
 
@@ -297,7 +132,7 @@
             <h2 class="heading-primary heading-primary--sm">Logistics</h2>
           </div>
 
-          <form class="form u-margin-top-med" action="">
+          <div class="form u-margin-top-med">
             <label class="heading-secondary heading-secondary--blue" for="price"
               >Base price</label
             >
@@ -320,6 +155,7 @@
                 type="number"
                 id="price"
                 placeholder="0.00"
+                name="price"
               />
             </div>
 
@@ -333,8 +169,9 @@
               type="number"
               id="stockQuantity"
               placeholder="0"
+              name="stockQuantity"
             />
-          </form>
+          </div>
         </div>
 
         <!-- Gallery Container -->
@@ -390,6 +227,7 @@
                 <input
                   type="file"
                   id="mainImage"
+                  name="mainImage"
                   accept="image/png, image/jpeg"
                   style="display: none"
                 />
@@ -419,6 +257,7 @@
                 type="file"
                 accept="image/png, image/jpeg"
                 style="display: none"
+                name="productImg2"
               />
 
               <div class="add-img">+</div>
@@ -442,6 +281,7 @@
                 type="file"
                 accept="image/png, image/jpeg"
                 style="display: none"
+                name="productImg3"
               />
 
               <div class="add-img">+</div>
@@ -465,6 +305,7 @@
                 type="file"
                 accept="image/png, image/jpeg"
                 style="display: none"
+                name="productImg4"
               />
 
               <div class="add-img">+</div>
@@ -488,6 +329,7 @@
                 type="file"
                 accept="image/png, image/jpeg"
                 style="display: none"
+                name="productImg5"
               />
 
               <div class="add-img">+</div>
@@ -530,6 +372,13 @@
               </h2>
             </div>
             <div class="btn-container btn-container--2 u-margin-top-small">
+              <select name="category" class="btn btn-secondary btn-categorization btn--active">
+                <?php foreach($categories as $category): ?>
+                  <option value="<?= e($category['id_categorie']) ?>">
+                    <?= e($category['name_categorie']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
               <a href="#" class="btn btn-secondary btn-add">+ New</a>
             </div>
           </div>
@@ -537,7 +386,7 @@
           <!-- Submit button -->
 
           <div class="btn-container btn-container--3">
-            <a id="confirmEditBtn" href="#" class="btn btn-primary"
+            <button id="confirmEditBtn" type="submit" class="btn btn-primary"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -552,11 +401,19 @@
                 <path
                   d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"
                 /></svg
-              >Save product</a
+              >Save product</button
             >
+          </div>
+          <div class="submission-err">
+            <?php if(!empty($errs)): ?>
+              <?php foreach($errs as $err): ?>
+                <p class="error"><?= e($err) ?></p>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </div>
         </div>
       </div>
+      </form>
     </main>
   </body>
 </html>
