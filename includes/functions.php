@@ -167,3 +167,20 @@ function addProduct($pdo, $data) {
     $statement->bindValue(':price', $data['price']);
     $statement->execute();
 }
+
+function updateProduct($pdo, $id, $data) {
+    $statement = $pdo->prepare("
+        UPDATE products 
+        SET name_product = :name, description_product = :description, quantity_product = :qte, product_image = :img, id_categorie = :id_categorie, price = :price
+        WHERE id_product = :id
+    ");
+
+    $statement->bindValue(':name', $data['name']);
+    $statement->bindValue(':description', $data['description']);
+    $statement->bindValue(':qte', $data['quantity']);
+    $statement->bindValue(':img', $data['image']);
+    $statement->bindValue(':id_categorie', $data['id_categorie']);
+    $statement->bindValue(':price', $data['price']);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+}

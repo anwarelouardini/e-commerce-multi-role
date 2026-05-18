@@ -3,8 +3,6 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
-var_dump($_GET);
-
 $id = isset($_GET['id']) ? e($_GET['id']) : '';
 $productName = isset($_GET['name']) ? e($_GET['name']) : '';
 $productImage = isset($_GET['image']) ? e($_GET['image']) : '';

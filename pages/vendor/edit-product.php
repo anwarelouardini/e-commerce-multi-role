@@ -1,48 +1,83 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <title>Seller inventory</title>
-    <script
-      type="module"
-      defer
-      src="../../assets/js/pages/vendor/edit-product.js"
-    ></script>
-  </head>
+<?php 
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
-  <body>
-    <nav class="navigation">
-      <div class="navigation-left">
-        <a class="navigation__backwards" href="./product-overview.html"
-          >&lsaquo;</a
-        >
-        <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM</h1>
-        </div>
-      </div>
 
-      <div class="navigation-profile">
-        <img
-          class="navigation-profile__icon"
-          src="../../assets/images/avatars/admin-icon.jpg"
-          alt="Admin Profile"
-        />
-      </div>
-    </nav>
+$categories = getCategories($pdo);
+
+$id = isset($_GET['id']) ? e($_GET['id']) : '';
+$productName = isset($_GET['name']) ? e($_GET['name']) : '';
+$productPrice = isset($_GET['price']) ? e($_GET['price']) : '';
+$productCategory = isset($_GET['category']) ? e($_GET['category']) : '';
+$productImage = isset($_GET['image']) ? e($_GET['image']) : '';
+
+if(empty($id)) {
+  header('Location: ' . BASE_URL . 'pages/vendor/product-overview.php');
+  die();
+}
+
+$errs = [
+  'productName' => '',
+  'price' => '',
+  'stockQuantity' => ''
+];
+
+
+
+if(!empty($_POST)) {
+
+  if(isset($_POST['price']) || $_POST['price'] <= 0)
+
+  if(!isset($_POST['price']) || $_POST['price'] === '' || (float)$_POST['price'] <= 0)
+      $errs['price'] = 'Price must be greater than 0';
+
+  if(!isset($_POST['stockQuantity']) || $_POST['stockQuantity'] === '' || (int)$_POST['stockQuantity'] < 0)
+      $errs['stockQuantity'] = 'Stock quantity is required';
+
+  if(empty(array_filter($errs))) {
+    if($_FILES['mainImage']['error'] === 0 && $_FILES['mainImage']['size'] !== 0) {
+        $nameWithoutExtension = pathinfo($_FILES['mainImage']['name'], PATHINFO_FILENAME);
+        $name = preg_replace('/[^a-zA-Z0-9]/', '', $nameWithoutExtension);
+  
+        $extension = pathinfo($_FILES['mainImage']['name'], PATHINFO_EXTENSION);
+        $filename = $name . '-' . time() . '.' . $extension;
+  
+        move_uploaded_file($_FILES['mainImage']['tmp_name'], __DIR__ . '/../../assets/images/products/' . $filename);
+    } else {
+      $filename = $_POST['currentImage'];
+    }
+  
+    $data = [
+      'name' => $_POST['productName'],
+      'description' => $_POST['productDescription'] ?? '',
+      'price' => $_POST['price'],
+      'quantity' => $_POST['stockQuantity'],
+      'id_categorie' => $_POST['category'],
+      'image' => $filename,
+    ];
+  
+    updateProduct($pdo, $id, $data);
+    header('Location: ' . BASE_URL . 'pages/vendor/product-overview.php');
+    die();
+  }
+
+}
+
+$header = 'custom-nav';
+$headerTitle = 'GAAM Sellers';
+$backLink = BASE_URL . 'pages/vendor/product-overview.php';
+$pathJSModule = 'assets/js/pages/vendor/edit-product.js';
+
+require_once __DIR__ . '/../../includes/header.php';
+?>
 
     <header class="header container u-margin-top-med">
       <h1 class="heading-primary heading-primary--med">Edit Product</h1>
     </header>
 
     <main class="container">
+      <form class="form u-margin-top-med" method="post" enctype="multipart/form-data">
       <div class="grid-container--product">
         <!-- Core information container -->
         <div class="core-information-container u-margin-top-small">
@@ -69,18 +104,24 @@
           </div>
 
           <div class="core-information-main">
-            <form class="form u-margin-top-med">
+            
               <label
                 class="heading-secondary heading-secondary"
                 for="productTitle"
                 >Product title</label
               >
+
+              <?php if(!empty($errs['productName'])): ?>
+                <p class="error"><?= e($errs['productName']) ?></p>
+              <?php endif; ?>
               <input
                 id="productTitle"
+                name="productName"
                 class="form-input"
                 type="text"
                 placeholder="e.g Silk Meridian Evening Gown"
               />
+
 
               <label
                 class="heading-secondary heading-secondary"
@@ -90,11 +131,11 @@
               <textarea
                 id="productDescription"
                 class="form-input"
-                name="product-description"
+                name="productDescription"
                 id="productDescription"
                 placeholder="Describe the craftsmanship materials and fit..."
               ></textarea>
-            </form>
+
           </div>
         </div>
 
@@ -117,11 +158,10 @@
             </svg>
             <h2 class="heading-primary heading-primary--sm">Logistics</h2>
           </div>
-
-          <form class="form u-margin-top-med" action="">
             <label class="heading-secondary heading-secondary--blue" for="price"
               >Base price</label
             >
+
             <div class="input-wrap">
               <svg
                 class="form-input__icon"
@@ -136,28 +176,38 @@
                   d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"
                 />
               </svg>
+
               <input
                 id="basePrice"
+                name="price"
                 class="form-input--2 form-input--logo"
                 type="number"
                 id="price"
                 placeholder="0.00"
               />
+              
             </div>
-
+            <?php if(!empty($errs['price'])): ?>
+              <p class="error"><?= e($errs['price']) ?></p>
+            <?php endif; ?>
+            
             <label
               class="heading-secondary heading-secondary--blue"
               for="stockQuantity"
               >Stock Quantity</label
             >
+
             <input
               id="stockQty"
+              name="stockQuantity"
               class="form-input--2"
               type="number"
               id="stockQuantity"
               placeholder="0"
             />
-          </form>
+            <?php if(!empty($errs['stockQuantity'])): ?>
+              <p class="error"><?= e($errs['stockQuantity']) ?></p>
+            <?php endif; ?>
         </div>
 
         <!-- Gallery Container -->
@@ -187,7 +237,7 @@
               <!-- State 1: Image exists -->
               <img
                 class="main-product-img"
-                src="../../assets/images/products/camera.jpg"
+                src="<?= BASE_URL ?>assets/images/products/<?= $productImage ?>"
                 alt=""
               />
               <a class="" href="#"></a>
@@ -209,9 +259,11 @@
               <!-- State 2: No imtage exists -->
               <div class="upload-prompt">
                 <!-- input field -->
+                 <input type="hidden" name="currentImage" value="<?= $productImage ?>">
                 <input
                   type="file"
                   id="mainImage"
+                  name="mainImage"
                   accept="image/png, image/jpeg"
                   style="display: none"
                 />
@@ -352,9 +404,16 @@
               </h2>
             </div>
             <div class="btn-container btn-container--2 u-margin-top-small">
-              <a href="#" class="btn btn-secondary btn-categorization"
-                >&nbsp;</a
-              >
+              <select name="category" class="btn btn-secondary btn-categorization btn--active">
+                <?php foreach($categories as $category): ?>
+                <option 
+                    value="<?= e($category['id_categorie']) ?>"
+                    <?= strtolower($category['name_categorie']) === strtolower($productCategory) ? 'selected' : '' ?>
+                >
+                    <?= e($category['name_categorie']) ?>
+                </option>
+                <?php endforeach; ?>
+              </select>
               <a href="#" class="btn btn-secondary btn-add">+ New</a>
             </div>
           </div>
@@ -379,7 +438,7 @@
                 /></svg
               >Close</a
             >
-            <a id="confirmEditBtn" href="#" class="btn btn-primary"
+            <button id="confirmEditBtn" href="#" class="btn btn-primary"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -394,11 +453,12 @@
                 <path
                   d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"
                 /></svg
-              >Save product</a
+              >Save product</button
             >
           </div>
         </div>
       </div>
+      </form>
     </main>
   </body>
 </html>
