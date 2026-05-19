@@ -38,6 +38,16 @@ function getSellerStatusClass(string $status): string {
     };
 }
 
+function getOrdersStatusClass(string $status): string {
+    return match($status) {
+        'pending' => 'yellow',
+        'shipped' => 'blue',
+        'processing' => 'brown',
+        'delivered' => 'green',
+        'cancelled' => 'red'
+    };
+}
+
 function getUserById($pdo, $id) {
     $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.profile_image, Users.created_at, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
     $statement->bindValue(':id', $id);
@@ -183,4 +193,50 @@ function updateProduct($pdo, $id, $data) {
     $statement->bindValue(':price', $data['price']);
     $statement->bindValue(':id', $id);
     $statement->execute();
+}
+
+function getOrdersBySeller($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+    SELECT Orders.id_order, Orders.date_order, Orders.order_status, Orders_items.quantity_order_items, Products.id_product, Products.name_product, Products.description_product, Products.quantity_product, Products.product_image, Products.price, Sellers.id_seller, Sellers.store_name, Sellers.seller_rating, customer_user.username, customer_user.lastname FROM Orders JOIN Orders_items ON Orders.id_order = Orders_items.id_order 
+    JOIN Products ON Orders_items.id_product = Products.id_product 
+    JOIN Sellers ON Products.id_seller = Sellers.id_seller 
+    JOIN Customers ON Orders.id_customer = Customers.id_customer 
+    JOIN Users AS customer_user ON Customers.id_user = customer_user.id_user 
+    WHERE Sellers.id_seller = :id
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+}
+
+function updateOrderStatus($pdo, $id, $status) {
+    $statement = $pdo->prepare("
+        UPDATE orders
+        SET order_status = :status WHERE id_order = :id
+    ");
+
+    $statement->bindValue(':status', $status);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+}
+
+function getOrdersPerDay($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+    SELECT DATE(Orders.date_order) as day, COUNT(DISTINCT Orders.id_order) as count 
+    FROM Orders 
+    JOIN Orders_items ON Orders.id_order = Orders_items.id_order
+    JOIN Products ON Orders_items.id_product = Products.id_product
+    JOIN Sellers ON Products.id_seller = Sellers.id_seller
+    WHERE Sellers.id_seller = :id
+    AND Orders.date_order >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+    GROUP BY DATE(Orders.date_order)
+    ORDER BY day ASC
+    ");
+    
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
 }

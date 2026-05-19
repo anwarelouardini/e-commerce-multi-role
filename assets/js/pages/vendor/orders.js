@@ -13,11 +13,29 @@ const pendingFulfillmentCard = document.querySelector(
 );
 const outDeliveryCard = document.querySelector(".card-out-delivery p");
 const monthlyRevenueCard = document.querySelector(".card-price-order p");
+const orderStatusSelects = document.querySelectorAll(".select-order__status");
 
 let totalPaymentOrders = 0;
 let ordersOutForDelivery = 0;
 let pendingFulfillment = 0;
 let totalOrders = tRows.length;
+
+orderStatusSelects.forEach((select) => {
+  select.addEventListener("change", () => {
+    const id = select.dataset.id;
+    const status = select.value;
+
+    updateOrdersStatus(select);
+
+    fetch(`${BASE_URL}pages/vendor/update-order-status.php`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status }),
+    });
+  });
+});
+
+console.log(document.querySelectorAll(".select-order__status"));
 
 // This function will show the card data
 const showCardData = function () {
@@ -68,6 +86,7 @@ const updateOrdersStatus = function (select) {
     "status-indicator--yellow",
     "status-indicator--red",
     "status-indicator--blue",
+    "status-indicator--brown",
   );
 
   console.log(selectedValue);
@@ -78,6 +97,10 @@ const updateOrdersStatus = function (select) {
     statusBadge.classList.add("status-indicator--green");
   } else if (selectedValue === "cancelled") {
     statusBadge.classList.add("status-indicator--red");
+  } else if (selectedValue === "pending") {
+    statusBadge.classList.add("status-indicator--yellow");
+  } else if (selectedValue === "processing") {
+    statusBadge.classList.add("status-indicator--brown");
   }
 
   row.dataset.orders = selectedValue;
@@ -133,4 +156,23 @@ searchCustomerInput.addEventListener("keypress", (e) => {
 // Listen to select order status
 tBody.addEventListener("change", (e) => {
   e.target.matches(".filter-bar__select--grey") && updateOrdersStatus(e.target);
+});
+
+// Initialisation du graph
+const ctx = document.getElementById("orderChart").getContext("2d");
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: chartLabels,
+    datasets: [
+      {
+        label: "Orders",
+        data: chartData,
+        backgroundColor: "rgba(67, 97, 238, 0.3)",
+        borderColor: "rgba(67, 97, 238, 1)",
+        borderWidth: 2,
+        borderRadius: 8,
+      },
+    ],
+  },
 });
