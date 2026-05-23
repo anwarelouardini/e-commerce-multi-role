@@ -234,9 +234,63 @@ function getOrdersPerDay($pdo, $sellerId) {
     GROUP BY DATE(Orders.date_order)
     ORDER BY day ASC
     ");
-    
+
     $statement->bindValue(':id', $sellerId);
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $results;
+}
+
+function getSellerById($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+        SELECT username, lastname, store_name, seller_rating FROM Users JOIN Sellers ON Users.id_user = Sellers.id_user WHERE Sellers.id_seller = :id
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getSellerStats($pdo, $sellerId) {
+
+    $statement = $pdo->prepare("
+        SELECT 
+        COUNT(DISTINCT o.id_order) AS total_order,
+        SUM(p.price * oi.quantity_order_items) AS total_revenue,
+        COALESCE(
+            SUM(p.price * oi.quantity_order_items) 
+            / NULLIF(COUNT(DISTINCT o.id_order), 0),
+            0
+        ) AS avg_order_value
+        FROM products p
+        INNER JOIN orders_items oi ON p.id_product = oi.id_product
+
+        INNER JOIN orders o ON oi.id_order = o.id_order
+        WHERE p.id_seller = :sellerId
+    ");
+
+    $statement->bindValue(':sellerId', $sellerId);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getRevenuePerDay($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+        SELECT DATE(Orders.date_order) as day, SUM(price * quantity_order_items) as count 
+        FROM Orders 
+        JOIN Orders_items ON Orders.id_order = Orders_items.id_order
+        JOIN Products ON Orders_items.id_product = Products.id_product
+        JOIN Sellers ON Products.id_seller = Sellers.id_seller
+        WHERE Sellers.id_seller = :id
+        AND Orders.date_order >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY DATE(Orders.date_order)
+        ORDER BY day ASC
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
 }

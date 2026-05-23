@@ -27,6 +27,9 @@ require_once __DIR__ . '/config.php';
 
     <?php if($headerTitle === 'Admin Dashboard' || $headerTitle === 'GAAM Seller'): ?>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <?php endif; ?>
+
+    <?php if($headerTitle === 'Admin Dashboard'): ?>
       <script defer src="<?= BASE_URL . 'assets/js/pages/admin/dashboard.js' ?>"></script>
     <?php endif; ?>
   </head>
