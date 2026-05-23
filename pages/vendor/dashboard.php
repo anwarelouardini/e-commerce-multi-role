@@ -158,13 +158,19 @@ require_once __DIR__ . '/../../includes/header.php';
                       <h3 class="heading-primary">Sales Trend</h3>
                       <p class="paragraph">Last 30 days performance</p>
                   </div>
+                  <?php if(!empty($volumeData) || !empty($revenueData)): ?>
                   <div class="chart-buttons">
                       <a id="volumeBtn" class="btn-white btn--active-2" href="#">Volume</a>
                       <a id="revenueBtn" class="btn-white" href="#">Revenue</a>
                   </div>
+                  <?php endif; ?>
               </div>
               <div class="bars-container">
+                <?php if(!empty($volumeData) || !empty($revenueData)): ?>
                   <canvas id="salesChart"></canvas>
+                <?php else: ?>
+                  <p class="t-data--empty">No sales data available yet.</p>
+                <?php endif; ?>
               </div>
           </div>
         </section>
@@ -236,35 +242,41 @@ require_once __DIR__ . '/../../includes/header.php';
               </tr>
             </thead>
             <tbody class="table-content">
-              <?php foreach($productsBySeller AS $product): ?>
-              <tr>
-                <td>
-                  <div class="product-table-img">
-                    <img
-                      class="product-table__icon"
-                      src="<?= BASE_URL ?>assets/images/products/<?= $product['product_image'] ?>"
-                      alt="Watch"
-                    />
-                    <h2 class="heading-small">
-                      <?= e(ucfirst($product['name_product'])) ?>
-                      <spa class="sub-heading"><?= e($product['description_product']) ?></spa>
-                    </h2>
-                  </div>
-                </td>
-                <td>
-                  <span class="status-indicator status-indicator--grey"
-                    ><?= e($product['name_categorie']) ?></span
-                  >
-                </td>
-                <td class="heading-small heading-small--bold">$<?= e($product['price']) ?></td>
-                <td><span class="product__qte"><?= e($product['quantity_product']) ?></span> Units</td>
-                <td>
-                  <span class="status-indicator status-indicator--green qte__status"
-                    ></span
-                  >
-                </td>
-              </tr>
-              <?php endforeach; ?>
+              <?php if(!empty($productsBySeller)): ?>
+                <?php foreach($productsBySeller AS $product): ?>
+                  <tr>
+                    <td>
+                      <div class="product-table-img">
+                        <img
+                          class="product-table__icon"
+                          src="<?= BASE_URL ?>assets/images/products/<?= $product['product_image'] ?>"
+                          alt="Watch"
+                        />
+                        <h2 class="heading-small">
+                          <?= e(ucfirst($product['name_product'])) ?>
+                          <spa class="sub-heading"><?= e($product['description_product']) ?></spa>
+                        </h2>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="status-indicator status-indicator--grey"
+                        ><?= e($product['name_categorie']) ?></span
+                      >
+                    </td>
+                    <td class="heading-small heading-small--bold">$<?= e($product['price']) ?></td>
+                    <td><span class="product__qte"><?= e($product['quantity_product']) ?></span> Units</td>
+                    <td>
+                      <span class="status-indicator status-indicator--green qte__status"
+                        ></span
+                      >
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="5" class="t-data--empty">No product found. <a href="<?= BASE_URL ?>pages/vendor/add-product.php">Add your first product</a></td>
+                  </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
