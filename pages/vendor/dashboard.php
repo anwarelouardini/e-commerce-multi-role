@@ -5,7 +5,6 @@ require_once __DIR__ . '/../../includes/functions.php';
 
 $sellerId = 27;
 
-
 $productsBySeller = getProductBySeller($pdo, $sellerId);
 $ordersBySeller = getOrdersBySeller($pdo, $sellerId);
 $sellerInfo = getSellerById($pdo, $sellerId);
@@ -20,9 +19,17 @@ $volumeData = array_column($ordersPerDay, 'count');
 $revenueLabels = array_column($revenuePerDay, 'day');
 $revenueData = array_column($revenuePerDay, 'count');
 
-// var_dump($productsBySeller);
-// var_dump($ordersBySeller);
-// var_dump($sellerInfo);
+$revenueTrend = $sellerStats['total_revenue'] > 0 
+    ? ['label' => '+' . number_format(($sellerStats['total_revenue'] / max($sellerStats['total_order'], 1)) / 100, 1) . '%', 'class' => 'green']
+    : ['label' => 'No data', 'class' => 'grey'];
+
+$ordersTrend = $sellerStats['total_order'] > 0
+    ? ['label' => '+' . $sellerStats['total_order'], 'class' => 'green']
+    : ['label' => 'No orders', 'class' => 'grey'];
+
+$avgTrend = $sellerStats['avg_order_value'] > 0
+    ? ['label' => 'Active', 'class' => 'green']
+    : ['label' => 'Stable', 'class' => 'grey'];
 
 $header = 'vendor-nav';
 $headerTitle = 'GAAM Seller';
@@ -65,7 +72,7 @@ require_once __DIR__ . '/../../includes/header.php';
                   />
                 </svg>
               </div>
-              <div class="status-indicator status-indicator--green">+12.5%</div>
+              <div class="status-indicator status-indicator--<?= $revenueTrend['class'] ?>"><?= e($revenueTrend['label']) ?></div>
             </div>
             <h2 class="heading-secondary">Total Revenue</h2>
             <p class="heading-primary">$<?= e($sellerStats['total_revenue']) ?></p>
@@ -90,7 +97,7 @@ require_once __DIR__ . '/../../includes/header.php';
                   />
                 </svg>
               </div>
-              <div class="status-indicator status-indicator--green">+5.2%</div>
+              <div class="status-indicator status-indicator--<?= $ordersTrend['class'] ?>"><?= $ordersTrend['label'] ?></div>
             </div>
             <h2 class="heading-secondary">Total orders</h2>
             <p class="heading-primary"><?= e($sellerStats['total_order']) ?></p>
@@ -118,7 +125,9 @@ require_once __DIR__ . '/../../includes/header.php';
                   />
                 </svg>
               </div>
-              <div class="status-indicator status-indicator--grey">Stable</div>
+              <div class="status-indicator status-indicator--<?= $avgTrend['class'] ?>">
+                <?= $avgTrend['label'] ?>
+              </div>
             </div>
             <h2 class="heading-secondary">Average order value</h2>
             <p class="heading-primary">$<?= e(number_format($sellerStats['avg_order_value'], 2, '.', '')) ?></p>

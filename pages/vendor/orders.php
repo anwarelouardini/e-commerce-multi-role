@@ -8,6 +8,7 @@ $sellerId = 27;
 $ordersBySellers = getOrdersBySeller($pdo, $sellerId);
 
 $ordersPerDay = getOrdersPerDay($pdo, $sellerId);
+$ordersGrowth = getOrdersGrowth($ordersPerDay);
 
 $day = array_column($ordersPerDay, 'day');
 $data = array_column($ordersPerDay, 'count');
@@ -62,7 +63,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="status-indicator status-indicator--brown">+12%</div>
             </div>
             <h2 class="heading-secondary">Total Orders</h2>
-            <p class="heading-primary">1,482</p>
+            <p class="heading-primary"></p>
           </div>
           <div
             class="cards-container cards-container--grey card-pending-fulfillment"
@@ -85,7 +86,7 @@ require_once __DIR__ . '/../../includes/header.php';
               </div>
             </div>
             <h2 class="heading-secondary">Pending Fulfillment</h2>
-            <p class="heading-primary">42</p>
+            <p class="heading-primary"></p>
           </div>
           <div
             class="cards-container cards-container--purple card-out-delivery"
@@ -108,7 +109,7 @@ require_once __DIR__ . '/../../includes/header.php';
               </div>
             </div>
             <h2 class="heading-secondary">Out for delivery</h2>
-            <p class="heading-primary">118</p>
+            <p class="heading-primary"></p>
           </div>
           <div
             class="cards-container cards-container--primary cards-container--bg-primary card-price-order"
@@ -133,7 +134,7 @@ require_once __DIR__ . '/../../includes/header.php';
               </div>
             </div>
             <h2 class="heading-secondary">Monthly Revenue</h2>
-            <p class="heading-primary">$48,290</p>
+            <p class="heading-primary"></p>
           </div>
         </div>
       </section>

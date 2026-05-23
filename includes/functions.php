@@ -7,7 +7,7 @@ function e($value) {
 }
 
 function getUsers($pdo): ?array {
-    $statement = $pdo->prepare('SELECT Users.id_user, Users.username, Users.lastname, Users.email, Users.phone_number, Users.status, Roles.role_name FROM Users JOIN Roles ON `Users`.`id_role` = `Roles`.`id_role`');
+    $statement = $pdo->prepare('SELECT Users.id_user, Users.username, Users.lastname, Users.email, Users.phone_number, Users.status, Users.profile_image, Roles.role_name FROM Users JOIN Roles ON `Users`.`id_role` = `Roles`.`id_role`');
     $statement->execute();
 
     $results = $statement->fetchALL(PDO::FETCH_ASSOC);
@@ -49,7 +49,7 @@ function getOrdersStatusClass(string $status): string {
 }
 
 function getUserById($pdo, $id) {
-    $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.profile_image, Users.created_at, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
+    $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.password, Users.profile_image, Users.created_at, Users.bio, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
     $statement->bindValue(':id', $id);
     
     $statement->execute();
@@ -293,4 +293,42 @@ function getRevenuePerDay($pdo, $sellerId) {
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $result;
+}
+
+function getOrdersGrowth(array $ordersPerDay): array {
+    $total = array_sum(array_column($ordersPerDay, 'count'));
+
+    if ($total === 0) return ['label' => 'No orders', 'class' => 'grey'];
+    if ($total >= 50) return ['label' => 'High', 'class' => 'green'];
+    if ($total >= 10) return ['label' => '+' . $total . ' this week', 'class' => 'brown'];
+    return ['label' => 'Low', 'class' => 'brown'];
+}
+
+function verifyAdminPassword($pdo, $adminId, $password) {
+    $admin = getUserById($pdo, $adminId);
+    if (!$admin) return false;
+    return $password === $admin['password'];
+}
+
+function updateAdminSettings($pdo, $adminId, $username, $lastname, $email, $bio, $profileImage = null) {
+    if ($profileImage) {
+        $stmt = $pdo->prepare("
+            UPDATE users 
+            SET username = :username, lastname = :lastname, email = :email, bio = :bio, profile_image = :profile_image
+            WHERE id_user = :id
+        ");
+        $stmt->bindValue(':profile_image', $profileImage);
+    } else {
+        $stmt = $pdo->prepare("
+            UPDATE users 
+            SET username = :username, lastname = :lastname, email = :email, bio = :bio
+            WHERE id_user = :id
+        ");
+    }
+    $stmt->bindValue(':username', $username);
+    $stmt->bindValue(':lastname', $lastname);
+    $stmt->bindValue(':email', $email);
+    $stmt->bindValue(':bio', $bio);
+    $stmt->bindValue(':id', $adminId);
+    return $stmt->execute();
 }
