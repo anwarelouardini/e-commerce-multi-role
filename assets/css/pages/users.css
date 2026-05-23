@@ -118,8 +118,14 @@
   transform: skewY(2deg) scale(1.1);
 }
 
-.t-data--empty {
+.t-data--empty,
+.no-results-msg {
   text-align: center;
   padding: 2rem;
-  color: var(--red);
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.no-results-msg {
+  grid-column: 1 / -1;
 }
