@@ -20,6 +20,20 @@ let ordersOutForDelivery = 0;
 let pendingFulfillment = 0;
 let totalOrders = tRows.length;
 
+const checkEmptyResults = function () {
+  const existingMsg = tBody.querySelector(".no-results-msg");
+  if (existingMsg) existingMsg.remove();
+
+  const visibleRows = [...tRows].filter((row) => row.style.display !== "none");
+
+  if (visibleRows.length === 0) {
+    const tr = document.createElement("tr");
+    tr.classList.add("no-results-msg");
+    tr.innerHTML = `<td colspan="6" class="t-data--empty">No orders match your filter.</td>`;
+    tBody.appendChild(tr);
+  }
+};
+
 orderStatusSelects.forEach((select) => {
   select.addEventListener("change", () => {
     const id = select.dataset.id;
@@ -142,15 +156,21 @@ filterByStatus(document.getElementById("allOrders"), "all-orders");
 
 filterBtnsContainer.addEventListener("change", (e) => {
   filterByStatus(e.target, e.target.dataset.filter);
+  checkEmptyResults();
 });
 
 searchBtn.addEventListener("click", () => {
-  searchInput(tRows, searchCustomerInput, "order-customer");
+  searchInput(tRows, searchCustomerInput, "order-customer", checkEmptyResults);
 });
 
 searchCustomerInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter")
-    searchInput(tRows, searchCustomerInput, "order-customer");
+    searchInput(
+      tRows,
+      searchCustomerInput,
+      "order-customer",
+      checkEmptyResults,
+    );
 });
 
 // Listen to select order status
@@ -158,21 +178,25 @@ tBody.addEventListener("change", (e) => {
   e.target.matches(".filter-bar__select--grey") && updateOrdersStatus(e.target);
 });
 
+const chartCanvas = document.getElementById("orderChart");
+
 // Initialisation du graph
-const ctx = document.getElementById("orderChart").getContext("2d");
-new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: chartLabels,
-    datasets: [
-      {
-        label: "Orders",
-        data: chartData,
-        backgroundColor: "rgba(67, 97, 238, 0.3)",
-        borderColor: "rgba(67, 97, 238, 1)",
-        borderWidth: 2,
-        borderRadius: 8,
-      },
-    ],
-  },
-});
+if (chartCanvas) {
+  const ctx = document.getElementById("orderChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: chartLabels,
+      datasets: [
+        {
+          label: "Orders",
+          data: chartData,
+          backgroundColor: "rgba(67, 97, 238, 0.3)",
+          borderColor: "rgba(67, 97, 238, 1)",
+          borderWidth: 2,
+          borderRadius: 8,
+        },
+      ],
+    },
+  });
+}

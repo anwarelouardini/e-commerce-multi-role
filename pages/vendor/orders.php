@@ -216,43 +216,49 @@ require_once __DIR__ . '/../../includes/header.php';
               </tr>
             </thead>
             <tbody class="tbody-orders">
-              <?php foreach($ordersBySellers AS $orderBySeller): ?>
-              <tr data-orders="">
-                <td><h3 class="heading-primary--sm">#<?= e($orderBySeller['id_order'])  ?></h3></td>
-                <td>
-                  <div class="product-table-img">
-                    <div class="store-avatar">AE</div>
-                    <span class="heading-small order-customer"
-                      ><?= e(ucfirst($orderBySeller['username'])) . ' ' . e(strtoupper($orderBySeller['lastname'])) ?></span
+              <?php if(!empty($ordersBySellers)): ?>
+                <?php foreach($ordersBySellers AS $orderBySeller): ?>
+                <tr data-orders="">
+                  <td><h3 class="heading-primary--sm">#<?= e($orderBySeller['id_order'])  ?></h3></td>
+                  <td>
+                    <div class="product-table-img">
+                      <div class="store-avatar">AE</div>
+                      <span class="heading-small order-customer"
+                        ><?= e(ucfirst($orderBySeller['username'])) . ' ' . e(strtoupper($orderBySeller['lastname'])) ?></span
+                      >
+                    </div>
+                  </td>
+                  <td class="paragraph"><?= e($orderBySeller['date_order']) ?></td>
+                  <td class="heading-small heading-small--bold">
+                    $<span class="order-price"><?= e($orderBySeller['price'] * $orderBySeller['quantity_order_items']) ?></span>
+                  </td>
+                  <td>
+                    <span
+                      class="status-indicator status-indicator--<?= e(getOrdersStatusClass($orderBySeller['order_status'])) ?> order-status"
+                      ><?= e($orderBySeller['order_status']) ?></span
                     >
-                  </div>
-                </td>
-                <td class="paragraph"><?= e($orderBySeller['date_order']) ?></td>
-                <td class="heading-small heading-small--bold">
-                  $<span class="order-price"><?= e($orderBySeller['price'] * $orderBySeller['quantity_order_items']) ?></span>
-                </td>
-                <td>
-                  <span
-                    class="status-indicator status-indicator--<?= e(getOrdersStatusClass($orderBySeller['order_status'])) ?> order-status"
-                    ><?= e($orderBySeller['order_status']) ?></span
-                  >
-                </td>
-                <td>
-                  <select
-                    name="category"
-                    class="filter-bar__select filter-bar__select--grey select-order__status"
-                    data-id="<?= e($orderBySeller['id_order']) ?>"
-                  >
-                  <option value="" disabled selected>Status</option>
-                  <option value="pending" <?= $orderBySeller['order_status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
-                  <option value="processing" <?= $orderBySeller['order_status'] === 'processing' ? 'selected' : '' ?>>Processing</option>
-                  <option value="shipped" <?= $orderBySeller['order_status'] === 'shipped' ? 'selected' : '' ?>>Shipped</option>
-                  <option value="delivered" <?= $orderBySeller['order_status'] === 'delivered' ? 'selected' : '' ?>>Delivered</option>
-                  <option value="cancelled" <?= $orderBySeller['order_status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
-                  </select>
-                </td>
-              </tr>
-              <?php endforeach; ?>
+                  </td>
+                  <td>
+                    <select
+                      name="category"
+                      class="filter-bar__select filter-bar__select--grey select-order__status"
+                      data-id="<?= e($orderBySeller['id_order']) ?>"
+                    >
+                    <option value="" disabled selected>Status</option>
+                    <option value="pending" <?= $orderBySeller['order_status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
+                    <option value="processing" <?= $orderBySeller['order_status'] === 'processing' ? 'selected' : '' ?>>Processing</option>
+                    <option value="shipped" <?= $orderBySeller['order_status'] === 'shipped' ? 'selected' : '' ?>>Shipped</option>
+                    <option value="delivered" <?= $orderBySeller['order_status'] === 'delivered' ? 'selected' : '' ?>>Delivered</option>
+                    <option value="cancelled" <?= $orderBySeller['order_status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
+                    </select>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <tr>
+                  <td colspan="6" class="t-data--empty">No orders yet.</td>
+                </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
@@ -266,12 +272,18 @@ require_once __DIR__ . '/../../includes/header.php';
                   Real-time throughput metrics across fulfillment center
                 </p>
               </div>
+              <?php if(!empty($data)): ?>
               <div class="chart-buttons">
                 <a class="btn-white btn--active" href="#">Day</a>
-            </div>
+              </div>
+              <?php endif; ?>
 
           <div class="bars-container">
-           <canvas id="orderChart"></canvas>
+            <?php if(!empty($data)): ?>
+              <canvas id="orderChart"></canvas>
+            <?php else: ?>
+              <p class="t-data--empty">No orders data available yet.</p>
+            <?php endif; ?>
           </div>
 
           </div>

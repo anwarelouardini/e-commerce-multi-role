@@ -1,4 +1,9 @@
-export const searchInput = function (tRows, searchInput, elementSearchFor) {
+export const searchInput = function (
+  tRows,
+  searchInput,
+  elementSearchFor,
+  callback,
+) {
   const userInput = searchInput.value.trim().toLowerCase();
   tRows.forEach((row) => {
     const productName = row
@@ -12,4 +17,6 @@ export const searchInput = function (tRows, searchInput, elementSearchFor) {
       row.style.display = "none";
     }
   });
+
+  if (callback) callback();
 };

@@ -16,6 +16,21 @@ const editProductBtns = document.querySelectorAll(".edit-product-btn");
 
 const totalItems = tableContent.querySelectorAll("tr").length;
 
+const checkEmptyResults = function () {
+  const existingMsg = tableContent.querySelector(".no-results-msg");
+  if (existingMsg) existingMsg.remove();
+
+  const visibleRows = [...tRows].filter((row) => row.style.display !== "none");
+
+  if (visibleRows.length === 0) {
+    const tr = document.createElement("tr");
+    tr.classList.add("no-results-msg");
+    tr.innerHTML = `<td colspan="6" class="t-data--empty">No products match your filter.</td>`;
+
+    tableContent.appendChild(tr);
+  }
+};
+
 // Update The Total Items Available
 const updateTotal = function () {
   totalItemsCard.forEach((item) => {
@@ -100,6 +115,7 @@ totalInventorySeller.textContent = `$${totalInventory.toFixed(2)}`;
 selectCategoryBtn.addEventListener("change", (e) => {
   const filter = e.target.value;
   filterResults(filter);
+  checkEmptyResults();
 });
 
 updateTotal();
@@ -108,16 +124,18 @@ hasStock();
 
 filterStockBtnsContainer.addEventListener("change", (e) => {
   filterByStock(e.target, e.target.dataset.filter);
+  checkEmptyResults();
 });
 
 searchBtn.addEventListener(
   "click",
-  searchInput(tRows, searchProductInput, "product-name"),
+  searchInput(tRows, searchProductInput, "product-name", checkEmptyResults),
 );
 
 // If the use clicks on "Enter" it will trigger the searchProduct()
 searchProductInput.addEventListener("keypress", (e) => {
-  e.key === "Enter" && searchInput(tRows, searchProductInput, "product-name");
+  e.key === "Enter" &&
+    searchInput(tRows, searchProductInput, "product-name", checkEmptyResults);
 });
 
 // Passing data in the URL for delete-product page

@@ -111,88 +111,96 @@ require_once __DIR__ . '/../../includes/header.php';
               </tr>
             </thead>
             <tbody class="table-content">
-              <?php foreach($products as $product): ?>
-              <tr
-              
-                data-category="<?= e(strtolower($product['name_categorie'])) ?>"
-                data-stock=""
-                data-id="<?= e($product['id_product']) ?>"
-                data-name="<?= e(ucfirst($product['name_product'])) ?>"
-                data-image="<?= e($product['product_image']) ?>"
-                data-price="<?= e($product['price']) ?>"
-                data-qty="<?= e($product['quantity_product']) ?>"
-              >
-                <td>
-                  <div class="product-table-img">
-                    <img
-                      class="product-table__icon"
-                      src="<?= BASE_URL ?>assets/images/products/<?= e($product['product_image']) ?>"
-                      alt="Watch"
-                    />
-                    <h2 class="heading-small">
-                      <span class="product-name"><?= e(ucfirst($product['name_product'])) ?></span>
+              <?php if(!empty($products)): ?>
+                <?php foreach($products as $product): ?>
+                <tr
+                
+                  data-category="<?= e(strtolower($product['name_categorie'])) ?>"
+                  data-stock=""
+                  data-id="<?= e($product['id_product']) ?>"
+                  data-name="<?= e(ucfirst($product['name_product'])) ?>"
+                  data-image="<?= e($product['product_image']) ?>"
+                  data-price="<?= e($product['price']) ?>"
+                  data-qty="<?= e($product['quantity_product']) ?>"
+                >
+                  <td>
+                    <div class="product-table-img">
+                      <img
+                        class="product-table__icon"
+                        src="<?= BASE_URL ?>assets/images/products/<?= e($product['product_image']) ?>"
+                        alt="Watch"
+                      />
+                      <h2 class="heading-small">
+                        <span class="product-name"><?= e(ucfirst($product['name_product'])) ?></span>
 
-                      <span class="sub-heading"><?= e($product['description_product']) ?></span>
-                    </h2>
-                  </div>
-                </td>
-                <td>
-                  <span
-                    class="status-indicator status-indicator--grey product-category"
-                    ><?= e($product['name_categorie']) ?></span
-                  >
-                </td>
-                <td class="heading-small heading-small--bold">
-                  $<span class="product__price"><?= e($product['price']) ?></span>
-                </td>
-                <td><span class="product__qte"><?= e($product['quantity_product']) ?></span> Units</td>
-                <td>
-                  <span
-                    class="status-indicator status-indicator--green qte__status"
-                    >In stock</span
-                  >
-                </td>
-                <td>
-                  <div class="table-btns">
-                    <a
-                      href="<?= BASE_URL ?>pages/vendor/edit-product.php"
-                      class="btn-icon btn-icon--primary edit-product-btn"
+                        <span class="sub-heading"><?= e($product['description_product']) ?></span>
+                      </h2>
+                    </div>
+                  </td>
+                  <td>
+                    <span
+                      class="status-indicator status-indicator--grey product-category"
+                      ><?= e($product['name_categorie']) ?></span
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        fill="currentColor"
-                        class="bi bi-pen-fill"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"
-                        />
-                      </svg>
-                    </a>
-                    <a
-                      href="<?= BASE_URL ?>pages/vendor/delete-product.php"
-                      class="btn-icon btn-icon--suspend delete-product-btn"
+                  </td>
+                  <td class="heading-small heading-small--bold">
+                    $<span class="product__price"><?= e($product['price']) ?></span>
+                  </td>
+                  <td><span class="product__qte"><?= e($product['quantity_product']) ?></span> Units</td>
+                  <td>
+                    <span
+                      class="status-indicator status-indicator--green qte__status"
+                      >In stock</span
                     >
-                      <svg
-                        class="cards__icon--red"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        fill="currentColor"
-                        class="bi bi-trash-fill"
-                        viewBox="0 0 16 16"
+                  </td>
+                  <td>
+                    <div class="table-btns">
+                      <a
+                        href="<?= BASE_URL ?>pages/vendor/edit-product.php"
+                        class="btn-icon btn-icon--primary edit-product-btn"
                       >
-                        <path
-                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
-                        />
-                      </svg>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <?php endforeach; ?>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          fill="currentColor"
+                          class="bi bi-pen-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"
+                          />
+                        </svg>
+                      </a>
+                      <a
+                        href="<?= BASE_URL ?>pages/vendor/delete-product.php"
+                        class="btn-icon btn-icon--suspend delete-product-btn"
+                      >
+                        <svg
+                          class="cards__icon--red"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          fill="currentColor"
+                          class="bi bi-trash-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td class="t-data--empty" colspan="5">
+                      No products yet. <a href="<?= BASE_URL ?>pages/vendor/add-product.php">Add your first product</a>
+                    </td>
+                  </tr>
+                <?php endif; ?>
             </tbody>
           </table>
         </div>
