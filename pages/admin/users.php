@@ -58,7 +58,7 @@ require_once __DIR__ . '/../../includes/header.php';
           <div class="user-box-container u-margin-top-small">
             <?php if(!empty($users)): ?>
               <?php foreach($users as $user): ?>
-              <div class="user-box hide" data-role="<?= e($user['role_name']) ?>">
+              <div class="user-box hide" data-role="<?= e($user['role_name']) ?>" data-id="<?= e($user['id_user']) ?>">
                 <div class="users-container">
                   <div class="user-profile">
                     <img

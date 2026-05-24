@@ -17,4 +17,17 @@
   --max-width: 1100px;
   --border-radius: 1rem;
   --primary-font: "Manrope", sans-serif;
+
+  --bg-page: #f0eef5;
+  --bg-card: #ffffff;
+  --accent-soft: #e8ebff;
+  --accent-hover: #131a5c;
+  --text-primary: #0d0f1a;
+  --shadow-card: 0 2px 14px rgba(0, 0, 0, 0.07);
+  --shadow-avatar: 0 8px 30px rgba(26, 35, 126, 0.2);
+  --gold-progress: linear-gradient(
+    90deg,
+    var(--yellow) 0%,
+    var(--light-yellow) 100%
+  );
 }

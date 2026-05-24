@@ -13,6 +13,7 @@ require_once __DIR__ . '/config.php';
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
     <title><?php echo isset($headerTitle) ? e($headerTitle) : "GAAM"; ?></title>
     <script defer src="<?= BASE_URL ?>assets/js/components/navbar.js"></script>
@@ -24,7 +25,6 @@ require_once __DIR__ . '/config.php';
     <?php if(isset($pathJSModule)): ?>
     <script type="module" defer src="<?= BASE_URL . $pathJSModule ?>"></script>
     <?php endif; ?>
-
 
     <?php if($headerTitle === 'Admin Dashboard' || $headerTitle === 'GAAM Seller'): ?>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -242,7 +242,7 @@ require_once __DIR__ . '/config.php';
       <div class="navigation-left">
         <div class="navigation__icon">&nbsp;</div>
         <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM</h1>
+          <h1 id="navigation__logo"><?php echo isset($headerTitle) ? e($headerTitle) : "GAAM"; ?></h1>
         </div>
       </div>
 
@@ -258,6 +258,9 @@ require_once __DIR__ . '/config.php';
         </li>
         <li class="navigation__item">
           <a class="navigation__link" href="<?= BASE_URL ?>pages/vendor/orders.php">Orders</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/vendor/seller-profile.php">Profile</a>
         </li>
       </ul>
 
@@ -330,6 +333,12 @@ require_once __DIR__ . '/config.php';
           </svg>
           <span class="navigation-mobile__title">Orders</span>
         </a>
+        <a href="<?= BASE_URL ?>pages/vendor/seller-profile.php" class="nav-item nav-item--small nav-item--active">
+        <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        <span class="navigation-mobile__title navigation-mobile__title--active">Profile</span>
+      </a>
       </nav>
     </div>
     <script>const BASE_URL = "<?= BASE_URL ?>";</script>

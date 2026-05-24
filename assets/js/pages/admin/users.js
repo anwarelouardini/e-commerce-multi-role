@@ -5,9 +5,27 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const pagesContainer = document.querySelector(".users-pages-links");
 const userBoxContainer = document.querySelector(".user-box-container");
+const approveBtns = document.querySelectorAll(".approve-btn");
 
 let currentPage = 1;
 const itemPerPage = 6;
+
+approveBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const card = btn.closest(".user-box");
+    const id = card.querySelector("a.delete-btn").href.split("id=")[1];
+
+    fetch(`${BASE_URL}pages/admin/update-seller-status.php`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, status: "active" }),
+    }).then(() => {
+      card.remove();
+      paginate();
+    });
+  });
+});
 
 const checkEmptyResults = function () {
   const existingMsg = userBoxContainer.querySelector(".no-results-msg");

@@ -3,7 +3,8 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
-$sellerId = 27;
+session_start();
+$sellerId = (int)$_SESSION['id_seller'];
 
 $products = getProductBySeller($pdo, $sellerId);
 $categories = getCategories($pdo);

@@ -3,7 +3,8 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
-$sellerId = 27;
+session_start();
+$sellerId = (int)$_SESSION['id_seller'];
 
 $productsBySeller = getProductBySeller($pdo, $sellerId);
 $ordersBySeller = getOrdersBySeller($pdo, $sellerId);
@@ -75,7 +76,7 @@ require_once __DIR__ . '/../../includes/header.php';
               <div class="status-indicator status-indicator--<?= $revenueTrend['class'] ?>"><?= e($revenueTrend['label']) ?></div>
             </div>
             <h2 class="heading-secondary">Total Revenue</h2>
-            <p class="heading-primary">$<?= e($sellerStats['total_revenue']) ?></p>
+            <p class="heading-primary">$<?php echo !empty($sellerStats['total_revenue']) ? e($sellerStats['total_revenue']) : '0' ?></p>
           </div>
 
           <div class="cards-container cards-container--grey">

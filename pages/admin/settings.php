@@ -3,7 +3,8 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
-$adminId = 49; 
+session_start();
+$adminId = (int)$_SESSION['user_id']; 
 
 $admin = getUserById($pdo, $adminId);
 
