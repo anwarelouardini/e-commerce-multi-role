@@ -127,3 +127,8 @@
   border-style: solid;
   border-color: var(--primary) transparent transparent transparent;
 }
+
+#orderChart {
+  width: 100% !important;
+  height: auto !important;
+}

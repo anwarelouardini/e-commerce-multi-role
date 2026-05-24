@@ -213,7 +213,9 @@ input[name="stock"] {
   cursor: pointer;
 }
 
-.input--error {
-  border: 2px solid red !important;
-  outline: none;
+.submission-err {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
 }

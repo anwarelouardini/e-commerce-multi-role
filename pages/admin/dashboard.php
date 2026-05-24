@@ -146,7 +146,11 @@ require_once __DIR__ . '/../../includes/header.php';
           </div>
 
           <div class="bars-container">
-           <canvas id="usersChart"></canvas>
+            <?php if(!empty($data)): ?>
+              <canvas id="usersChart"></canvas>
+            <?php else: ?>
+              <p class="t-data--empty">No user data available</p>
+            <?php endif; ?>
           </div>
         </div>
       </section>
@@ -161,26 +165,30 @@ require_once __DIR__ . '/../../includes/header.php';
           </div>
 
           <div class="users-cards-wrapper">
-            <?php foreach($pendingSellers AS $pendingSeller): ?>
-            <div class="user-card" data-id=<?= e($pendingSeller['id_user']) ?>>
-              <div class="user-card-profile">
-                <img
-                  class="user-card__icon"
-                  src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
-                  alt="User Profile"
-                />
-              </div>
-              <div class="user-profile-content">
-                <h6 class="heading-small"><?= strtoupper($pendingSeller['lastname']) . ' ' . ucfirst($pendingSeller['username']) ?></h6>
-                <p class="paragraph">Applied: <?= date('d/m/Y', strtotime($pendingSeller['created_at'])) ?></p>
-              </div>
+            <?php if(!empty($pendingSellers)): ?>
+              <?php foreach($pendingSellers AS $pendingSeller): ?>
+              <div class="user-card" data-id=<?= e($pendingSeller['id_user']) ?>>
+                <div class="user-card-profile">
+                  <img
+                    class="user-card__icon"
+                    src="<?= BASE_URL ?>assets/images/avatars/users1-icon.jpg"
+                    alt="User Profile"
+                  />
+                </div>
+                <div class="user-profile-content">
+                  <h6 class="heading-small"><?= strtoupper($pendingSeller['lastname']) . ' ' . ucfirst($pendingSeller['username']) ?></h6>
+                  <p class="paragraph">Applied: <?= date('d/m/Y', strtotime($pendingSeller['created_at'])) ?></p>
+                </div>
 
-              <div class="user-profile-btns">
-                <div class="btn-close">&nbsp;</div>
-                <div class="btn-white btn--active">Review</div>
+                <div class="user-profile-btns">
+                  <div class="btn-close">&nbsp;</div>
+                  <div class="btn-white btn--active">Review</div>
+                </div>
               </div>
-            </div>
-            <?php endforeach; ?>
+              <?php endforeach; ?>
+              <?php else: ?>
+                <p class="t-data--empty ">No pending sellers to review.</p>
+            <?php endif; ?>
           </div>
         </div>
       </section>

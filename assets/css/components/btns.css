@@ -294,3 +294,7 @@
   justify-content: center;
   gap: 1.5rem;
 }
+
+.btn--disabled {
+  display: none;
+}

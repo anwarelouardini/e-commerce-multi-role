@@ -1,6 +1,6 @@
 "use strict";
 
-import { searchInput } from "../../components/search-input.js";
+import { searchInput } from "/e-commerce-multi-role/assets/js/components/search-input.js";
 
 const tRows = document.querySelectorAll(".table-content tr");
 const tableContent = document.querySelector(".table-content");
@@ -16,20 +16,19 @@ const editProductBtns = document.querySelectorAll(".edit-product-btn");
 
 const totalItems = tableContent.querySelectorAll("tr").length;
 
-// Update Product Dataset to share it with delete product page
-const updateProductDataSet = function () {
-  tRows.forEach((row, i) => {
-    console.log(row);
-    row.dataset.id = i;
-    row.dataset.name = row.querySelector(".product-name").textContent.trim();
-    row.dataset.image = row.querySelector("img").src;
-    row.dataset.category = row
-      .querySelector(".product-category")
-      .textContent.toLowerCase()
-      .trim();
-    row.dataset.price = row.querySelector(".product__price").textContent.trim();
-    row.dataset.qty = row.querySelector(".product__qte").textContent.trim();
-  });
+const checkEmptyResults = function () {
+  const existingMsg = tableContent.querySelector(".no-results-msg");
+  if (existingMsg) existingMsg.remove();
+
+  const visibleRows = [...tRows].filter((row) => row.style.display !== "none");
+
+  if (visibleRows.length === 0) {
+    const tr = document.createElement("tr");
+    tr.classList.add("no-results-msg");
+    tr.innerHTML = `<td colspan="6" class="t-data--empty">No products match your filter.</td>`;
+
+    tableContent.appendChild(tr);
+  }
 };
 
 // Update The Total Items Available
@@ -42,11 +41,12 @@ const updateTotal = function () {
 const getTotalInventoryPrice = function () {
   let totalInventory = 0;
   rows.forEach((row) => {
-    totalInventory += Number(
+    const price = Number(
       row.querySelector(".product__price").textContent.trim(),
     );
+    const qty = Number(row.querySelector(".product__qte").textContent.trim());
+    totalInventory += price * qty;
   });
-
   return totalInventory;
 };
 
@@ -57,31 +57,7 @@ const checkStock = function () {
 };
 
 // Categorize the product qty [IN STOCK, LOW STOCK, OUT OF STOCK]
-const hasStock = function () {
-  tRows.forEach((row) => {
-    const productQty = Number(row.querySelector(".product__qte").textContent);
-    const qtyStatus = row.querySelector(".qte__status");
-    qtyStatus.classList.remove(
-      "status-indicator--green",
-      "status-indicator--red",
-      "status-indicator--yellow",
-    );
-
-    if (productQty >= 10) {
-      row.dataset.stock = "in-stock";
-      qtyStatus.classList.add("status-indicator--green");
-      qtyStatus.textContent = "In Stock";
-    } else if (productQty >= 1) {
-      row.dataset.stock = "low-stock";
-      qtyStatus.classList.add("status-indicator--yellow");
-      qtyStatus.textContent = "Low Stock";
-    } else {
-      row.dataset.stock = "out-stock";
-      qtyStatus.classList.add("status-indicator--red");
-      qtyStatus.textContent = "Out of stock";
-    }
-  });
-};
+import { hasStock } from "../../utils/stock.js";
 
 const filterByStock = function (clickedBtn = "all", filter = "all-stock") {
   const btnLabels = filterStockBtnsContainer.querySelectorAll("label");
@@ -89,8 +65,6 @@ const filterByStock = function (clickedBtn = "all", filter = "all-stock") {
   const clickedBtnLabel = document.querySelector(
     `label[for="${clickedBtn.id}"]`,
   );
-
-  console.log(clickedBtnLabel);
 
   btnLabels.forEach((btn) => {
     btn.classList.remove("filter-tab--active");
@@ -141,29 +115,31 @@ totalInventorySeller.textContent = `$${totalInventory.toFixed(2)}`;
 selectCategoryBtn.addEventListener("change", (e) => {
   const filter = e.target.value;
   filterResults(filter);
+  checkEmptyResults();
 });
 
 updateTotal();
-updateProductDataSet();
 
 hasStock();
 
 filterStockBtnsContainer.addEventListener("change", (e) => {
   filterByStock(e.target, e.target.dataset.filter);
+  checkEmptyResults();
 });
 
 searchBtn.addEventListener(
   "click",
-  searchInput(tRows, searchProductInput, "product-name"),
+  searchInput(tRows, searchProductInput, "product-name", checkEmptyResults),
 );
 
 // If the use clicks on "Enter" it will trigger the searchProduct()
 searchProductInput.addEventListener("keypress", (e) => {
-  e.key === "Enter" && searchInput(tRows, searchProductInput, "product-name");
+  e.key === "Enter" &&
+    searchInput(tRows, searchProductInput, "product-name", checkEmptyResults);
 });
 
 // Passing data in the URL for delete-product page
-passDataToURL(deleteProductBtns, "./delete-product.html");
+passDataToURL(deleteProductBtns, `${BASE_URL}pages/vendor/delete-product.php`);
 
 // Passing data in the URL for edit-product page
-passDataToURL(editProductBtns, "./edit-product.html");
+passDataToURL(editProductBtns, `${BASE_URL}pages/vendor/edit-product.php`);

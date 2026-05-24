@@ -95,7 +95,7 @@
         <p class="user-details__content"><?= e(date('d/m/Y', $timestamp)) ?></p>
       </div>
     </div>
-      <form class="form-btn-box" method="POST" action="<?= BASE_URL ?>pages/admin/delete-user.php">
+      <form class="form-btn-box" method="POST">
         <input type="hidden" name="id" value="<?= $id ?>">
         <button class="btn-secondary btn-secondary--big btn-secondary--red u-margin-top-med" type="submit">Delete Account</button>
         <button class="btn btn--txt" href="<?= BASE_URL ?>">Cancel and Go Back</button>

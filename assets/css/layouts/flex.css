@@ -20,9 +20,23 @@
     gap: 2rem;
   }
 
+  .section-quick-actions {
+    flex: 1;
+  }
+
+  .section-quick-actions .cards-total {
+    height: 100%;
+    box-sizing: border-box;
+  }
+
   .section-chart,
   .section-verification {
     flex: 1;
+  }
+
+  .bars-container--chart {
+    flex: 1;
+    min-height: 300px !important;
   }
 
   .chart-container,
@@ -51,5 +65,10 @@
 
   .bars-container--full .chart__bar {
     width: 85%;
+  }
+
+  .chart-container--white .bars-container {
+    position: relative;
+    height: 250px;
   }
 }

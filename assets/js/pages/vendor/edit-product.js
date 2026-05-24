@@ -36,11 +36,10 @@ const updateData = function () {
   }
   uploadPrompt.style.display = "none";
   productTitle.value = params.get("name");
-  mainImage.src = params.get("image");
+  mainImage.src = `${BASE_URL}assets/images/products/${params.get("image")}`;
   productBasePrice.value = Number(params.get("price"));
   productStockQty.value = Number(params.get("qty"));
   const categoryBtn = document.querySelector(".btn-categorization");
-  categoryBtn.textContent = params.get("category");
   categoryBtn.classList.add("btn--active");
 };
 

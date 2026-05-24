@@ -4,9 +4,28 @@ const searchUserInput = document.getElementById("searchUser");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const pagesContainer = document.querySelector(".users-pages-links");
+const userBoxContainer = document.querySelector(".user-box-container");
 
 let currentPage = 1;
 const itemPerPage = 6;
+
+const checkEmptyResults = function () {
+  const existingMsg = userBoxContainer.querySelector(".no-results-msg");
+
+  if (existingMsg) existingMsg.remove();
+
+  const visibleCards = [...userBox].filter(
+    (box) => !box.classList.contains("filtered-out"),
+  );
+
+  if (visibleCards.length === 0) {
+    const msg = document.createElement("p");
+    msg.classList.add("no-results-msg");
+    msg.classList.add("no-results-msg");
+    msg.textContent = "No users match your filter";
+    userBoxContainer.appendChild(msg);
+  }
+};
 
 const renderPageBtns = function (totalPages) {
   pagesContainer.innerHTML = "";
@@ -71,6 +90,7 @@ const click = function (clickedBtn, filter = "all") {
 
   currentPage = 1;
   paginate();
+  checkEmptyResults();
 };
 
 const searchUser = function (userInput) {
@@ -86,6 +106,7 @@ const searchUser = function (userInput) {
 
   currentPage = 1;
   paginate();
+  checkEmptyResults();
 };
 
 categoryBtn.forEach((btn) => {

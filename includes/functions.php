@@ -7,7 +7,7 @@ function e($value) {
 }
 
 function getUsers($pdo): ?array {
-    $statement = $pdo->prepare('SELECT Users.id_user, Users.username, Users.lastname, Users.email, Users.phone_number, Users.status, Roles.role_name FROM Users JOIN Roles ON `Users`.`id_role` = `Roles`.`id_role`');
+    $statement = $pdo->prepare('SELECT Users.id_user, Users.username, Users.lastname, Users.email, Users.phone_number, Users.status, Users.profile_image, Roles.role_name FROM Users JOIN Roles ON `Users`.`id_role` = `Roles`.`id_role`');
     $statement->execute();
 
     $results = $statement->fetchALL(PDO::FETCH_ASSOC);
@@ -38,8 +38,18 @@ function getSellerStatusClass(string $status): string {
     };
 }
 
+function getOrdersStatusClass(string $status): string {
+    return match($status) {
+        'pending' => 'yellow',
+        'shipped' => 'blue',
+        'processing' => 'brown',
+        'delivered' => 'green',
+        'cancelled' => 'red'
+    };
+}
+
 function getUserById($pdo, $id) {
-    $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.profile_image, Users.created_at, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
+    $statement = $pdo->prepare('SELECT Users.username, Users.lastname, Users.email, Users.password, Users.profile_image, Users.created_at, Users.bio, Roles.role_name FROM users JOIN Roles ON Users.id_role = Roles.id_role WHERE Users.id_user=:id');
     $statement->bindValue(':id', $id);
     
     $statement->execute();
@@ -49,7 +59,7 @@ function getUserById($pdo, $id) {
 }
 
 function deleteUserById($pdo, $id) {
-    $statement = $pdo->prepare('DELETE FROM Users WHERE :id');
+    $statement = $pdo->prepare('DELETE FROM Users WHERE id_user = :id');
     $statement->bindValue(':id', $id);
     $statement->execute();
 }
@@ -126,44 +136,199 @@ function getUserPerDay($pdo) {
     return $result;
 }
 
-function getAdminById($pdo, $id) {
+function getProductBySeller($pdo, $sellerId) {
     $statement = $pdo->prepare("
-    SELECT Users.username, Users.lastname, Users.email, Users.bio FROM Users JOIN Roles
-    ON Users.id_role = Roles.id_role
-    WHERE id_user = :id
+        SELECT id_product, name_product, description_product, quantity_product, product_image, price, Categories.name_categorie FROM Products JOIN categories ON Products.id_categorie = Categories.id_categorie WHERE id_seller = :id
     ");
-    
-    $statement->bindValue(':id', $id);
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
 
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
 
-function updateAdmin($pdo, $id, $data) {
-    $statement = $pdo->prepare("
-    UPDATE Users
-    SET username = :username, lastname = :lastname, email = :email, bio = :bio
-    WHERE id_user = :id
-    ");
-
-    $statement->bindValue(':username', $data['firstname']);
-    $statement->bindValue(':lastname', $data['lastname']);
-    $statement->bindValue(':email', $data['email']);
-    $statement->bindValue(':bio', $data['bio']);
+function deleteProduct($pdo, $id) {
+    $statement = $pdo->prepare("DELETE FROM Products WHERE id_product = :id");
     $statement->bindValue(':id', $id);
-
     $statement->execute();
 }
 
-function updateAdminPassword($pdo, $id, $password) {
+function getCategories($pdo) {
+    $statement = $pdo->prepare('SELECT * FROM categories');
+
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC
+    );
+    return $result;
+}
+
+function addProduct($pdo, $data) {
     $statement = $pdo->prepare("
-    UPDATE Users
-    SET password = :password
-    WHERE id_user = :id
+        INSERT INTO Products (name_product, description_product, quantity_product, product_image, id_seller, id_categorie, price) VALUES
+        (:name, :description, :qte, :img, :sellerId, :categorieId, :price)
     ");
 
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':name', $data['name']);
+    $statement->bindValue(':description', $data['description']);
+    $statement->bindValue(':qte', $data['quantity']);
+    $statement->bindValue(':img', $data['image']);
+    $statement->bindValue(':sellerId', $data['seller_id']);
+    $statement->bindValue(':categorieId', $data['id_categorie']);
+    $statement->bindValue(':price', $data['price']);
+    $statement->execute();
+}
+
+function updateProduct($pdo, $id, $data) {
+    $statement = $pdo->prepare("
+        UPDATE products 
+        SET name_product = :name, description_product = :description, quantity_product = :qte, product_image = :img, id_categorie = :id_categorie, price = :price
+        WHERE id_product = :id
+    ");
+
+    $statement->bindValue(':name', $data['name']);
+    $statement->bindValue(':description', $data['description']);
+    $statement->bindValue(':qte', $data['quantity']);
+    $statement->bindValue(':img', $data['image']);
+    $statement->bindValue(':id_categorie', $data['id_categorie']);
+    $statement->bindValue(':price', $data['price']);
     $statement->bindValue(':id', $id);
     $statement->execute();
+}
+
+function getOrdersBySeller($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+    SELECT Orders.id_order, Orders.date_order, Orders.order_status, Orders_items.quantity_order_items, Products.id_product, Products.name_product, Products.description_product, Products.quantity_product, Products.product_image, Products.price, Sellers.id_seller, Sellers.store_name, Sellers.seller_rating, customer_user.username, customer_user.lastname FROM Orders JOIN Orders_items ON Orders.id_order = Orders_items.id_order 
+    JOIN Products ON Orders_items.id_product = Products.id_product 
+    JOIN Sellers ON Products.id_seller = Sellers.id_seller 
+    JOIN Customers ON Orders.id_customer = Customers.id_customer 
+    JOIN Users AS customer_user ON Customers.id_user = customer_user.id_user 
+    WHERE Sellers.id_seller = :id
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+}
+
+function updateOrderStatus($pdo, $id, $status) {
+    $statement = $pdo->prepare("
+        UPDATE orders
+        SET order_status = :status WHERE id_order = :id
+    ");
+
+    $statement->bindValue(':status', $status);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+}
+
+function getOrdersPerDay($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+    SELECT DATE(Orders.date_order) as day, COUNT(DISTINCT Orders.id_order) as count 
+    FROM Orders 
+    JOIN Orders_items ON Orders.id_order = Orders_items.id_order
+    JOIN Products ON Orders_items.id_product = Products.id_product
+    JOIN Sellers ON Products.id_seller = Sellers.id_seller
+    WHERE Sellers.id_seller = :id
+    AND Orders.date_order >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+    GROUP BY DATE(Orders.date_order)
+    ORDER BY day ASC
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+}
+
+function getSellerById($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+        SELECT username, lastname, store_name, seller_rating FROM Users JOIN Sellers ON Users.id_user = Sellers.id_user WHERE Sellers.id_seller = :id
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getSellerStats($pdo, $sellerId) {
+
+    $statement = $pdo->prepare("
+        SELECT 
+        COUNT(DISTINCT o.id_order) AS total_order,
+        SUM(p.price * oi.quantity_order_items) AS total_revenue,
+        COALESCE(
+            SUM(p.price * oi.quantity_order_items) 
+            / NULLIF(COUNT(DISTINCT o.id_order), 0),
+            0
+        ) AS avg_order_value
+        FROM products p
+        INNER JOIN orders_items oi ON p.id_product = oi.id_product
+
+        INNER JOIN orders o ON oi.id_order = o.id_order
+        WHERE p.id_seller = :sellerId
+    ");
+
+    $statement->bindValue(':sellerId', $sellerId);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getRevenuePerDay($pdo, $sellerId) {
+    $statement = $pdo->prepare("
+        SELECT DATE(Orders.date_order) as day, SUM(price * quantity_order_items) as count 
+        FROM Orders 
+        JOIN Orders_items ON Orders.id_order = Orders_items.id_order
+        JOIN Products ON Orders_items.id_product = Products.id_product
+        JOIN Sellers ON Products.id_seller = Sellers.id_seller
+        WHERE Sellers.id_seller = :id
+        AND Orders.date_order >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY DATE(Orders.date_order)
+        ORDER BY day ASC
+    ");
+
+    $statement->bindValue(':id', $sellerId);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getOrdersGrowth(array $ordersPerDay): array {
+    $total = array_sum(array_column($ordersPerDay, 'count'));
+
+    if ($total === 0) return ['label' => 'No orders', 'class' => 'grey'];
+    if ($total >= 50) return ['label' => 'High', 'class' => 'green'];
+    if ($total >= 10) return ['label' => '+' . $total . ' this week', 'class' => 'brown'];
+    return ['label' => 'Low', 'class' => 'brown'];
+}
+
+function verifyAdminPassword($pdo, $adminId, $password) {
+    $admin = getUserById($pdo, $adminId);
+    if (!$admin) return false;
+    return $password === $admin['password'];
+}
+
+function updateAdminSettings($pdo, $adminId, $username, $lastname, $email, $bio, $profileImage = null) {
+    if ($profileImage) {
+        $stmt = $pdo->prepare("
+            UPDATE users 
+            SET username = :username, lastname = :lastname, email = :email, bio = :bio, profile_image = :profile_image
+            WHERE id_user = :id
+        ");
+        $stmt->bindValue(':profile_image', $profileImage);
+    } else {
+        $stmt = $pdo->prepare("
+            UPDATE users 
+            SET username = :username, lastname = :lastname, email = :email, bio = :bio
+            WHERE id_user = :id
+        ");
+    }
+    $stmt->bindValue(':username', $username);
+    $stmt->bindValue(':lastname', $lastname);
+    $stmt->bindValue(':email', $email);
+    $stmt->bindValue(':bio', $bio);
+    $stmt->bindValue(':id', $adminId);
+    return $stmt->execute();
 }
