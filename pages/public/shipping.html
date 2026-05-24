@@ -25,11 +25,7 @@
 
       <ul class="navigation__links">
         <li class="navigation__item">
-          <a
-            class="navigation__link navigation__link--active"
-            href="./shop.html"
-            >SHOP</a
-          >
+          <a class="navigation__link navigation__link--active" href="./shop.html">SHOP</a>
         </li>
         <li class="navigation__item">
           <a class="navigation__link" href="./collections.html">COLLECTIONS</a>
@@ -61,18 +57,13 @@
     <div class="step-line"></div>
     <div class="step">
       <span class="step__number">3</span>
-      <span class="step__label">PAYMENT</span>
-    </div>
-    <div class="step-line"></div>
-    <div class="step">
-      <span class="step__number">4</span>
       <span class="step__label">REVIEW</span>
     </div>
   </div>
 
   <div class="checkout-content">
     <section class="checkout-form">
-      <h2 class="section-title">Shipping Address <span class="step-hint">Step 2 of 4</span></h2>
+      <h2 class="section-title">Shipping Address <span class="step-hint">Step 2 of 3</span></h2>
       
       <form class="form-grid">
         <div class="input-group">
@@ -99,10 +90,10 @@
 
       <h2 class="section-title u-margin-top-med">Delivery Method</h2>
       <div class="delivery-options">
-        <label class="delivery-card delivery-card--active">
+        
+        <label class="delivery-card delivery-card--active" data-cost="24.00">
           <input type="radio" name="delivery" checked>
           <div class="card-content">
-            <span class="check-circle">✓</span>
             <div class="delivery-info">
               <h3>Express Courier</h3>
               <p>Delivery in 1-2 business days. Fully tracked.</p>
@@ -111,7 +102,7 @@
           </div>
         </label>
 
-        <label class="delivery-card">
+        <label class="delivery-card" data-cost="0.00">
           <input type="radio" name="delivery">
           <div class="card-content">
             <div class="delivery-info">
@@ -125,56 +116,35 @@
 
       <div class="form-footer">
         <a href="cart.html" class="back-link">← Back to Cart</a>
-        <button class="btn-primary">Proceed to Payment →</button>
+        <button class="btn-primary">Proceed to Review →</button>
       </div>
     </section>
 
     <aside class="order-summary order-summary--mini">
-  <h3 class="summary-title">Order Summary</h3>
+      <h3 class="summary-title">Order Summary</h3>
+     <div class="summary-items-list"></div>
+      <hr class="summary-divider">
 
-  <div class="summary-items-list">
-    <div class="item-mini">
-      <div class="item-mini__img">
-        <img src="../../assets/images/avatars/chaire.png" alt="Sneakers">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span class="summary-value" id="shipping-subtotal">$450.00</span>
       </div>
-      <div class="item-mini__content">
-        <h4>Archetype Lounge Chair</h4>
-        <p class="sub-heading">SPECIAL EDITION</p>
-        <div class="item-mini__footer">
-          <span>Qty: 1</span>
-          <span class="price-small">$340.00</span>
-        </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span class="summary-value" id="shipping-display">$24.00</span>
       </div>
-    </div>
-    </div>
+      <div class="summary-row">
+        <span>Tax</span>
+        <span class="summary-value" id="shipping-tax">$38.00</span>
+      </div>
 
-  <hr class="summary-divider">
+      <hr class="summary-divider">
 
-  <div class="summary-row">
-    <span>Subtotal</span>
-    <span class="summary-value">$450.00</span>
-  </div>
-  <div class="summary-row">
-    <span>Shipping (Express)</span>
-    <span class="summary-value">$24.00</span>
-  </div>
-  <div class="summary-row">
-    <span>Tax</span>
-    <span class="summary-value">$38.00</span>
-  </div>
-
-  <hr class="summary-divider">
-
-  <div class="summary-row total-row">
-    <span>TOTAL</span>
-    <span class="total-price">$512.00</span>
-  </div>
-
-  <div class="promo-container">
-    <input type="text" placeholder="Promo Code" class="promo-input">
-    <button class="btn-apply">APPLY</button>
-  </div>
-</aside>
+      <div class="summary-row total-row">
+        <span>TOTAL</span>
+        <span class="total-price" id="shipping-total">$512.00</span>
+      </div>
+    </aside>
   </div>
   </main>
   <footer class="footer">
@@ -198,4 +168,7 @@
     <p class="footer__copyright">&copy; 2026 THE GAAM Shop</p>
   </div>
 </footer>
+
+<script src="../../assets/js/pages/client/shipping.js"></script>
+</body>
 </html>
