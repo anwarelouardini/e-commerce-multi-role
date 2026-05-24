@@ -1,6 +1,29 @@
 <?php 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/config.php';
+
+$defaultImg = BASE_URL . 'assets/images/avatars/emptyUserImg.png';
+
+if (!empty($_SESSION['profile_image'])) {
+    $role = (int)$_SESSION['role'];
+    // Admin
+    if ($role === 1) { 
+        $profileImg = BASE_URL . 'assets/images/users/admin/' . e($_SESSION['profile_image']);
+    
+    // Seller
+    } elseif ($role === 2) { 
+        $profileImg = BASE_URL . 'assets/images/users/vendor/' . e($_SESSION['profile_image']);
+    // Customer
+    } else { 
+        $profileImg = BASE_URL . 'assets/images/users/' . e($_SESSION['profile_image']);
+    }
+} else {
+    $profileImg = $defaultImg;
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,7 +40,9 @@ require_once __DIR__ . '/config.php';
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
     <title><?php echo isset($headerTitle) ? e($headerTitle) : "GAAM"; ?></title>
     <script defer src="<?= BASE_URL ?>assets/js/components/navbar.js"></script>
+    <?php if(!isset($disableFormJS)): ?>
     <script defer src="<?= BASE_URL ?>assets/js/components/form.js"></script>
+    <?php endif; ?>
     <?php if(isset($pathJS)): ?>
     <script defer src="<?= BASE_URL . $pathJS ?>"></script>
     <?php endif; ?>
@@ -67,7 +92,7 @@ require_once __DIR__ . '/config.php';
       <div class="navigation-profile">
         <img
           class="navigation-profile__icon"
-          src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg"
+          src="<?= e($profileImg) ?>"
           alt="Admin Profile"
         />
       </div>
@@ -77,12 +102,12 @@ require_once __DIR__ . '/config.php';
           <div class="user-profile-img">
             <img
               class="user-profile__icon"
-              src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg"
+              src="<?= e($profileImg) ?>"
               alt="Admin profile"
             />
           </div>
-          <h2 class="username">Julianne Sterling</h2>
-          <span class="sub-heading txt-center">Lead Platform Architect</span>
+          <h2 class="username"><?= e($_SESSION['username'] ?? '') ?> <?= e($_SESSION['lastname'] ?? '') ?></h2>
+          <span class="sub-heading txt-center"><?= e(ucfirst($_SESSION['role_name']) ?? '') ?></span>
         </div>
 
         <hr class="navigation-profile-card__separator" />
@@ -229,7 +254,7 @@ require_once __DIR__ . '/config.php';
       <div class="navigation-profile">
         <img
           class="navigation-profile__icon"
-          src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg"
+          src="<?= e($profileImg) ?>"
           alt="Admin Profile"
         />
       </div>
@@ -265,16 +290,16 @@ require_once __DIR__ . '/config.php';
       </ul>
 
       <div class="navigation-profile">
-        <img class="navigation-profile__icon" src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg" alt="Vendor Profile"/>
+        <img class="navigation-profile__icon" src="<?= e($profileImg) ?>" alt="Vendor Profile"/>
       </div>
 
       <div class="navigation-profile-card">
         <div class="user-profile-container user-profile-container--navigation">
           <div class="user-profile-img">
-            <img class="user-profile__icon" src="<?= BASE_URL ?>assets/images/avatars/admin-icon.jpg" alt="Vendor profile"/>
+            <img class="user-profile__icon" src="<?= e($profileImg) ?>"/>
           </div>
-          <h2 class="username">Vendor User</h2>
-          <span class="sub-heading txt-center">Store Manager</span>
+          <h2 class="username"><?= e($_SESSION['username'] ?? '') ?> <?= e($_SESSION['lastname'] ?? '') ?></h2>
+          <span class="sub-heading txt-center"><?= e(ucfirst($_SESSION['role_name']) ?? '') ?></span>
         </div>
         <hr class="navigation-profile-card__separator" />
         <ul class="profile-card__links">

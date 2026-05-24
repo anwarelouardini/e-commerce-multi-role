@@ -286,7 +286,7 @@ function getRevenuePerDay($pdo, $sellerId) {
         JOIN Products ON Orders_items.id_product = Products.id_product
         JOIN Sellers ON Products.id_seller = Sellers.id_seller
         WHERE Sellers.id_seller = :id
-        AND Orders.date_ordergetDashboard
+        AND Orders.date_order >= DATE_SUB(NOW(), INTERVAL 7 DAY)
         GROUP BY DATE(Orders.date_order)
         ORDER BY day ASC
     ");

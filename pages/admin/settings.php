@@ -45,9 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pathJSModule = 'assets/js/pages/admin/settings.js';
+var_dump($_POST);
+
+
+$pathJS = 'assets/js/pages/admin/settings.js';
 $headerTitle = 'Admin Settings';
 $header = 'standard-nav';
+$disableFormJS = true;
 require __DIR__ . '/../../includes/header.php';
 ?>
     <main>
@@ -115,7 +119,7 @@ require __DIR__ . '/../../includes/header.php';
             </div>
 
             <div class="form-box">
-              <label class="heading-secondary" for="email">Email Address*</label>
+              <label class="heading-secondary" for="email">Email Address</label>
               <input
                 class="form-input"
                 type="email"
@@ -123,20 +127,6 @@ require __DIR__ . '/../../includes/header.php';
                 name="email"
                 value="<?= e($admin['email']) ?>"
                 placeholder="example@mail.com"
-                value="<?= e($admin['email']) ?>"
-                
-              />
-            </div>
-
-            <div class="form-box">
-              <label class="heading-secondary" for="password">Password*</label>
-              <input
-                class="form-input"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="*******"
-                
               />
             </div>
 
