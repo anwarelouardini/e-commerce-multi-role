@@ -146,6 +146,9 @@
 
 .navigation-profile--active {
   border: 4px solid var(--primary);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .navigation-profile__icon {
@@ -170,7 +173,6 @@
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: all 0.3s;
-  pointer-events: none;
 }
 
 .navigation-profile-card__separator {

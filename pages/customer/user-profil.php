@@ -1,6 +1,8 @@
 <?php
 session_start();
-require_once '../../includes/db.php';
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 
 define('ROLE_ADMIN',    1);
@@ -163,7 +165,7 @@ function statusLabel(string $status): string {
           <?php if (!empty($user['profile_image'])): ?>
             <img src="../../assets/images/<?= htmlspecialchars($user['profile_image']) ?>" alt="Avatar" class="avatar-img" />
           <?php else: ?>
-            <img src="https://i.pravatar.cc/160?u=<?= $userId ?>" alt="Avatar" class="avatar-img" />
+          <img src="<?= BASE_URL ?>assets/images/avatars/emptyUserImg.png" alt="Avatar" class="avatar-img" />
           <?php endif; ?>
           <span class="badge-premium">
             <i class="fa-solid fa-crown"></i>

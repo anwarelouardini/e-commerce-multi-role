@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $_SESSION['id_customer'] = $customer['id_customer'];
                         }
                     }
-                    header('Location: ' . BASE_URL . '/customer/user-profil.php');
+                    header('Location: ' . BASE_URL . 'pages/customer/user-profil.php');
                 }
                 exit;
             }

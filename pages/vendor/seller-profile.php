@@ -151,7 +151,7 @@ require_once __DIR__ . '/../../includes/header.php';
         <?php if (!empty($seller['profile_image'])): ?>
           <img src="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($seller['profile_image']) ?>" alt="Seller" class="desktop-avatar" id="sellerAvatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"/>
         <?php else: ?>
-          <img src="https://i.pravatar.cc/160?u=seller<?= $sellerId ?>" alt="Seller" class="desktop-avatar" id="sellerAvatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"/>
+          <img src="<?= BASE_URL ?>assets/images/avatars/emptyUserImg.png" alt="Seller" class="desktop-avatar" id="sellerAvatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"/>
         <?php endif; ?>
       </div>
         <div class="seller-name-row">

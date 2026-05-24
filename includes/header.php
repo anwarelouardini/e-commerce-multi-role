@@ -135,7 +135,7 @@ if (!empty($_SESSION['profile_image'])) {
 
         <hr class="navigation-profile-card__separator" />
 
-        <a class="profile-card__logout" href="#">
+        <a class="profile-card__logout" href="<?= BASE_URL ?>pages/authentification/logout.php">
           <span>&#8594;</span>
           Log Out
         </a>
