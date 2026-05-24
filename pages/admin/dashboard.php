@@ -13,6 +13,8 @@ $sellersStats = getSellerHealthStatus($stats['active_sellers'], count($allSeller
 
 $usersPerDay = getUserPerDay($pdo);
 
+$revenueTrend = getRevenueTrend(floatval($stats['total_revenue'] ?? 0));
+
 $headerTitle = 'Admin Dashboard';
 $header = 'standard-nav';
 $labels = array_column($usersPerDay, 'day');
@@ -53,10 +55,10 @@ require_once __DIR__ . '/../../includes/header.php';
                 />
               </svg>
             </div>
-            <div class="status-indicator status-indicator--green">+12.5%</div>
+            <div class="status-indicator status-indicator--<?= e($revenueTrend['class']) ?>"><?= e($revenueTrend['label']) ?></div>
           </div>
           <h2 class="heading-secondary">Total Revenue</h2>
-          <p class="heading-primary">$4.2M</p>
+          <p class="heading-primary">$<?= e(number_format($stats['total_revenue'] ?? 0, 2)) ?></p>
         </div>
         <div class="cards-container cards-container--grey">
           <div class="cards-logo">

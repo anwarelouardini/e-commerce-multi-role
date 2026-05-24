@@ -90,12 +90,14 @@ function getDashboardStats($pdo) {
             (SELECT COUNT(*) 
             FROM Sellers 
             JOIN Users ON Sellers.id_user = Users.id_user 
-            WHERE Users.status = 'active') AS active_sellers
+            WHERE Users.status = 'active') AS active_sellers,
+            (SELECT SUM(p.price * oi.quantity_order_items)
+            FROM orders_items oi
+            JOIN products p ON p.id_product = oi.id_product) AS total_revenue
         FROM Users
     ");
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
-
     return $result;
 }
 
@@ -284,7 +286,7 @@ function getRevenuePerDay($pdo, $sellerId) {
         JOIN Products ON Orders_items.id_product = Products.id_product
         JOIN Sellers ON Products.id_seller = Sellers.id_seller
         WHERE Sellers.id_seller = :id
-        AND Orders.date_order >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        AND Orders.date_ordergetDashboard
         GROUP BY DATE(Orders.date_order)
         ORDER BY day ASC
     ");
@@ -331,4 +333,12 @@ function updateAdminSettings($pdo, $adminId, $username, $lastname, $email, $bio,
     $stmt->bindValue(':bio', $bio);
     $stmt->bindValue(':id', $adminId);
     return $stmt->execute();
+}
+
+function getRevenueTrend(float $revenue): array {
+    if ($revenue <= 0) return ['label' => 'No data', 'class' => 'grey'];
+    if ($revenue >= 1000000) return ['label' => 'Excellent', 'class' => 'green'];
+    if ($revenue >= 100000) return ['label' => 'Growing', 'class' => 'green'];
+    if ($revenue >= 10000) return ['label' => 'Stable', 'class' => 'grey'];
+    return ['label' => 'Low', 'class' => 'brown'];
 }

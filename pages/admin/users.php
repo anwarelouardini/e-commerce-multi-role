@@ -79,7 +79,7 @@ require_once __DIR__ . '/../../includes/header.php';
                     </div>
                     <div class="status status--<?php echo e(getStatusClass($user['status'])); ?>">
                       <div class="status__cercle">&nbsp;</div>
-                      <p class="sub-heading"><?= e($user['status']); ?></p>
+                      <p class="sub-heading"><?= e(ucfirst($user['status'])) ?></p>
                     </div>
                   </div>
                 </div>
@@ -87,9 +87,10 @@ require_once __DIR__ . '/../../includes/header.php';
                 
                 <div class="btn-container u-margin-top-small">
                   <?php if($user['status'] === 'active'): ?>
-                  <a class="btn-secondary btn-secondary--blue txt-right" href="#"
-                    >View Profile</a
-                  >
+                  <a class="btn-secondary btn-secondary--blue txt-right" 
+                    href="<?= BASE_URL ?>pages/admin/user-profile.php?id=<?= e($user['id_user']) ?>">
+                    View Profile
+                  </a>
                   <?php else: ?>
                     <a
                     class="btn-secondary btn-secondary--green txt-right approve-btn"

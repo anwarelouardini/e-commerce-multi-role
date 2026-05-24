@@ -4,7 +4,18 @@ require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
 session_start();
-$adminId = (int)$_SESSION['user_id']; 
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ' . BASE_URL . 'pages/authentification/login.php');
+    exit;
+}
+
+if ((int)$_SESSION['role'] !== 1) {
+    header('Location: ' . BASE_URL . 'pages/authentification/login.php');
+    exit;
+}
+
+$adminId = (int)$_SESSION['user_id'];
 
 $admin = getUserById($pdo, $adminId);
 
