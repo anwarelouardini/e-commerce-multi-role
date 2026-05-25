@@ -1,76 +1,37 @@
 <?php
-// Pull in the central connection file
-require_once '../../db.php'; 
+session_start();
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/functions.php';
+require_once __DIR__ . '/../../db.php';
 
-// Temporary test variable: Assume User ID 64 (Test1 User) is currently logged in
-$current_user_id = 64;
-
-// Fetch user info and their saved address from the database
-$sql = "SELECT u.username, u.lastname, c.address_customer 
-        FROM users u 
-        LEFT JOIN customers c ON u.id_user = c.id_user 
-        WHERE u.id_user = ?";
-        
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $current_user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Set default empty variables
-$firstName = "";
-$lastName = "";
-$address = "";
-
-// If we find the user, overwrite the empty variables with their real data
-if ($row = $result->fetch_assoc()) {
-    $firstName = $row['username'];
-    $lastName = $row['lastname'];
-    $address = $row['address_customer'] ?? ''; // Fallback to empty if NULL
+// Protection : l'utilisateur doit être connecté
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ' . BASE_URL . 'pages/authentification/login.php');
+    exit;
 }
+
+$userId = (int)$_SESSION['user_id'];
+
+// Pré-remplir le formulaire avec les données du profil
+$sql  = "SELECT u.username, u.lastname, c.address_customer
+         FROM users u
+         LEFT JOIN customers c ON c.id_user = u.id_user
+         WHERE u.id_user = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$row = $stmt->get_result()->fetch_assoc();
+
+$firstName = $row['username']          ?? '';
+$lastName  = $row['lastname']          ?? '';
+$address   = $row['address_customer']  ?? '';
+
+// Header
+$header      = 'customer-nav';
+$headerTitle = 'Checkout';
+require_once __DIR__ . '/../../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="../../assets/css/pages/cart.css">
-    <link rel="stylesheet" href="../../assets/css/pages/shipping.css">
-  <title>Checkout cart</title>
-</head>
-<body>
-  <nav class="navigation">
-      <div class="navigation-left">
-        <div class="navigation__icon">&nbsp;</div>
-        <div class="navigation__logo">
-          <h1 id="navigation__logo">GAAM SHOP</h1>
-        </div>
-      </div>
-
-      <ul class="navigation__links">
-        <li class="navigation__item">
-          <a class="navigation__link navigation__link--active" href="./shop.html">SHOP</a>
-        </li>
-        <li class="navigation__item">
-          <a class="navigation__link" href="./collections.html">COLLECTIONS</a>
-        </li>
-      </ul>
-   <div class="navigation__icons-wrapper">
-    <a href="#" class="nav-icon-link">
-      <img src="../../assets/images/avatars/icons8-search-50.png" alt="Search" class="nav-icon">
-    </a>
-    <a href="#" class="nav-icon-link nav-icon-link--active">
-      <img src="../../assets/images/avatars/bag-shopping-solid.png" alt="Cart" class="nav-icon">
-    </a>
-    <a href="#" class="nav-icon-link">
-      <img src="../../assets/images/avatars/icons8-profile-48.png" alt="Profile" class="nav-icon">
-    </a>
-  </div>
-  </nav>
   <main class="checkout-container container">
   <div class="stepper">
     <div class="step step--completed">

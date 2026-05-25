@@ -342,3 +342,91 @@ function getRevenueTrend(float $revenue): array {
     if ($revenue >= 10000) return ['label' => 'Stable', 'class' => 'grey'];
     return ['label' => 'Low', 'class' => 'brown'];
 }
+
+function getCustomerInfo($pdo, $userId) {
+    $stmt = $pdo->prepare("
+    SELECT u.*, c.id_customer, c.address_customer
+    FROM users u
+    LEFT JOIN customers c ON c.id_user = u.id_user
+    WHERE u.id_user = ?
+    ");
+    $stmt->execute([$userId]);
+    return $stmt->fetch();
+}
+
+function getCustomerOrders($pdo, $customerId) {
+    $stmt = $pdo->prepare("
+        SELECT o.id_order, o.date_order, o.order_status,
+               oi.quantity_order_items,
+               p.name_product, p.description_product,
+               p.product_image, p.price
+        FROM orders o
+        JOIN orders_items oi ON oi.id_order = o.id_order
+        JOIN products p      ON p.id_product = oi.id_product
+        WHERE o.id_customer = ?
+        ORDER BY o.date_order DESC
+    ");
+    $stmt->execute([$customerId]);
+    return $stmt->fetchAll();
+}
+
+function getTotalOrders($pdo, $customerId) {
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM orders WHERE id_customer = ?");
+    $stmt->execute([$customerId]);
+    return (int) $stmt->fetchColumn();
+}
+
+function getOrdersInTransit($pdo, $customerId) {
+     $stmt = $pdo->prepare("SELECT COUNT(*) FROM orders WHERE id_customer = ? AND order_status = 'shipped'");
+    $stmt->execute([$customerId]);
+    return (int)$stmt->fetchColumn();
+}
+
+function getOrdersDelivered($pdo, $customerId) {
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM orders WHERE id_customer = ? AND order_status = 'delivered'");
+    $stmt->execute([$customerId]);
+    return (int)$stmt->fetchColumn(); 
+}
+
+function statusLabel(string $status): string {
+    return match($status) {
+        'pending'    => 'Pending',
+        'processing' => 'Processing',
+        'shipped'    => 'In Transit',
+        'delivered'  => 'Delivered',
+        'cancelled'  => 'Cancelled',
+        default      => ucfirst($status),
+    };
+}
+
+function statusDotClass(string $status): string {
+    return match($status) {
+        'delivered' => 'delivered',
+        'cancelled' => 'cancelled',
+        default     => '',
+    };
+}
+
+function statusIndicatorClass(string $status): string {
+    return match($status) {
+        'pending'    => 'yellow',
+        'processing' => 'brown',
+        'shipped'    => 'blue',
+        'delivered'  => 'green',
+        'cancelled'  => 'red',
+        default      => 'grey',
+    };
+}
+
+function formTraitement($pdo, $customerId, $firstName, $lastName, $address, $city, $postalCode, $deliveryMethod) {
+    $statement = $pdo->prepare("INSERT INTO orders(id_customer, first_name, last_name, order_status, date_order VALUES (:id, :firstName, :lastName, :address, :city, :postalCode, :deliveryMethod NOW())");
+    $statement->bindValue(':id', $customerId); 
+    $statement->bindValue(':firstName', $firstName);
+    $statement->bindValue(':lastname', $lastName);
+    $statement->bindValue(':address', $address);
+    $statement->bindValue(':city', $city);
+    $statement->bindValue(':postalCode', $postalCode);
+    $statement->bindValue(':deliveryMethod', $deliveryMethod);
+    $statement->execute();
+
+}

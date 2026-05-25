@@ -82,3 +82,31 @@
   cursor: pointer;
   margin-left: 10px;
 }
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+.details-box {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  text-align: left;
+}
+.order-card__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.order-items-preview {
+  display: flex;
+  gap: 15px;
+}
+.order-actions {
+  margin-left: auto;
+}

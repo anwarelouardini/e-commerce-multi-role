@@ -37,6 +37,10 @@ if (!empty($_SESSION['profile_image'])) {
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <?php if($header === 'customer-nav'): ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <?php endif; ?>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
     <title><?php echo isset($headerTitle) ? e($headerTitle) : "GAAM"; ?></title>
     <script defer src="<?= BASE_URL ?>assets/js/components/navbar.js"></script>
@@ -367,4 +371,120 @@ if (!empty($_SESSION['profile_image'])) {
       </nav>
     </div>
     <script>const BASE_URL = "<?= BASE_URL ?>";</script>
+
+  <?php elseif(isset($header) && $header === 'customer-nav'): ?>
+        <nav class="navigation">
+      <div class="navigation-left">
+        <div class="navigation__icon">&nbsp;</div>
+        <div class="navigation__logo">
+          <h1 id="navigation__logo">GAAM</h1>
+        </div>
+      </div>
+
+      <ul class="navigation__links">
+        <li class="navigation__item">
+          <a class="navigation__link" href="#">Home</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/customer/orders.php">Orders</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/public/cart.php">Cart</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/public/history.php">History</a>
+        </li>
+        <li class="navigation__item">
+          <a class="navigation__link" href="<?= BASE_URL ?>pages/customer/user-profil.php">Profil</a>
+        </li>
+      </ul>
+
+      <div class="navigation-profile">
+        <img class="navigation-profile__icon" src="<?= e($profileImg) ?>" alt="Vendor Profile"/>
+      </div>
+
+      <div class="navigation-profile-card">
+        <div class="user-profile-container user-profile-container--navigation">
+          <div class="user-profile-img">
+            <img class="user-profile__icon" src="<?= e($profileImg) ?>"/>
+          </div>
+          <h2 class="username"><?= e($_SESSION['username'] ?? '') ?> <?= e($_SESSION['lastname'] ?? '') ?></h2>
+          <span class="sub-heading txt-center"><?= e(ucfirst($_SESSION['role_name']) ?? '') ?></span>
+        </div>
+        <hr class="navigation-profile-card__separator" />
+        <ul class="profile-card__links">
+          <li class="profile-card__item">
+            <a class="profile-card__link" href="<?= BASE_URL ?>pages/vendor/seller-profile.php">
+              <span class="profile-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg></span>
+              Account Settings
+            </a>
+          </li>
+        </ul>
+        <hr class="navigation-profile-card__separator" />
+        <a class="profile-card__logout" href="<?= BASE_URL ?>pages/vendor/logout.php"><span>&#8594;</span> Log Out</a>
+      </div>
+
+      <div class="navigation-mobile-menu">
+        <ul class="navigation-mobile__list">
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="#">Home</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/customer/orders.php">Orders</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/customer/user-profil.php">Profile</a>
+          </li>
+        </ul>
+      </div>
+      <div class="navigation-mobile-menu">
+        <ul class="navigation-mobile__list">
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="#">Home</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/customer/orders.php">Orders</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/customer/user-profil.php">Profile</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="navigation-card container">
+      <nav class="navigation-mobile">
+        <a href="#" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+          </svg>
+          <span class="navigation-mobile__title">Home</span>
+        </a>
+        <a href="<?= BASE_URL ?>pages/customer/orders.php" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z"/>
+          </svg>
+          <span class="navigation-mobile__title">Orders</span>
+        </a>
+        <a href="<?= BASE_URL ?>pages/public/cart.php" class="nav-item nav-item--small">
+        <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/>
+        </svg>
+          <span class="navigation-mobile__title">Cart</span>
+        <a href="<?= BASE_URL ?>pages/public/history.php" class="nav-item nav-item--small">
+          <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+          </svg>
+          <span class="navigation-mobile__title">History</span>
+        </a>
+        <a href="<?= BASE_URL ?>pages/customer/user-profil.php" class="nav-item nav-item--small nav-item--active">
+        <svg class="navigation-mobile__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        <span class="navigation-mobile__title navigation-mobile__title--active">Profile</span>
+      </a>
+      </nav>
+    </div>
+    <script>const BASE_URL = "<?= BASE_URL ?>";</script>
+
 <?php endif; ?>

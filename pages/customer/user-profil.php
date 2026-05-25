@@ -115,44 +115,12 @@ function statusClass(string $status): string {
         default     => '',
     };
 }
-function statusLabel(string $status): string {
-    return match($status) {
-        'pending'    => 'Pending',
-        'processing' => 'Processing',
-        'shipped'    => 'In Transit',
-        'delivered'  => 'Delivered',
-        'cancelled'  => 'Cancelled',
-        default      => ucfirst($status),
-    };
-}
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile — <?= htmlspecialchars($user['username'] . ' ' . $user['lastname']) ?></title>
-  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-</head>
-<body>
 
-  <!-- ── TOP NAVBAR ── -->
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="#" class="nav-logo">
-        <i class="fa-solid fa-gem"></i>
-        <span>GAAM</span>
-      </a>
-      <div class="nav-links">
-        <a href="#" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
-        <a href="#" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
-        <a href="#" class="nav-link"><i class="fa-solid fa-box"></i> Orders</a>
-        <a href="user-profil.php" class="nav-link active"><i class="fa-solid fa-user"></i> Profile</a>
-      </div>
-    </div>
-  </nav>
+$header = 'customer-nav';
+
+$headerTitle = 'Profile — ' . htmlspecialchars($user['username'] . ' ' . $user['lastname']);
+require_once __DIR__ . '/../../includes/header.php';
+?>
 
   <!-- ── PAGE LAYOUT ── -->
   <main class="page-layout">
@@ -328,7 +296,7 @@ function statusLabel(string $status): string {
       </div>
 
       <!-- Personal Info -->
-      <div class="content-section">
+      <div class="content-section" style="margin-bottom: 10rem;">
         <div class="section-header">
           <h3 class="section-title">Personal Information</h3>
           <button class="btn-ghost" onclick="toggleEditModal()">
