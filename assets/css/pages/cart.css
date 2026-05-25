@@ -1,0 +1,463 @@
+/* Container for the three icons */
+.navigation__icons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; 
+}
+
+.nav-icon-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 8px; 
+  color: #1a237e;
+}
+
+.nav-icon {
+  width: 22px;  /* Adjust size to match design */
+  height: 22px;
+  object-fit: contain;
+  
+}
+
+/* The Underline Effect for the active icon */
+.nav-icon-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2.5px;
+  background-color: #1a237e; /* Match your GAAM SHOP brand color */
+  transition: transform 0.3s ease;
+}
+
+/* Show underline on hover or when active */
+.nav-icon-link:hover::after,
+.nav-icon-link--active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Ensure the logo font matches the 'CURATOR' style from design */
+#navigation__logo {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #1a237e;
+}
+
+/* Small adjustment to nav links to match font weight */
+.navigation__link {
+    font-weight: 500;
+    color: #6a6a8a; /* Soft grey-blue for inactive links */
+}
+.card-shop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f4f3f8;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 650px;
+  margin: 20px;
+}
+
+.img-design img {
+  width: 90px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.contenu-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.text-content h2 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.sub-heading {
+  font-size: 12px;
+  color: #777;
+  letter-spacing: 1px;
+}
+
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.price {
+  font-size: 1.8rem; /* Adjusted for your design's scale */
+  font-weight: 600;
+  color: #1a237e; /* Brand blue */
+  margin-top: 2px; /* Fine-tunes alignment with the h2 */
+}
+
+/* Bottom Row: Spacing out the quantity and remove button */
+.bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+/* --- The New Remove Button --- */
+.btn-remove {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #5a5a7a; /* Muted grey-blue color matching the design */
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-remove:hover {
+  color: #1a237e; /* Turns dark blue when hovered */
+}
+
+.btn-remove svg {
+  color: inherit; /* Makes the SVG match the text color */
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  background: #e9e7f2;
+  border-radius: 20px;
+  padding: 5px 10px;
+  gap: 10px;
+}
+
+.quantity button {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Layout Container */
+.cart-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cart-items {
+  flex: 2; /* Takes up more space */
+}
+
+/* Order Summary Card */
+.order-summary {
+  flex: 1; /* Takes up less space */
+  background-color: #f4f3f8; /* Light lavender tint */
+  padding: 30px;
+  border-radius: 30px;
+  font-family: 'Manrope', sans-serif;
+  color: #1a237e;
+}
+
+.summary-title {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.summary-value {
+  font-weight: 700;
+  color: #1a237e;
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px solid #e0def1;
+  margin: 20px 0;
+}
+
+.total-row {
+  align-items: baseline;
+  margin-bottom: 30px;
+}
+
+.total-price {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a237e;
+}
+
+/* Checkout Button */
+.btn-checkout {
+  width: 100%;
+  background-color: #1a237e;
+  color: white;
+  border: none;
+  padding: 18px;
+  border-radius: 40px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-checkout:hover {
+  opacity: 0.9;
+}
+
+/* Feature tags and footer */
+.summary-features {
+  margin-top: 25px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.summary-features p {
+  margin: 10px 0;
+}
+
+.summary-footer {
+  margin-top: 30px;
+  background: white;
+  padding: 15px;
+  border-radius: 20px;
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.5;
+  color: #888;
+}
+
+.summary-footer a {
+  color: #1a237e;
+  font-weight: bold;
+  text-decoration: none;
+}
+.footer {
+  background-color: #f8f7fd; /* Very light lavender/grey background */
+  padding: 80px 0 40px 0;
+  margin-top: 100px; /* Space between the cart/content and the footer */
+  color: #1a237e; /* Dark blue brand color */
+  font-family: 'Manrope', sans-serif;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 80px;
+  gap: 40px;
+}
+
+.footer__brand {
+  flex: 0 1 400px; /* Takes up 400px maximum */
+}
+
+.footer__logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+.footer__description {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #6a6a8a; /* Soft grey-blue for text */
+  max-width: 350px;
+}
+
+.footer__links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #6a6a8a;
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer__link:hover {
+  color: #1a237e;
+}
+
+.footer__bottom {
+  border-top: 1px solid #e0def1;
+  padding-top: 30px;
+}
+
+.footer__copyright {
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #a0a0c0;
+  letter-spacing: 1px;
+}
+
+/* --- TABLET & MOBILE RESPONSIVENESS --- */
+
+/* For Tablet and smaller (approx 992px) */
+@media (max-width: 62em) {
+  .cart-container {
+    flex-direction: column; /* Stack left and right sections */
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .cart-items, .order-summary {
+    width: 100%; /* Make both sections full width */
+    max-width: 100%;
+  }
+}
+
+/* For Phone (approx 600px) */
+@media (max-width: 37.5em) {
+  /* 1. Header Changes */
+  .navigation__links {
+    display: none; /* Hide text links on phone */
+  }
+
+  .heading-primary {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+
+  /* 2. Product Card Changes */
+  .card-shop {
+    flex-direction: row; /* Keep image left, content right */
+    padding: 15px;
+    position: relative;
+  }
+
+  .contenu-card {
+    gap: 10px;
+  }
+
+  /* Move Price and Quantity into a tighter layout */
+  .bottom-content {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    margin-left: auto; /* Push price to the right */
+  }
+
+  /* 3. Mobile "Total Estimate" Footer */
+  /* In your mobile design, the summary is much simpler */
+@media (max-width: 37.5em) {
+  /* 1. Ensure the main container stacks and centers its children */
+  .cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This centers the items horizontally */
+    padding: 20px;
+    gap: 20px;
+  }
+
+  /* 2. Adjust the items list to be full width */
+  .cart-items {
+    width: 100%;
+  }
+
+  /* 3. The Sticky Bottom-Center Summary */
+  .order-shop, 
+  .order-summary { /* Use the class name you applied to the summary div */
+    width: 92%;      /* Slightly narrower than the screen for the floating look */
+    max-width: 400px; /* Prevents it from getting too wide on tablets */
+    background: white;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.08);
+    
+    /* STICKY CENTERING LOGIC */
+    position: sticky;
+    bottom: 15px;    /* Distance from the bottom of the screen */
+    margin: 30px auto 10px auto; /* Centered horizontally with top/bottom spacing */
+    z-index: 10;
+  }
+
+  /* 4. Clean up the internal layout of the summary */
+  .total-row {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .btn-checkout {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+  }
+
+  /* Hide the extra details for a cleaner mobile look (optional) */
+  .summary-row:not(.total-row), 
+  .summary-divider, 
+  .summary-features {
+    display: none;
+  }
+  .footer {
+    padding: 40px 20px 20px 20px; /* Reduced top padding */
+    margin-top: 40px; /* Reduced space above the footer */
+  }
+
+  .footer__content {
+    flex-direction: column;
+    gap: 30px; /* Controlled space between description and links */
+    margin-bottom: 40px; /* Reduced space before the bottom border */
+  }
+
+  .footer__brand {
+    flex: none; /* Prevents it from taking extra vertical space */
+  }
+
+  .footer__logo {
+    margin-bottom: 15px; /* Tighter gap under GAAM SHOP */
+  }
+
+  .footer__description {
+    font-size: 1.3rem;
+    max-width: 100%; /* Allows text to wrap naturally on small screens */
+    margin-bottom: 0; 
+  }
+
+  .footer__links {
+    flex-direction: column;
+    gap: 15px; /* Tighter gap between Shipping, Returns, etc. */
+  }
+}
+}
