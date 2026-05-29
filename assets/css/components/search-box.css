@@ -1,0 +1,32 @@
+.search-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-box__icon {
+  position: absolute;
+  height: 2rem;
+  width: 2rem;
+  left: 1.2rem;
+  color: var(--neutral);
+  pointer-events: none;
+  margin-left: 1rem;
+}
+
+.search-box__input {
+  padding: 1.5rem 1.5rem 1.5rem 6rem;
+  border-radius: 5rem;
+  border: none;
+  width: 100%;
+  background-color: var(--light-grey);
+  font-size: 1.4rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2rem;
+}

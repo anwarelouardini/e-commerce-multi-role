@@ -1,0 +1,47 @@
+.cards-total {
+  padding: 5rem;
+  border-radius: 3rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--light-grey);
+  width: 100%;
+}
+
+.cards-total--primary {
+  background-color: var(--primary);
+}
+
+.cards-total .sub-heading {
+  text-transform: uppercase;
+}
+
+.cards-total .heading-primary {
+  position: relative;
+  z-index: 100;
+}
+
+.cards-total-icon-container {
+  position: absolute;
+  bottom: -2rem;
+  right: 0;
+  color: #46438d;
+}
+
+.cards-total__icon--grey {
+  color: #dedbe7;
+}
+
+/* Cercle container modifier */
+.cards-total-cercle-container {
+  position: absolute;
+  top: -5rem;
+  right: -4rem;
+}
+
+/* Cercle Icon */
+.cercle__icon {
+  height: 13rem;
+  width: 13rem;
+  background-color: #252e84;
+  border-radius: 50%;
+}

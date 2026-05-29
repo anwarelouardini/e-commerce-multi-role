@@ -1,0 +1,107 @@
+.main-box{
+    background: #f7f7fb;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 40px;
+    border-radius: 20px;
+    width: 350px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: min(90%, 50rem);
+}
+
+@media (min-width:37.5em) {
+    .main-box {
+        width: 600px !important;
+    }
+    .do{
+        font-size: 10px;
+    }
+}
+
+.gaam{
+    background-color:rgb(243, 243, 243) ;
+    border-bottom-color: #111477;
+    border-bottom-style:groove;
+    border-bottom-width: 2px;
+}
+
+
+.login{
+    height: 100vh;
+    background-color: rgb(240, 237, 237);
+}
+
+.icon{
+    display: flex;
+    justify-content: center;
+}
+
+.icon-svg{
+    padding: 8px 8px;
+    background-color: rgb(240, 237, 237);
+    border-radius: 50%;
+}
+
+.head{
+    text-align: center;
+    padding: 10px 0px 8px 0px;
+    font-size: 3rem;
+}
+
+.comment{
+    text-align: center;
+    padding-bottom: 2.5rem;
+    font-size:x-small;
+}
+
+.formel{
+    text-align: left;
+}
+
+
+.entrer{
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 10px 0;
+  border: none;
+  border-radius: 20px;
+  background: #e6e6ef;
+}
+
+.labela{
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+
+.password{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.boutton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 15px;
+  background: #111477;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.linki{
+    text-decoration: none;
+    color: #111477;
+    font-weight:bolder;
+}
+
+.do{
+    margin-top: 10px;
+}
+

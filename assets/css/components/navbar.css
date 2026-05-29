@@ -1,0 +1,535 @@
+.navigation {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1000;
+}
+
+.navigation-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 1000;
+}
+
+.navigation__icon {
+  position: relative;
+  z-index: 1000;
+}
+
+.navigation__icon,
+.navigation__icon::before,
+.navigation__icon::after {
+  display: inline-block;
+  content: "";
+  width: 2rem;
+  height: 2px;
+  background-color: var(--primary);
+}
+
+.navigation__icon::before,
+.navigation__icon::after {
+  position: absolute;
+  left: 0;
+}
+
+.navigation__icon::before {
+  top: -0.7rem;
+}
+
+.navigation__icon::after {
+  top: 0.7rem;
+}
+
+/* When the menu is opened change the style of the hamburger icon */
+.navigation__icon--menu,
+.navigation__icon--menu::before,
+.navigation__icon--menu::after {
+  background-color: #ffff !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation__icon--menu::before {
+  top: 0;
+  transform: rotate(130deg);
+}
+
+.navigation__icon--menu::after {
+  top: 0;
+  transform: rotate(-130deg);
+}
+
+.navigation__icon--menu {
+  background: transparent !important;
+}
+
+@keyframes leftToRight {
+  0% {
+    border-bottom: 0px solid var(--primary);
+  }
+
+  100% {
+    border-bottom: 2px solid var(--primary);
+  }
+}
+
+.navigation__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  font-size: 1.5rem;
+  display: none;
+}
+
+@media (min-width: 56.25em) {
+  .navigation__links {
+    display: flex;
+  }
+
+  .navigation__icon {
+    display: none;
+  }
+}
+.navigation__item a {
+  color: var(--secondary);
+  text-decoration: none;
+  padding-bottom: 0.4rem;
+  position: relative;
+}
+
+.navigation__link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.navigation__link:hover::after {
+  transform: scaleX(1);
+}
+
+.navigation__link--active::after {
+  transform: scaleX(1);
+}
+
+#navigation__logo {
+  font-family: var(--primary-font);
+  font-weight: 900;
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+/* Make the navigation logo hidden */
+.navigation__logo--hide {
+  visibility: hidden;
+}
+
+.navigation-profile {
+  border: 2px solid var(--neutral);
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation-profile--active {
+  border: 4px solid var(--primary);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.navigation-profile__icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* When we click into the profile we show this card */
+.navigation-profile-card {
+  opacity: 0;
+  visibility: none;
+  position: absolute;
+  top: 100%;
+  right: 2rem;
+  background: white;
+  border-radius: 2rem;
+  padding: 2rem;
+  width: 22rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.navigation-profile-card__separator {
+  border: none;
+  border-top: 1px solid var(--light-grey);
+  margin: 1.5rem 0;
+}
+
+.navigation-profile-card .user-profile__icon {
+  width: 8rem;
+}
+
+.profile-card__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-card__link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: var(--secondary);
+  transition: background 0.2s ease;
+}
+
+.profile-card__link:hover {
+  background-color: var(--light-grey);
+}
+
+/* Styling Mobile Navigation */
+.navigation-card {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 2rem;
+  padding: 1rem 0;
+  z-index: 111;
+}
+
+@media (min-width: 56.25em) {
+  .navigation-card {
+    display: none;
+  }
+}
+.navigation-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.nav-item {
+  text-decoration: none;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  border-radius: 2rem;
+  transition: all 0.3s;
+}
+
+.nav-item--small {
+  padding: 1rem 1.25rem;
+}
+
+/* When we hover over the mobile navigation */
+.nav-item:hover {
+  background: #e2e2f0;
+}
+
+.nav-item:hover .navigation-mobile__icon,
+.nav-item:hover .navigation-mobile__title {
+  color: #3a3f5c;
+}
+
+/* When the current page link is active */
+.nav-item--active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.nav-item--active .navigation-mobile__icon,
+.nav-item--active .navigation-mobile__title {
+  color: white;
+}
+
+.navigation-mobile__icon {
+  color: var(--secondary);
+}
+
+.navigation-mobile__title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+/* Styling the left arrow in the navigation */
+.navigation__backwards {
+  color: var(--primary);
+  font-size: 3.5rem;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* Navigation Mobile Menu Styles */
+.navigation-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translateX(-100%); /* 👈 slide from left */
+  transition: all 0.3s ease-in-out;
+
+  z-index: 999;
+}
+
+.navigation-mobile-menu--active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+
+  transform: translateX(0);
+}
+
+/* Styling Navigation Mobile Unordered List */
+.navigation-mobile__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  list-style: none;
+}
+
+.navigation-mobile__item {
+  transition: transform 0.3s ease;
+}
+
+.navigation-mobile__item:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.navigation-mobile__item:hover {
+  transform: translateX(1rem);
+}
+
+.navigation-mobile__link,
+.navigation-mobile__link:active,
+.navigation-mobile__link:visited {
+  padding: 1rem 4rem;
+  text-decoration: none;
+  color: #ffff;
+  font-size: 3rem;
+  font-weight: 900;
+
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1)
+  );
+
+  background-size: 250%;
+  transition: all 0.4s;
+}
+
+.navigation-mobile__link:hover {
+  background-position: 100%;
+  color: white;
+}
+
+/* Settings nav */
+.sidebar-settings {
+  padding: 0;
+  overflow: hidden;
+  animation: fadeUp 0.35s ease 0.1s both;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--light-grey);
+}
+
+.settings-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  padding: 16px 18px 8px;
+  display: block;
+}
+
+.settings-list {
+  padding: 0;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--light-grey);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.settings-item:hover {
+  background: var(--light-grey);
+}
+.settings-item.last {
+  border-bottom: none;
+}
+.settings-item.active-setting {
+  background: var(--accent-soft);
+}
+.settings-item.active-setting .settings-text {
+  color: var(--primary);
+  font-weight: 700;
+}
+.settings-item.active-setting .settings-icon {
+  background: var(--primary);
+  color: #fff;
+}
+
+.settings-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.settings-text {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.chevron {
+  font-size: 10px;
+  color: var(--neutral);
+}
+
+/* Logout */
+.logout-wrap {
+  display: flex;
+  justify-content: center;
+  animation: fadeUp 0.35s ease 0.15s both;
+}
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--light-grey);
+  color: var(--red);
+  font-family: var(--primary-font);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 28px;
+  border-radius: 40px;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  width: 100%;
+  justify-content: center;
+  background: var(--bg-card);
+}
+.btn-logout:hover {
+  background: var(--light-red);
+  border-color: var(--red);
+}
+
+.navbar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--light-grey);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.nav-logo i {
+  font-size: 16px;
+  color: var(--yellow);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--neutral);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.nav-link:hover {
+  background: var(--light-grey);
+  color: var(--primary);
+}
+.nav-link.active {
+  background: var(--accent-soft);
+  color: var(--primary);
+  font-weight: 700;
+}

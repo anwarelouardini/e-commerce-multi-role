@@ -1,0 +1,33 @@
+@import url(../css/base/reset.css);
+@import url(../css/base/typography.css);
+@import url(../css/base/variables.css);
+
+@import url(../css/components/navbar.css);
+@import url(../css/components/cards.css);
+@import url(../../assets/css/components/status-indicator.css);
+@import url(../../assets/css/components/chart.css);
+@import url(../../assets/css/components/btns.css);
+@import url(../../assets/css/components/users-card.css);
+@import url(../../assets/css/components/search-box.css);
+@import url(../../assets/css/components/delete-card.css);
+@import url(../../assets/css/components/form.css);
+@import url(../css/components/cards-total.css);
+
+@import url(../../assets/css/layouts/grid.css);
+@import url(../../assets/css/layouts/flex.css);
+
+@import url(../../assets/css/pages/sellers-admin.css);
+@import url(../css/pages/dashboard-admin.css);
+@import url(../css/pages/users.css);
+@import url(../css/pages/settings-admin.css);
+@import url(../css/pages/add-products.css);
+@import url(../css/pages/vendor-product-overview.css);
+@import url(../css/pages/auth-login.css);
+@import url(../css/pages/auth-signup.css);
+@import url(../css/pages/user-profil.css);
+@import url(../css/pages/seller-profile.css);
+@import url(../css/pages/addition-profil.css);
+@import url(../css/pages/user-profil.css);
+@import url(../css/pages/history.css);
+@import url(../css/pages/cart.css);
+@import url(../css/pages/shipping.css);

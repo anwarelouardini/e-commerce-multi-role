@@ -1,0 +1,126 @@
+<?php 
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
+$id = isset($_GET['id']) ? e($_GET['id']) : '';
+$productName = isset($_GET['name']) ? e($_GET['name']) : '';
+$productImage = isset($_GET['image']) ? e($_GET['image']) : '';
+$productPrice = isset($_GET['price']) ? e($_GET['price']) : '';
+$productCategory = isset($_GET['category']) ? e($_GET['category']) : '';
+
+if(empty($id)) {
+  header('Location: ' . BASE_URL . 'pages/vendor/product-overview.php');
+  die();
+}
+
+if(!empty($_POST)) {
+  deleteProduct($pdo, $id);
+  header("Location: " . BASE_URL . 'pages/vendor/product-overview.php');
+  die();
+}
+
+$header = 'custom-nav';
+$headerTitle = 'GAAM Sellers';
+$backLink = BASE_URL . 'pages/vendor/product-overview.php';
+require_once __DIR__ . '/../../includes/header.php';
+?>
+    <header class="header container u-margin-top-med">
+      <h1 class="heading-primary">
+        Delete Product Confirmation
+        <span class="sub-heading"
+          >Review the product details before finalizing deletion</span
+        >
+      </h1>
+    </header>
+
+    <main class="main container">
+      <!-- Warning banner -->
+      <div class="delete-card u-margin-top-small">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="60"
+          fill="currentColor"
+          class="bi bi-exclamation-diamond alert__icon"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.48 1.48 0 0 1 0-2.098zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"
+          />
+          <path
+            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"
+          />
+        </svg>
+        <div class="delete-card-content">
+          <h3 class="heading-secondary heading-secondary--red">
+            Irreversible Action
+          </h3>
+          <p class="paragraph">
+            Deletions cannot be undone in the inventory system.
+          </p>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h1 class="heading-primary u-margin-top-med">
+        Delete Product Confirmation
+      </h1>
+
+      <!-- Product box -->
+      <div class="user-box u-margin-top-small">
+        <div class="user-profile">
+          <img
+            id="productImg"
+            class="user__img user__img--product"
+            src="<?= BASE_URL ?>assets/images/products/<?= e($productImage) ?>"
+            alt="Product"
+          />
+          <div>
+            <h4 class="sub-heading">Product Name</h4>
+            <h1 id="productName" class="username username--big">
+              <?= $productName ?>
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product details -->
+      <div class="user-details-container">
+        <div class="user-details-content">
+          <h4 class="sub-heading">Category</h4>
+          <p id="deleteProductCategory" class="user-details__content"><?= ucfirst($productCategory) ?></p>
+        </div>
+        <div class="user-details-content">
+          <h4 class="sub-heading">Status</h4>
+          <p id="deleteProductStatus" class="user-details__content">
+            Active Inventory
+          </p>
+        </div>
+      </div>
+
+      <p class="paragraph u-margin-top-med">
+        You are about to permanently remove
+        <strong><?= $productName ?></strong>
+        from the catalog. This will also remove associated analytics, order
+        history links, and stock alerts.
+      </p>
+
+      <form class="form-btn-box" method="POST">
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <a
+          class="btn btn--txt u-margin-top-small"
+          href="<?= BASE_URL ?>pages/vendor/product-overview.php"
+          >Cancel and Go Back</a
+        >
+        <button
+          id="delete-product"
+          class="btn-secondary btn-secondary--big btn-secondary--red"
+          type="submit"
+        >
+          Delete Product
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

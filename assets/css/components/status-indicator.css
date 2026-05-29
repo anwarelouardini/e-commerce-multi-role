@@ -1,0 +1,72 @@
+.status-indicator {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 10rem;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-indicator--sm {
+  width: 16rem;
+}
+
+.status-indicator--green {
+  color: var(--green);
+  background-color: var(--light-green);
+}
+
+.status-indicator--grey {
+  background-color: #f1eefc;
+  color: var(--secondary) !important;
+}
+
+.status-indicator--orange {
+  background-color: var(--);
+}
+
+.status-indicator--red {
+  background-color: var(--light-red);
+  color: var(--red) !important;
+  letter-spacing: 1px;
+}
+
+.status-indicator--primary {
+  background-color: var(--primary);
+  color: white !important;
+}
+
+.status-indicator--blue {
+  background-color: #dfddee;
+  color: var(--primary) !important;
+}
+
+.status-indicator--yellow {
+  background-color: var(--light-yellow);
+  color: var(--orange) !important;
+}
+
+.status-indicator--brown {
+  background-color: var(--brown);
+  color: var(--orange) !important;
+}
+
+.alert {
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.alert--success {
+  background-color: var(--light-green);
+  color: var(--green);
+}
+
+.alert--error {
+  background-color: var(--light-red);
+  color: var(--red);
+}

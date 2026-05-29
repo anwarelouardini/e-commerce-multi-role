@@ -1,0 +1,74 @@
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 56.25em) {
+  .group-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .section-quick-actions {
+    flex: 1;
+  }
+
+  .section-quick-actions .cards-total {
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .section-chart,
+  .section-verification {
+    flex: 1;
+  }
+
+  .bars-container--chart {
+    flex: 1;
+    min-height: 300px !important;
+  }
+
+  .chart-container,
+  .users-items-container {
+    height: 100%;
+  }
+
+  .form-btn-box {
+    flex-direction: row;
+    gap: 3rem;
+  }
+
+  .flex-container {
+    flex-direction: row;
+  }
+
+  .bars-container--full {
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  .bars-container--full .chart-bar-container {
+    flex: 1;
+  }
+
+  .bars-container--full .chart__bar {
+    width: 85%;
+  }
+
+  .chart-container--white .bars-container {
+    position: relative;
+    height: 250px;
+  }
+}

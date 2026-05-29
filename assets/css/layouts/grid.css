@@ -1,0 +1,14 @@
+.grid-container--2 {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 56.25em) {
+  .grid-container--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-box:last-child {
+    grid-column: span 2;
+  }
+}

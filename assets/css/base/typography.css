@@ -1,0 +1,105 @@
+.heading-primary {
+  font-family: var(--primary-font);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.heading-primary--white {
+  color: white;
+  font-size: 3.5rem;
+}
+
+.heading-primary--med {
+  font-size: 2.5rem;
+}
+
+.heading-primary--sm {
+  font-size: 1.8rem;
+}
+
+.heading-primary--med {
+  font-size: 2.3rem;
+}
+
+.heading-primary--green {
+  color: var(--green);
+}
+
+.heading-primary--red {
+  color: var(--red);
+}
+
+.heading-primary--brown {
+  color: var(--tertiary);
+}
+
+.heading-secondary {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--secondary);
+  text-transform: uppercase;
+  display: block;
+}
+
+.heading-secondary--orange {
+  color: #c8a89c;
+  font-weight: 800;
+}
+
+.heading-secondary--red {
+  color: var(--red);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: normal;
+}
+
+.heading-secondary--blue {
+  color: var(--light-primary);
+}
+
+.sub-heading {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--secondary);
+  display: block;
+}
+
+.paragraph {
+  font-size: 1.1rem;
+  color: var(--neutral);
+}
+
+.heading-small {
+  font-size: 1.35rem;
+  color: var(--primary);
+}
+
+.heading-small--bold {
+  font-weight: 700;
+}
+
+.chart-content > h3,
+.users-items-container h3 {
+  font-size: 2.5rem;
+}
+
+.username--big {
+  font-size: 1.8rem !important;
+}
+
+#user-email {
+  font-size: 1.5rem;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.error {
+  color: darkred;
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}

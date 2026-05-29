@@ -1,0 +1,47 @@
+.header .status-indicator--primary {
+  width: 15rem;
+  margin-top: 1rem;
+}
+
+.filter-product-form {
+  background-color: #f5f2fb;
+  padding: 1.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.table-head--radius {
+  background-color: #f5f2fb;
+  padding: 1rem 0;
+}
+
+.table-head--radius tr th {
+  padding: 1.25rem 1.5rem;
+}
+
+.table-head--radius tr th:first-child {
+  border-top-left-radius: 2rem;
+}
+
+.table-head--radius tr th:last-child {
+  border-top-right-radius: 2rem;
+}
+
+.product-table-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-table-img {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-table__icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}

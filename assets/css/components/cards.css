@@ -1,0 +1,197 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+@media (min-width: 56.25em) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.cards-container {
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: white;
+  z-index: 100;
+  position: relative;
+  z-index: 100;
+  border-bottom: 4px solid var(--primary);
+  transition: transform 0.3s;
+}
+
+.cards-container:hover {
+  transform: translateY(-1rem);
+}
+
+.cards-container--bg-primary {
+  background-color: var(--primary);
+}
+
+.cards-container--bg-primary .heading-primary,
+.cards-container--bg-primary .cards__icons {
+  color: white;
+}
+
+.cards-container--bg-primary .heading-secondary {
+  color: var(--light-primary);
+}
+
+.cards-container--grey {
+  border-bottom: 4px solid var(--secondary);
+}
+
+.cards-container--purple {
+  border-bottom: 4px solid rgb(134, 144, 238);
+}
+
+.cards-container--brown {
+  border-bottom: 4px solid rgb(92, 24, 0);
+}
+
+.cards-container--green {
+  border-bottom: 4px solid var(--green);
+}
+
+.cards-container--red {
+  border-bottom: 4px solid var(--red);
+}
+
+.cards-container .heading-secondary {
+  margin: 3rem 0 0.3rem 0;
+}
+
+.cards__icons--blue {
+  color: var(--primary);
+}
+
+.cards-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cards-logo__icon {
+  background-color: rgba(113, 116, 154, 0.4);
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards-logo__icon--green {
+  background-color: var(--light-green);
+}
+
+.cards-logo__icon--red {
+  background-color: var(--light-red);
+}
+
+.cards-logo__icon--brown {
+  background-color: #eee7e5;
+}
+
+.cards__icons {
+  position: absolute;
+  color: var(--primary);
+}
+
+.cards__icons--blue {
+  color: rgba(113, 116, 154, 0.4);
+}
+
+.cards__icons--purple {
+  color: rgb(134, 144, 238);
+}
+
+.cards__icons--brown {
+  color: #5c1800;
+}
+
+.cards__icons--green {
+  color: var(--green);
+}
+
+.cards__icons--red {
+  color: var(--red);
+}
+
+/* Membership card */
+.sidebar-membership {
+  padding: 18px 20px;
+  animation: fadeUp 0.35s ease 0.05s both;
+}
+
+.membership-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.membership-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.next-tier {
+  font-size: 11px;
+  color: var(--secondary);
+}
+.next-tier strong {
+  font-size: 13px;
+}
+
+.tier-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.tier-current {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tier-percent {
+  font-size: 11px;
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--light-grey);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: var(--gold-progress);
+  animation: progressIn 1.2s ease forwards;
+}
+
+@keyframes progressIn {
+  from {
+    width: 0%;
+  }
+}
+
+.membership-note {
+  font-size: 11px;
+  color: var(--neutral);
+  line-height: 1.55;
+}
