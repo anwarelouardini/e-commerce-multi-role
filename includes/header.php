@@ -433,6 +433,12 @@ if (!empty($_SESSION['profile_image'])) {
             <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/customer/orders.php">Orders</a>
           </li>
           <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/public/cart.php">Cart</a>
+          </li>
+          <li class="navigation-mobile__item">
+            <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/public/history.php">History</a>
+          </li>
+          <li class="navigation-mobile__item">
             <a class="navigation-mobile__link" href="<?= BASE_URL ?>pages/customer/user-profil.php">Profile</a>
           </li>
         </ul>

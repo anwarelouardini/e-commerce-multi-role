@@ -76,7 +76,7 @@ include __DIR__ . '/../../includes/header-public.php';
 
             <div class="pub-categories-grid">
                 <?php foreach ($categories_raw as $cat):
-                    $catName = $cat['name_categorie'];
+                    $catName = ucfirst($cat['name_categorie']);
                     $catImg  = $cat_images[$catName] ?? 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80';
                     $count   = $cat_counts[$cat['id_categorie']] ?? 0;
                 ?>

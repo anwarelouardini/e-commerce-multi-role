@@ -1,7 +1,4 @@
 <?php
-// ─── pages/public/home.php ────────────────────────────────────────────────────
-// Page d'accueil publique — intégrée au projet principal (e-commerce-multi-role)
-// Utilise includes/header.php et le système CSS du projet principal
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -11,9 +8,9 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
 $headerTitle = 'GAAM';
-$header      = 'customer-nav';   // navbar customer du projet principal
+$header      = 'customer-nav'; 
 
-// ── Featured products depuis la vraie DB ─────────────────────────────────────
+// ── Featured products depuis la vraie DB 
 try {
     $stmt = $pdo->prepare("
         SELECT p.id_product, p.name_product, p.description_product,
@@ -44,7 +41,7 @@ $pathCSS = 'assets/css/pages/home-public.css';
 include __DIR__ . '/../../includes/header-public.php';
 ?>
 
-<!-- ── Hero Section ─────────────────────────────────────────────────────────── -->
+<!-- Hero Section  -->
 <section class="pub-hero" id="hero">
     <div class="pub-hero__content">
         <p class="pub-hero__tag">Collections <?= date('Y') ?></p>
@@ -70,7 +67,7 @@ include __DIR__ . '/../../includes/header-public.php';
     </div>
 </section>
 
-<!-- ── Shop by Category ─────────────────────────────────────────────────────── -->
+<!-- Shop by Category -->
 <section class="pub-section pub-section--categories" id="section-categories">
     <div class="pub-container">
         <div class="pub-section__header">
@@ -109,7 +106,7 @@ include __DIR__ . '/../../includes/header-public.php';
     </div>
 </section>
 
-<!-- ── The Curation (produits depuis DB) ────────────────────────────────────── -->
+<!-- ── The Curation (produits depuis DB) -->
 <section class="pub-section pub-section--curation">
     <div class="pub-container">
         <div class="pub-section__header">
@@ -167,7 +164,7 @@ include __DIR__ . '/../../includes/header-public.php';
     </div>
 </section>
 
-<!-- ── Newsletter ────────────────────────────────────────────────────────────── -->
+<!-- Newsletter -->
 <section class="pub-newsletter" id="newsletter">
     <div class="pub-container pub-newsletter__inner">
         <h2 class="pub-newsletter__title">Join The Monolith</h2>
@@ -187,7 +184,7 @@ include __DIR__ . '/../../includes/header-public.php';
     </div>
 </section>
 
-<!-- ── Footer public ─────────────────────────────────────────────────────────── -->
+<!-- Footer public -->
 <footer class="pub-footer">
     <div class="pub-container pub-footer__inner">
         <div class="pub-footer__brand">
