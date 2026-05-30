@@ -49,8 +49,6 @@ orderStatusSelects.forEach((select) => {
   });
 });
 
-console.log(document.querySelectorAll(".select-order__status"));
-
 // This function will show the card data
 const showCardData = function () {
   totalOrderCard.textContent = totalOrders;

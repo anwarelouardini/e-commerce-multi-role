@@ -73,7 +73,7 @@ require_once __DIR__ . '/../../includes/header.php';
           <img
             id="productImg"
             class="user__img user__img--product"
-            src="../../assets/images/products/headset.jpg"
+            src="<?= BASE_URL ?>assets/images/products/<?= e($productImage) ?>"
             alt="Product"
           />
           <div>

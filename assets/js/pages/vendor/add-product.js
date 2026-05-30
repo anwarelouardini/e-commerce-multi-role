@@ -13,7 +13,12 @@ const mainImageInput = document.getElementById("mainImage");
 const deleteImgBtn = document.querySelector(".media-img__delete");
 const mediaImgContainer = document.querySelector(".media-img-container");
 
-initCategoryManager(categoryContainer, newBtnCategory);
+if (categoryContainer && newBtnCategory) {
+  initCategoryManager(categoryContainer, newBtnCategory);
+} else {
+  console.error("[add-product] initCategoryManager: elements not found");
+}
+
 initImageUpload(
   uploadPrompt,
   mainImageInput,

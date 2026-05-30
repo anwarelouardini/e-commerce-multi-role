@@ -7,7 +7,6 @@ export const initCategoryManager = function (
   );
 
   const createCategory = function () {
-    // Éviter d'ouvrir plusieurs inputs en même temps
     if (categoryContainer.querySelector(".form-input--small")) return;
 
     const input = document.createElement("input");
@@ -22,7 +21,6 @@ export const initCategoryManager = function (
         input.remove();
         return;
       }
-
       if (e.key !== "Enter") return;
       e.preventDefault();
 
@@ -33,7 +31,6 @@ export const initCategoryManager = function (
       }
 
       input.disabled = true;
-      input.value = "Saving...";
 
       try {
         const res = await fetch(
@@ -49,11 +46,10 @@ export const initCategoryManager = function (
 
         const data = await res.json();
 
-        // Ajouter l'option dans le select et la sélectionner
+        // Ajouter dans le select et sélectionner
         const option = document.createElement("option");
         option.value = data.id;
-        option.textContent =
-          data.name.charAt(0).toUpperCase() + data.name.slice(1).toLowerCase();
+        option.textContent = data.name;
         categorySelect.appendChild(option);
         categorySelect.value = data.id;
 
@@ -61,7 +57,6 @@ export const initCategoryManager = function (
       } catch (err) {
         console.error("Failed to save category:", err);
         input.disabled = false;
-        input.value = name;
         input.style.borderColor = "red";
       }
     });
@@ -81,7 +76,6 @@ export const initImageUpload = function (
   deleteImgBtn,
   mediaImgContainer,
 ) {
-  // Main image
   uploadPrompt.addEventListener("click", () => mainImageInput.click());
 
   mainImageInput.addEventListener("change", function (e) {
@@ -110,7 +104,6 @@ export const initImageUpload = function (
     mediaImgContainer.classList.remove("media-img-container--product");
   });
 
-  // Secondary images
   const secondaryContainers = document.querySelectorAll(
     ".media-img-container:not(.media-img-container--1)",
   );

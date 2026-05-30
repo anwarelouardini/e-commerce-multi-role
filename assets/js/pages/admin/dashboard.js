@@ -1,5 +1,4 @@
 const btnClose = document.querySelectorAll(".user-profile-btns .btn-close");
-console.log(btnClose);
 
 btnClose.forEach((btn) => {
   btn.addEventListener("click", () => {
