@@ -72,17 +72,6 @@
   border: 1px solid #f0f0f5;
 }
 
-.btn-secondary {
-  background: white;
-  border: 1px solid #1a237e;
-  color: #1a237e;
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
 details > summary {
   list-style: none;
 }

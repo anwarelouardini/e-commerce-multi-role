@@ -197,7 +197,7 @@ require_once __DIR__ . '/../../includes/header.php';
                 <?php endforeach; ?>
                 <?php else: ?>
                   <tr>
-                    <td class="t-data--empty" colspan="5">
+                    <td class="t-data--empty" colspan="6">
                       No products yet. <a href="<?= BASE_URL ?>pages/vendor/add-product.php">Add your first product</a>
                     </td>
                   </tr>
