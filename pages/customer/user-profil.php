@@ -5,9 +5,9 @@ require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
 
-define('ROLE_ADMIN',    1);
-define('ROLE_SELLER',   2);
-define('ROLE_CUSTOMER', 3);
+if (!defined('ROLE_ADMIN'))    define('ROLE_ADMIN',    1);
+if (!defined('ROLE_SELLER'))   define('ROLE_SELLER',   2);
+if (!defined('ROLE_CUSTOMER')) define('ROLE_CUSTOMER', 3);
 
 // Protéger la page : doit être connecté
 if (!isset($_SESSION['user_id'])) {
@@ -23,7 +23,7 @@ if ((int)$_SESSION['role'] === ROLE_SELLER) {
 
 $userId = (int)$_SESSION['user_id'];
 
-// ── Récupérer les infos complètes de l'utilisateur ───────────
+// Récupérer les infos complètes de l'utilisateur
 $stmt = $pdo->prepare("
     SELECT u.*, c.id_customer, c.address_customer
     FROM users u
@@ -33,7 +33,7 @@ $stmt = $pdo->prepare("
 $stmt->execute([$userId]);
 $user = $stmt->fetch();
 
-// ── Récupérer les commandes récentes ─────────────────────────
+// Récupérer les commandes récentes
 $orders = [];
 $totalOrders = 0;
 $inTransit   = 0;
@@ -66,7 +66,7 @@ if (!empty($user['id_customer'])) {
     $inTransit = (int)$stmt3->fetchColumn();
 }
 
-// ── Traitement mise à jour du profil ─────────────────────────
+// Traitement mise à jour du profil 
 $updateMsg = '';
 $updateErr = '';
 
@@ -122,16 +122,16 @@ $headerTitle = 'Profile — ' . htmlspecialchars($user['username'] . ' ' . $user
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
-  <!-- ── PAGE LAYOUT ── -->
+  <!-- PAGE LAYOUT -->
   <main class="page-layout">
 
-    <!-- ── LEFT SIDEBAR ── -->
+    <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
 
       <div class="sidebar-identity">
         <div class="avatar-wrap">
           <?php if (!empty($user['profile_image'])): ?>
-            <img src="../../assets/images/<?= htmlspecialchars($user['profile_image']) ?>" alt="Avatar" class="avatar-img" />
+            <img src="<?= BASE_URL ?>assets/images/avatars/<?= htmlspecialchars($user['profile_image']) ?>" alt="Avatar" class="avatar-img" />
           <?php else: ?>
           <img src="<?= BASE_URL ?>assets/images/avatars/emptyUserImg.png" alt="Avatar" class="avatar-img" />
           <?php endif; ?>
@@ -190,7 +190,7 @@ require_once __DIR__ . '/../../includes/header.php';
 
     </aside>
 
-    <!-- ── MAIN CONTENT ── -->
+    <!-- MAIN CONTENT -->
     <section class="main-content">
 
       <div class="content-header">
@@ -248,7 +248,7 @@ require_once __DIR__ . '/../../includes/header.php';
       <div class="content-section">
         <div class="section-header">
           <h3 class="section-title">Recent Orders</h3>
-          <a href="#" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="<?= BASE_URL ?>pages/customer/orders.php" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="orders-table card">
@@ -272,10 +272,10 @@ require_once __DIR__ . '/../../includes/header.php';
             <div class="orders-table-row <?= $isLast ? 'last' : '' ?>">
               <div class="order-product">
                 <div class="order-img-wrap">
-                  <img src="../../assets/images/<?= htmlspecialchars($order['product_image'] ?? 'placeholder.jpg') ?>"
+                  <img src="<?= BASE_URL ?>assets/images/products/<?= htmlspecialchars($order['product_image'] ?? '') ?>"
                        alt="<?= htmlspecialchars($order['name_product']) ?>"
                        class="order-img"
-                       onerror="this.src='https://via.placeholder.com/80x80?text=IMG'" />
+                       onerror="if(!this.dataset.errored){this.dataset.errored=1;this.src='<?= BASE_URL ?>assets/images/avatars/emptyUserImg.png';}" />
                 </div>
                 <div>
                   <p class="order-name"><?= htmlspecialchars($order['name_product']) ?></p>
@@ -335,7 +335,7 @@ require_once __DIR__ . '/../../includes/header.php';
     </section>
   </main>
 
-  <!-- ── MODAL EDIT PROFIL ── -->
+  <!-- MODAL EDIT PROFIL -->
   <div id="editModal" class="modal-overlay">
     <div class="modal-box card">
       <div class="modal-header">

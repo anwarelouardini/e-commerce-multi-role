@@ -20,9 +20,9 @@ if ((int)$_SESSION['role'] === ROLE_SELLER) {
 
 $userId = (int)$_SESSION['user_id'];
 
-// ── Récupérer les infos du customer ──────────────────────────
+// Récupérer les infos du customer
 $user = getCustomerInfo($pdo, $userId);
-// ── Récupérer toutes les commandes ───────────────────────────
+// Récupérer toutes les commandes 
 $orders = [];
 $totalOrders = 0;
 $inTransit   = 0;
@@ -47,7 +47,7 @@ require_once __DIR__ . '/../../includes/header.php';
 
   <main class="page-layout">
 
-    <!-- ── LEFT SIDEBAR ── -->
+    <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-identity">
         <div class="avatar-wrap">
@@ -89,7 +89,7 @@ require_once __DIR__ . '/../../includes/header.php';
       </div>
     </aside>
 
-    <!-- ── MAIN CONTENT ── -->
+    <!-- MAIN CONTENT -->
     <section class="main-content" style="margin-bottom: 10rem;">
 
       <div class="content-header">

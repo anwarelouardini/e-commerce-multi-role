@@ -2,11 +2,7 @@
 session_start();
 require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/functions.php';
-require_once __DIR__ . '/../../db.php'; // Ta connexion MySQLi ($conn)
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once __DIR__ . '/../../includes/db.php'; // $pdo (PDO)
 
 // Protection : l'utilisateur doit être connecté
 if (!isset($_SESSION['user_id'])) {
@@ -16,75 +12,71 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = (int)$_SESSION['user_id'];
 
-// 1. Récupérer id_customer et id_cart
-$meta_sql  = "SELECT cu.id_customer, ca.id_cart
+// 1. Récupérer id_customer
+$meta_stmt = $pdo->prepare("SELECT cu.id_customer
               FROM customers cu
-              LEFT JOIN cart ca ON ca.id_customer = cu.id_customer
-              WHERE cu.id_user = ? LIMIT 1";
-$meta_stmt = $conn->prepare($meta_sql);
-if (!$meta_stmt) { die("Erreur SQL Meta : " . $conn->error); }
-
-$meta_stmt->bind_param("i", $userId);
-$meta_stmt->execute();
-$meta = $meta_stmt->get_result()->fetch_assoc();
+              WHERE cu.id_user = ? LIMIT 1");
+$meta_stmt->execute([$userId]);
+$meta = $meta_stmt->fetch();
 
 $current_customer_id = $meta ? (int)$meta['id_customer'] : 0;
-$current_cart_id = ($meta && !empty($meta['id_cart'])) ? (int)$meta['id_cart'] : 1; 
+$orderPlaced = false;
 
-// 2. Traitement du formulaire de commande
-if ($_SERVER["REQUEST_METHOD"] === "POST" && $current_customer_id > 0) {
-    $firstName      = $_POST['first_name']      ?? '';
-    $lastName       = $_POST['last_name']       ?? '';
-    $address        = $_POST['address']         ?? '';
-    $city           = $_POST['city']            ?? '';
-    $postalCode     = $_POST['postal_code']     ?? '';
-    $deliveryMethod = $_POST['delivery_method'] ?? '';
+// 2. Traitement du formulaire de commande (POST depuis shipping.php)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $current_customer_id > 0) {
+    $firstName      = trim($_POST['first_name']      ?? '');
+    $lastName       = trim($_POST['last_name']       ?? '');
+    $address        = trim($_POST['address']         ?? '');
+    $city           = trim($_POST['city']            ?? '');
+    $postalCode     = trim($_POST['postal_code']     ?? '');
+    $deliveryMethod = trim($_POST['delivery_method'] ?? '');
 
-    // Insérer la commande
-    $insert_sql  = "INSERT INTO orders
-                      (id_customer, first_name, last_name, address, city,
-                       postal_code, delivery_method, order_status, date_order)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', NOW())";
-    
-    $insert_stmt = $conn->prepare($insert_sql);
-    if (!$insert_stmt) { die("Erreur SQL Insert Order : " . $conn->error); }
-    
-    $insert_stmt->bind_param("issssss",
-        $current_customer_id, $firstName, $lastName,
-        $address, $city, $postalCode, $deliveryMethod);
-    $insert_stmt->execute();
+    // Les items viennent du POST (hidden input injecté par shipping.js)
+    $cartJson = $_POST['cart_items'] ?? '[]';
+    $cartItems = json_decode($cartJson, true) ?: [];
 
-    $new_order_id = $conn->insert_id;
+    if (!empty($cartItems)) {
+        try {
+            $pdo->beginTransaction();
 
-    // Transférer les produits du panier vers orders_items
-    if ($current_cart_id > 0) {
-        $cart_sql  = "SELECT id_product, quantity_cart_items FROM cart_items WHERE id_cart = ?";
-        $cart_stmt = $conn->prepare($cart_sql);
-        $cart_stmt->bind_param("i", $current_cart_id);
-        $cart_stmt->execute();
-        $cart_result = $cart_stmt->get_result();
+            // Insérer la commande
+            $pdo->prepare("INSERT INTO orders
+                              (id_customer, first_name, last_name, address, city,
+                               postal_code, delivery_method, order_status, date_order)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', NOW())")
+                ->execute([$current_customer_id, $firstName, $lastName,
+                           $address, $city, $postalCode, $deliveryMethod]);
 
-        while ($cart_item = $cart_result->fetch_assoc()) {
-            // CORRECTION ICI : orders_items et quantity_order_items
-            $item_sql  = "INSERT INTO orders_items (id_order, id_product, quantity_order_items) VALUES (?, ?, ?)";
-            $item_stmt = $conn->prepare($item_sql);
-            $item_stmt->bind_param("iii",
-                $new_order_id, $cart_item['id_product'], $cart_item['quantity_cart_items']);
-            $item_stmt->execute();
+            $new_order_id = (int)$pdo->lastInsertId();
+
+            // Insérer les items depuis le panier localStorage
+            $item_stmt = $pdo->prepare(
+                "INSERT INTO orders_items (id_order, id_product, quantity_order_items)
+                 VALUES (?, ?, ?)"
+            );
+            foreach ($cartItems as $item) {
+                $item_stmt->execute([
+                    $new_order_id,
+                    (int)$item['id'],
+                    (int)$item['quantity']
+                ]);
+            }
+
+            $pdo->commit();
+            $orderPlaced = true;
+
+        } catch (PDOException $e) {
+            $pdo->rollBack();
         }
     }
 }
 
 // 3. Récupérer toutes les commandes du client
-$orders_result = null;
+$orders = [];
 if ($current_customer_id > 0) {
-    $sql  = "SELECT * FROM orders WHERE id_customer = ? ORDER BY date_order DESC";
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) { die("Erreur SQL Select Orders : " . $conn->error); }
-    
-    $stmt->bind_param("i", $current_customer_id);
-    $stmt->execute();
-    $orders_result = $stmt->get_result();
+    $stmt = $pdo->prepare("SELECT * FROM orders WHERE id_customer = ? ORDER BY date_order DESC");
+    $stmt->execute([$current_customer_id]);
+    $orders = $stmt->fetchAll();
 }
 
 // Header
@@ -112,6 +104,14 @@ require_once __DIR__ . '/../../includes/header.php';
   .order-actions { margin-left: auto; }
 </style>
 
+<?php if ($orderPlaced): ?>
+<script>
+  // Vider le localStorage après confirmation de commande
+  localStorage.removeItem('gaamCart');
+  localStorage.removeItem('gaamShipping');
+</script>
+<?php endif; ?>
+
 <main class="container u-margin-top-med">
   <header class="history-header">
     <h1 class="heading-primary">Order History</h1>
@@ -120,8 +120,8 @@ require_once __DIR__ . '/../../includes/header.php';
 
   <section class="orders-list">
 
-    <?php if ($orders_result && $orders_result->num_rows > 0): ?>
-      <?php while ($order = $orders_result->fetch_assoc()): ?>
+    <?php if (!empty($orders)): ?>
+      <?php foreach ($orders as $order): ?>
 
         <div class="order-card">
           <div class="order-card__header">
@@ -145,27 +145,23 @@ require_once __DIR__ . '/../../includes/header.php';
           <div class="order-card__content">
             <div class="order-items-preview">
               <?php
-                // CORRECTION ICI : orders_items
-                $item_sql  = "SELECT p.product_image, p.name_product
+                $item_stmt = $pdo->prepare("SELECT p.product_image, p.name_product
                               FROM orders_items oi
                               JOIN products p ON oi.id_product = p.id_product
-                              WHERE oi.id_order = ?";
-                $item_stmt = $conn->prepare($item_sql);
-                if ($item_stmt) {
-                    $item_stmt->bind_param("i", $order['id_order']);
-                    $item_stmt->execute();
-                    $items_result = $item_stmt->get_result();
-                    if ($items_result->num_rows > 0) {
-                        while ($item = $items_result->fetch_assoc()) {
-                            // Les images pointent vers ton dossier avatars
-                            echo '<img src="' . BASE_URL . 'assets/images/avatars/'
-                               . e($item['product_image'])
-                               . '" alt="' . e($item['name_product'])
-                               . '" class="order-thumb">';
-                        }
-                    } else {
-                        echo '<span style="font-size:1.2rem;color:#777;">No images available</span>';
+                              WHERE oi.id_order = ?");
+                $item_stmt->execute([$order['id_order']]);
+                $items = $item_stmt->fetchAll();
+                if (!empty($items)) {
+                    foreach ($items as $item) {
+                        echo '<img src="' . BASE_URL . 'assets/images/products/'
+                           . e($item['product_image'])
+                           . '" alt="' . e($item['name_product'])
+                           . '" class="order-thumb"'
+                           . ' onerror="if(!this.dataset.e){this.dataset.e=1;this.style.display=\'none\';}"'
+                           . '>';
                     }
+                } else {
+                    echo '<span style="font-size:1.2rem;color:#777;">No images available</span>';
                 }
               ?>
             </div>
@@ -185,7 +181,7 @@ require_once __DIR__ . '/../../includes/header.php';
           </div>
         </div>
 
-      <?php endwhile; ?>
+      <?php endforeach; ?>
     <?php else: ?>
       <div style="padding:40px;text-align:center;font-size:1.6rem;">
         <p>You haven't placed any orders yet.</p>

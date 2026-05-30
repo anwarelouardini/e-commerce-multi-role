@@ -1,90 +1,146 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+  const STORAGE_KEY = "gaamCart";
+  const TAX_RATE = 0.08;
+  const SHIPPING = 45.0;
 
-  const TAX_RATE = 0.08; 
-  const SHIPPING_COST = 45.00;
+  const container = document.getElementById("cart-items-container");
+  const subtotalEl = document.getElementById("subtotal");
+  const taxEl = document.getElementById("tax");
+  const totalEl = document.getElementById("total");
 
-  const subtotalElement = document.getElementById('subtotal');
-  const taxElement = document.getElementById('tax');
-  const totalElement = document.getElementById('total');
-
-  function formatMoney(amount) {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function fmt(n) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(n);
   }
 
-  function updateOrderSummary() {
-    const currentCards = document.querySelectorAll('.card-shop');
-    let newSubtotal = 0;
-    
-    // NEW: Create an empty array to hold our cart items for localStorage
-    let cartMemory = []; 
-
-    currentCards.forEach(card => {
-      const priceString = card.querySelector('.price').getAttribute('data-price');
-      const itemPrice = parseFloat(priceString);
-      const currentQty = parseInt(card.querySelector('.qty-display').textContent);
-      
-      newSubtotal += (itemPrice * currentQty);
-
-      // NEW: Gather the details of this specific product
-      const itemTitle = card.querySelector('h2').textContent;
-      const itemSubtitle = card.querySelector('.sub-heading').textContent;
-      const itemImage = card.querySelector('img').getAttribute('src');
-
-      // NEW: Push those details into our memory array
-      cartMemory.push({
-        title: itemTitle,
-        subtitle: itemSubtitle,
-        image: itemImage,
-        price: itemPrice,
-        quantity: currentQty
-      });
-    });
-
-    const taxAmount = newSubtotal * TAX_RATE;
-    const currentShipping = newSubtotal > 0 ? SHIPPING_COST : 0; 
-    const finalTotal = newSubtotal + taxAmount + currentShipping;
-
-    subtotalElement.textContent = formatMoney(newSubtotal);
-    taxElement.textContent = formatMoney(taxAmount);
-    totalElement.textContent = formatMoney(finalTotal);
-
-    // NEW: Save everything into the browser's localStorage!
-    // JSON.stringify turns our array into a text string the browser can store.
-    localStorage.setItem('gaamCartItems', JSON.stringify(cartMemory));
-    localStorage.setItem('gaamSubtotal', newSubtotal);
-    localStorage.setItem('gaamTax', taxAmount);
+  function loadCart() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
   }
 
-  const productCards = document.querySelectorAll('.card-shop');
+  function saveCart(cart) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  }
 
-  productCards.forEach((card) => {
-    const btnMinus = card.querySelector('.btn-minus');
-    const btnPlus = card.querySelector('.btn-plus');
-    const btnRemove = card.querySelector('.btn-remove');
-    const qtyDisplay = card.querySelector('.qty-display');
-    
-    btnPlus.addEventListener('click', () => {
-      let quantity = parseInt(qtyDisplay.textContent);
-      quantity++;
-      qtyDisplay.textContent = quantity;
-      updateOrderSummary();
+  // ── Recalculer et afficher le résumé ───────────────────────────────────────
+  function updateSummary(cart) {
+    let subtotal = 0;
+    cart.forEach((item) => {
+      subtotal += item.price * item.quantity;
     });
 
-    btnMinus.addEventListener('click', () => {
-      let quantity = parseInt(qtyDisplay.textContent);
-      if (quantity > 1) {
-        quantity--;
-        qtyDisplay.textContent = quantity;
-        updateOrderSummary();
+    const tax = subtotal * TAX_RATE;
+    const ship = subtotal > 0 ? SHIPPING : 0;
+    const total = subtotal + tax + ship;
+
+    subtotalEl.textContent = fmt(subtotal);
+    taxEl.textContent = fmt(tax);
+    totalEl.textContent = fmt(total);
+
+    // ← AJOUTER CES 3 LIGNES
+    localStorage.setItem("gaamCartItems", JSON.stringify(cart));
+    localStorage.setItem("gaamSubtotal", subtotal);
+    localStorage.setItem("gaamTax", tax);
+  }
+
+  // ── Générer le HTML d'une card produit ────────────────────────────────────
+  function buildCard(item) {
+    const div = document.createElement("section");
+    div.className = "card-shop";
+    div.dataset.productId = item.id;
+    div.innerHTML = `
+      <div class="img-design">
+        <img src="${item.image}" alt="${item.title}"
+             onerror="if(!this.dataset.e){this.dataset.e=1;this.style.opacity='0.3';}">
+      </div>
+      <div class="contenu-card">
+        <div class="top-content">
+          <div class="text-content">
+            <h2>${item.title}</h2>
+            <span class="sub-heading">${item.subtitle}</span>
+          </div>
+          <div class="price" data-price="${item.price}">
+            ${fmt(item.price)}
+          </div>
+        </div>
+        <div class="bottom-content">
+          <div class="quantity">
+            <button class="btn-minus">-</button>
+            <span class="qty-display">${item.quantity}</span>
+            <button class="btn-plus">+</button>
+          </div>
+          <button class="btn-remove">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+            REMOVE
+          </button>
+        </div>
+      </div>
+    `;
+
+    // ── Events sur la card ──────────────────────────────────────────────────
+    const qtyEl = div.querySelector(".qty-display");
+
+    div.querySelector(".btn-plus").addEventListener("click", () => {
+      const cart = loadCart();
+      const found = cart.find((i) => i.id === item.id);
+      if (found) {
+        found.quantity++;
+        qtyEl.textContent = found.quantity;
+        saveCart(cart);
+        updateSummary(cart);
       }
     });
 
-    btnRemove.addEventListener('click', () => {
-      card.remove();
-      updateOrderSummary();
+    div.querySelector(".btn-minus").addEventListener("click", () => {
+      const cart = loadCart();
+      const found = cart.find((i) => i.id === item.id);
+      if (found && found.quantity > 1) {
+        found.quantity--;
+        qtyEl.textContent = found.quantity;
+        saveCart(cart);
+        updateSummary(cart);
+      }
     });
-  });
 
-  updateOrderSummary();
+    div.querySelector(".btn-remove").addEventListener("click", () => {
+      const cart = loadCart().filter((i) => i.id !== item.id);
+      saveCart(cart);
+      div.remove();
+      updateSummary(cart);
+      if (cart.length === 0) showEmpty();
+    });
 
+    return div;
+  }
+
+  // ── Afficher panier vide ───────────────────────────────────────────────────
+  function showEmpty() {
+    container.innerHTML =
+      '<div style="padding:40px;text-align:center;font-size:1.6rem;"><p>Your cart is currently empty.</p></div>';
+  }
+
+  // ── Render initial ─────────────────────────────────────────────────────────
+  const cart = loadCart();
+
+  if (cart.length === 0) {
+    showEmpty();
+  } else {
+    container.innerHTML = "";
+    cart.forEach((item) => container.appendChild(buildCard(item)));
+  }
+
+  updateSummary(cart);
 });
