@@ -80,10 +80,10 @@ require_once __DIR__ . '/../../includes/header.php';
       </p>
     </div>
     <ul class="footer__links">
-      <li><a href="#" class="footer__link">Shipping</a></li>
-      <li><a href="#" class="footer__link">Returns</a></li>
-      <li><a href="#" class="footer__link">Privacy</a></li>
-      <li><a href="#" class="footer__link">Bespoke Service</a></li>
+      <li><a href="<?= BASE_URL ?>pages/public/home.php" class="footer__link">Home</a></li>
+      <li><a href="<?= BASE_URL ?>pages/public/product-catalog.php" class="footer__link">Catalog</a></li>
+      <li><a href="<?= BASE_URL ?>pages/public/category-page.php" class="footer__link">Categories</a></li>
+      <li><a href="<?= BASE_URL ?>pages/public/cart.php" class="footer__link">Cart</a></li>
     </ul>
   </div>
   <div class="footer__bottom container">
