@@ -176,3 +176,253 @@ assets/css/components/
 **EL OUARDINI Anwar** — Responsable Back-Office (Admin & Vendeur)  
 Projet réalisé dans le cadre du module Développement Web — S6  
 Université Mundiapolis, Campus Nouaceur | 2025–2026
+
+---
+
+# 👤 HOUSSINI Abdelmouniim — Interface Client Front-End
+**Partie vitrine client du projet E-Commerce Multi-Rôles**  
+Université Mundiapolis — Cycle Ingénieur 1A | Module Développement Web | 2025–2026
+
+---
+
+## 📋 Responsabilité dans le projet
+
+Je suis responsable de toute la **partie client front-end** de la plateforme, c'est-à-dire l'ensemble des pages visibles par les utilisateurs finaux (acheteurs) qui naviguent sur la boutique. Ces pages constituent la vitrine publique de GAAM et couvrent la découverte des produits, la navigation par catégorie, les filtres interactifs et le détail d'un produit.
+
+---
+
+## 🗂️ Fichiers dont je suis responsable
+
+### Pages Client
+```
+pages/
+├── home.php                → Page d'accueil (hero, catégories, curation, newsletter)
+├── product-catalog.php     → Catalogue produits avec filtres interactifs
+├── category-page.php       → Page de catégorie avec hero banner et sidebar filtres
+└── product-detail.php      → Page détail d'un produit (variantes, avis, CTA)
+```
+
+### Includes partagés
+```
+includes/
+├── header.php              → Navigation partagée (logo, liens, icônes)
+└── footer.php              → Footer partagé + bottom nav mobile
+```
+
+### Styles CSS
+```
+assets/css/
+├── main.css                → Styles globaux, responsive, tous les composants
+└── variables.css           → Design system (couleurs, polices, espacements)
+```
+
+### JavaScript
+```
+assets/js/
+├── update-slider.js        → Logique double slider prix (price range)
+├── filters.js              → Filtrage produits par prix, couleur, rating
+└── smooth-scrolling.js     → Navigation fluide entre les sections
+```
+
+---
+
+## ✅ Fonctionnalités développées
+
+### 🏠 Page d'Accueil (`home.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Hero Section | Image plein écran mobile / split 2 colonnes desktop avec pseudo-élément `::after` |
+| Shop by Category | Grille 3 cartes avec images de fond et overlay gradient |
+| The Curation | Grille produits avec badges, cœur de favoris et hover zoom |
+| Newsletter | Bloc email avec pill input+bouton fusionnés sur desktop |
+| Responsive complet | Mobile (1 col), Tablette (2 col), Desktop (4 col grille produits) |
+
+### 🛍️ Page Catalogue (`product-catalog.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Layout Sidebar + Grille | Sidebar 25% sticky + contenu 75% via `display: flex` |
+| Double slider prix | Deux `input[type=range]` superposés avec barre colorée dynamique |
+| Filtrage en temps réel | Masquage/affichage des cards selon la plage de prix sélectionnée |
+| Color Palette | 5 points colorés cliquables avec anneau de sélection `::after` |
+| Rating étoiles | 5 étoiles cliquables avec état actif cumulatif |
+| Navigation desktop | Grid 3 colonnes : logo gauche / liens centre / icônes droite |
+| Pagination | Boutons circulaires avec état actif + flèches navigation |
+
+### 📂 Page Catégorie (`category-page.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Hero Banner | Image pleine largeur (100% viewport), hauteur 48rem, overlay gradient |
+| Sidebar filtres | Price Range (checkboxes), Material (tags), Sustainability (note) |
+| Grille 3 colonnes | Produits avec badges Limited Edition / New Arrival / Exclusive |
+| Barre de tri | Compteur de résultats + sélecteur Featured/Prix/Nouveautés |
+| Isolation CSS | Suffixe `_2` sur toutes les classes pour éviter les conflits |
+| Breadcrumb mobile | Navigation fil d'ariane sur mobile |
+
+### 🔍 Page Détail Produit (`product-detail.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Hero image | Image plein écran avec badge Premium Series positionné en absolu |
+| Sélecteur de finition | 3 points colorés cliquables (navy, silver, gold) |
+| Sélecteur dimensions | Boutons pill avec état actif/outline (38mm / 42mm) |
+| Feature Cards | Heritage (fond clair) + Resistance (fond `--primary`) côte à côte |
+| Section Journal | Étoiles Font Awesome, citation, avatar auteur, barres de notation |
+| Barres de notation | Build Quality et Delivery avec remplissage dynamique via `style="width: X%"` |
+| Bottom CTA fixe | Bouton bag circulaire + bouton Buy Now pleine largeur (mobile) |
+
+---
+
+## 📐 Système Responsive
+
+### Breakpoints
+
+| Breakpoint | Cible | Changements principaux |
+|---|---|---|
+| Base | Mobile (< 768px) | 1 colonne, bottom nav fixe, images pleine largeur |
+| 768px–1099px | Tablette | 2 colonnes produits, bottom nav cachée |
+| ≥ 1100px | Desktop | Sidebar + grille 3 col, nav horizontale sticky |
+| ≥ 1400px | Large desktop | Sidebar élargie 24rem, gaps augmentés |
+
+### Navigation adaptative
+
+- **Mobile** : bottom nav fixe avec 4 icônes (Home, Search, Cart, Account)
+- **Desktop** : header sticky `grid-template-columns: 1fr auto 1fr` — logo gauche, liens centre, icônes droite
+
+---
+
+## 🎨 Design System
+
+### Variables CSS (`variables.css`)
+
+```css
+:root {
+    --primary:       #1a237e;   /* Bleu marine principal */
+    --secondary:     rgb(113, 116, 154);
+    --light-grey:    #faf8fd;   /* Fond global */
+    --tertiary:      #5c1800;   /* Badges Sale / accent */
+    --neutral:       #77767d;
+    --bg:            #ffffff;
+    --border-radius: 1rem;
+    --primary-font:  "Manrope", sans-serif;
+}
+```
+
+### Micro-interactions
+
+- Zoom au survol des images : `transform: scale(1.04–1.08)` + `overflow: hidden`
+- Underline animé sur les liens nav : `width: 0 → 100%` via `::after`
+- Opacité cœur favoris au survol : `opacity: 0.25 → 1`
+- Transitions boutons : `transition: all 0.2s`
+
+---
+
+## ⚙️ Fonctions JavaScript principales (`update-slider.js`, `filters.js`)
+
+```javascript
+// Double slider prix
+function updateSlider() {
+    let min = parseInt(rMin.value);
+    let max = parseInt(rMax.value);
+    if (min >= max) { rMin.value = max - 10; min = max - 10; }
+    const pMin = (min / 1000) * 100;
+    const pMax = (max / 1000) * 100;
+    fill.style.left  = pMin + '%';
+    fill.style.width = (pMax - pMin) + '%';
+    rangeDisplay.textContent = '$' + min + ' – ' + (max >= 1000 ? '$1000+' : '$' + max);
+    filterProducts(min, max);
+}
+
+// Filtrage produits par prix
+function filterProducts(min, max) {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const priceEl = card.querySelector('.product-card__price');
+        if (!priceEl) return;
+        const price = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, ''));
+        card.style.display = (price >= min && price <= max) ? 'block' : 'none';
+    });
+}
+
+// Rating étoiles
+document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', () => {
+        const val = parseInt(star.dataset.val);
+        document.querySelectorAll('.star').forEach(s => {
+            s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+        });
+    });
+});
+```
+
+---
+
+## 🔌 Intégration PHP — Includes partagés
+
+```php
+<?php
+$pageTitle   = 'Living Essentials';
+$currentPage = 'catalog';
+$searchBar   = true; // active la barre de recherche dans le header
+include '../includes/header.php';
+?>
+
+<main>
+    <!-- contenu spécifique à la page -->
+</main>
+
+<?php include '../includes/footer.php'; ?>
+```
+
+### Variables de contexte disponibles
+
+| Variable | Type | Description |
+|---|---|---|
+| `$pageTitle` | `string` | Titre de l'onglet navigateur |
+| `$currentPage` | `string` | Page active pour le surlignage du lien nav |
+| `$searchBar` | `bool` | Affiche barre de recherche au lieu des icônes |
+| `$extraCss` | `string` | Chemin vers un CSS supplémentaire |
+| `$extraJs` | `string` | Chemin vers un JS supplémentaire |
+
+---
+
+## 🗄️ Tables de base de données utilisées
+
+| Table | Usage |
+|---|---|
+| `products` | Affichage des produits sur home, catalog et category |
+| `categories` | Filtres par catégorie sur la page catalogue |
+| `orders_items` | Calcul du prix pour le filtrage dynamique |
+| `sellers` | Affichage du nom du vendeur sur la fiche produit |
+
+---
+
+## 🔒 Bonnes pratiques implémentées
+
+- **CSS** : Variables centralisées, mobile first, pas de `!important` sauf héritage
+- **HTML** : Balises sémantiques (`<header>`, `<main>`, `<section>`, `<aside>`, `<footer>`), `alt` sur toutes les images, `aria-label` sur les boutons icônes
+- **JS** : Fichiers séparés par responsabilité, `defer` sur tous les scripts, une fonction = une responsabilité
+- **Performance** : Transitions sur `transform` et `opacity` uniquement (sans reflow), images optimisées avec paramètres `?w=600&q=80`
+
+---
+
+## 🚀 Comment tester ma partie
+
+1. Lancer le serveur XAMPP (Apache + MySQL)
+2. Accéder à `http://localhost/GAAM/pages/home.php` → page d'accueil
+3. Accéder à `http://localhost/GAAM/pages/product-catalog.php` → catalogue avec filtres
+4. Accéder à `http://localhost/GAAM/pages/category-page.php` → page catégorie
+5. Accéder à `http://localhost/GAAM/pages/product-detail.php` → détail produit
+6. Tester les filtres prix, couleur et rating sur le catalogue
+7. Redimensionner la fenêtre pour vérifier le responsive (mobile / tablette / desktop)
+
+> Aucun compte requis pour accéder aux pages client — elles sont publiques.
+
+---
+
+## 👨‍💻 Auteur
+
+**HOUSSINI Abdelmouniim** — Responsable Interface Client Front-End  
+Projet réalisé dans le cadre du module Développement Web — S6  
+Université Mundiapolis, Campus Nouaceur | 2025–2026
