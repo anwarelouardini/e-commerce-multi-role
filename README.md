@@ -426,3 +426,129 @@ include '../includes/header.php';
 **HOUSSINI Abdelmouniim** — Responsable Interface Client Front-End  
 Projet réalisé dans le cadre du module Développement Web — S6  
 Université Mundiapolis, Campus Nouaceur | 2025–2026
+
+# 👤 SAHMI Adam — Tunnel d'Achat & Historique des Commandes
+
+> **Partie Processus d'Achat** du projet E-Commerce Multi-Rôles  
+> Université Mundiapolis — Cycle Ingénieur 1A | Module Développement Web | 2025–2026
+
+---
+
+## 📋 Responsabilité dans le projet
+
+Je suis responsable de toute la partie **Tunnel de Conversion (Checkout)** et **Traçabilité Client** de la plateforme. Cela inclut la gestion dynamique du panier d'achat, la collecte sécurisée des informations de livraison, le traitement transactionnel en base de données pour figer la commande, ainsi que l'interface permettant au client de consulter l'historique détaillé de ses achats.
+
+---
+
+## 🗂️ Fichiers dont je suis responsable
+
+### Pages Client (Processus d'Achat)
+
+```text
+pages/public/
+├── cart.php              → Affichage dynamique du panier et calculs financiers
+├── shipping.php          → Formulaire de livraison avec pré-remplissage intelligent
+└── history.php           → Traitement backend de la commande et affichage de l'historique
+```
+
+### Architecture & Sécurité
+
+```text
+/
+├── db.php                → Script de connexion sécurisée à la BDD
+└── .env                  → Fichier d'environnement (ignoré par Git) protégeant les identifiants locaux
+```
+
+### CSS & JavaScript associés
+
+```text
+assets/css/pages/
+├── cart.css              → Styles spécifiques à la grille du panier
+├── shipping.css          → Mise en page du formulaire et des cartes de livraison
+└── history.css           → Styles des cartes de commandes et des miniatures produits
+
+assets/js/pages/client/
+└── shipping.js           → Interactivité côté client pour l'étape de livraison
+```
+
+---
+
+## ✅ Fonctionnalités développées
+
+### 🛒 Page Panier (`cart.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Récupération des données | Requête SQL `JOIN` entre `cart_items` et `products` pour extraire les détails (image, nom, prix). |
+| Calculs dynamiques | Algorithme PHP calculant le sous-total (prix × quantité), la TVA (8%), et les frais d'expédition. |
+| Affichage modulaire | Génération de cartes produits à la volée via une boucle PHP `while`. |
+| Gestion des états vides | Affichage d'un message d'erreur ergonomique si le panier est vide. |
+
+### 📦 Page de Livraison (`shipping.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Smart Autofill | Requête `LEFT JOIN` (`users` + `customers`) pour pré-remplir automatiquement le prénom, nom et adresse du client connecté. |
+| Sélection d'expédition | Boutons radio interactifs permettant de choisir entre "Express Courier" et "Standard Editorial". |
+| Séparation des données | Sauvegarde de l'adresse d'expédition uniquement pour la commande en cours, sans écraser l'adresse de résidence globale. |
+| Transmission sécurisée | Envoi des données vers le script de traitement via la méthode HTTP `POST`. |
+
+### 📜 Page Historique & Validation (`history.php`)
+
+| Fonctionnalité | Description |
+|---|---|
+| Création de commande | Insertion des données de livraison dans `orders` et récupération de l'ID généré. |
+| Figeage du panier | Transfert automatisé des articles depuis `cart_items` vers `orders_items` pour archiver le contenu exact. |
+| Affichage chronologique | Récupération des anciennes commandes triées par date décroissante (`ORDER BY date_order DESC`). |
+| Détails natifs | Utilisation de la balise HTML5 `<details>` pour un menu déroulant fluide des informations de livraison (sans JS). |
+| Miniatures produits | Sous-requête SQL dynamique affichant les images exactes des produits achetés dans chaque carte de commande. |
+
+---
+
+## 🔒 Sécurité et Bonnes Pratiques
+
+- **Variables d'Environnement (`.env`)** : Implémentation d'un système `.env` via `db.php` pour sécuriser les mots de passe de la BDD et éviter les *merge conflicts* sur GitHub entre développeurs.
+- **Requêtes préparées** : Toutes les insertions et sélections utilisent `prepare()` et `bind_param()` / `execute()` pour une protection totale contre les injections SQL.
+- **Échappement des données** : Utilisation systématique de la fonction `e()` (`htmlspecialchars`) sur les données affichées dans l'historique pour prévenir les failles XSS.
+- **Vérification de Session** : Redirection automatique vers la page de login si un utilisateur non authentifié tente d'accéder au tunnel d'achat.
+
+---
+
+## 🗄️ Tables de base de données utilisées
+
+| Table | Usage |
+|---|---|
+| `cart_items` | Lecture des articles placés dans le panier par le client. |
+| `orders` | Insertion des métadonnées de livraison (`first_name`, `address`, `delivery_method`). |
+| `orders_items` | Table de liaison (Many-to-Many) archivant les produits d'une commande validée. |
+| `users` & `customers` | Récupération des informations du profil pour le pré-remplissage du formulaire. |
+| `products` | Récupération des images, noms et prix pour l'affichage visuel. |
+
+---
+
+## ⚙️ Technologies utilisées
+
+- **PHP 8** (Sessions, Algorithmes de calcul financier, MySQLi)
+- **MySQL / MariaDB** (Requêtes complexes : `JOIN`, `LEFT JOIN`, Sous-requêtes)
+- **HTML5** (Balises sémantiques et interactives comme `<details>` et `<summary>`)
+- **CSS3** (Flexbox, Grid, mise en page adaptative)
+
+---
+
+## 🚀 Comment tester ma partie
+
+1. Lancer le serveur local (XAMPP).
+2. Se connecter avec un compte **Client** existant.
+3. Ajouter un ou plusieurs articles au panier depuis la boutique.
+4. Accéder à `/pages/public/cart.php` pour vérifier les calculs.
+5. Cliquer sur *Checkout* pour accéder à `/pages/public/shipping.php` et tester le pré-remplissage.
+6. Soumettre le formulaire de livraison pour déclencher le script de sauvegarde.
+7. Constater la redirection vers `/pages/public/history.php` où la nouvelle commande apparaîtra en haut de la liste avec les images des produits.
+
+---
+
+## 👨‍💻 Auteur
+
+**SAHMI Adam** — Responsable Tunnel de Conversion & Historique Client  
+Projet réalisé dans le cadre du module Développement Web — S6  
+Université Mundiapolis, Campus Nouaceur | 2025–2026
