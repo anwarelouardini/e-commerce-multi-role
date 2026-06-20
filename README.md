@@ -1,3 +1,201 @@
+# 👤 EL MIR Ghita — Authentification & Gestion des Profils
+**Partie Authentification du projet E-Commerce Multi-Rôles**  
+Université Mundiapolis — Cycle Ingénieur 1A | Module Développement Web | 2025–2026
+
+---
+
+## 📋 Responsabilité dans le projet
+
+Je suis responsable de toute la partie **authentification et gestion des profils** de la plateforme GAAM. Cette partie constitue le point d'entrée sécurisé de l'ensemble du site et couvre la connexion, l'inscription, la gestion des sessions, et les interfaces de profil pour les deux rôles principaux : **Customer** et **Seller**.
+
+---
+
+## 🗂️ Fichiers dont je suis responsable
+
+### Pages Authentification
+```
+pages/authentification/
+├── login.php           → Formulaire de connexion avec gestion de session
+├── auth-signup.php     → Formulaire d'inscription (Customer / Seller)
+├── auth.js             → Validation JavaScript côté client
+└── logout.php          → Destruction de session et redirection
+```
+
+### Page Profil Customer
+```
+pages/customer/
+├── user-profil.php     → Profil utilisateur avec commandes et infos personnelles
+└── logout.php          → Déconnexion depuis le profil customer
+```
+
+### Page Profil Vendeur
+```
+pages/vendor/
+├── seller-profile.php  → Profil vendeur avec stats boutique et produits
+└── logout.php          → Déconnexion depuis le profil vendeur
+```
+
+### Fichier partagé avec l'équipe
+```
+includes/
+└── db.php              → Connexion PDO partagée (utilise le fichier .env)
+```
+
+---
+
+## ✅ Fonctionnalités développées
+
+### 🔷 Connexion (login.php)
+
+| Fonctionnalité | Description |
+|---|---|
+| Authentification sécurisée | Vérification email + mot de passe via `password_verify()` |
+| Gestion des rôles | Redirection automatique selon le rôle (Customer / Seller / Admin) |
+| Vérification du statut | Blocage des comptes `pending` ou `inactive` avec message d'erreur |
+| Session PHP | Création de session avec `user_id`, `role`, `username`, `email`, `profile_image` |
+| Validation JS | Vérification des champs avant soumission côté client |
+| Protection anti-boucle | Redirection si l'utilisateur est déjà connecté |
+
+### 🔷 Inscription (auth-signup.php)
+
+| Fonctionnalité | Description |
+|---|---|
+| Double rôle | Sélection Customer ou Seller via un select dynamique |
+| Champ Store Name | Apparaît/disparaît en JavaScript selon le rôle sélectionné |
+| Hashage du mot de passe | `password_hash()` avec algorithme BCRYPT |
+| Statut automatique | Customer → `active` directement / Seller → `pending` (approbation admin requise) |
+| Transaction PDO | Insertion atomique dans `users` + `customers` ou `sellers` |
+| Message d'attente | Redirection vers login avec message pour les sellers en attente |
+
+### 🔷 Profil Utilisateur Customer (user-profil.php)
+
+| Fonctionnalité | Description |
+|---|---|
+| Données dynamiques | Nom, email, téléphone, adresse et date d'inscription depuis la BDD |
+| Statistiques commandes | Nombre total de commandes et commandes en transit |
+| Commandes récentes | Tableau des 5 dernières commandes avec statut, date et montant |
+| Modal d'édition | Modification du prénom, nom, téléphone, adresse et bio |
+| Mise à jour BDD | Requêtes `UPDATE` sur les tables `users` et `customers` |
+| Protection d'accès | Redirection vers login si non connecté, redirection vers seller-profile si role=seller |
+
+### 🔷 Profil Vendeur Seller (seller-profile.php)
+
+| Fonctionnalité | Description |
+|---|---|
+| Infos boutique dynamiques | Nom de la boutique, rating, nombre de ventes et nombre de produits |
+| Bio / description | Texte personnalisé de la boutique depuis la BDD |
+| Stock affiché | Produits du vendeur avec images, prix et catégories |
+| Modal d'édition | Modification du prénom, nom, nom de boutique, téléphone et bio |
+| Mise à jour BDD | Requêtes `UPDATE` sur les tables `users` et `sellers` |
+| Responsive mobile | Navbar mobile avec bottom nav, adapté aux petits écrans |
+
+---
+
+## 🔒 Sécurité mise en place
+
+- **Sessions PHP** : Vérification de `$_SESSION['user_id']` sur toutes les pages protégées
+- **Contrôle d'accès par rôle** : Un customer ne peut pas accéder au profil seller et vice versa
+- **Requêtes préparées PDO** : Protection totale contre les injections SQL
+- **Hashage des mots de passe** : `password_hash()` BCRYPT sur toutes les nouvelles inscriptions
+- **Échappement XSS** : `htmlspecialchars()` sur toutes les données affichées
+- **Statut pending** : Les sellers sont bloqués jusqu'à validation par l'administrateur
+- **Protection .env** : Les credentials BDD ne sont pas exposés dans le code
+
+---
+
+## 🗄️ Tables de base de données utilisées
+
+| Table | Usage |
+|---|---|
+| `users` | Authentification, lecture et mise à jour des infos personnelles |
+| `roles` | Vérification du rôle (admin=1, seller=2, customer=3) |
+| `customers` | Lecture et mise à jour de l'adresse et id_customer |
+| `sellers` | Lecture et mise à jour du store_name et seller_rating |
+| `orders` | Comptage et affichage des commandes du customer |
+| `orders_items` | Détail des articles par commande |
+| `products` | Affichage du stock du vendeur dans son profil |
+| `categories` | Catégorie associée à chaque produit affiché |
+
+---
+
+## ⚙️ Technologies utilisées
+
+- **PHP** (Sessions, PDO, password_hash, transactions)
+- **MySQL / MariaDB** (Requêtes JOIN, UPDATE, INSERT transactionnel)
+- **JavaScript** (Validation formulaires, toggle modal, affichage/masquage champs)
+- **HTML / CSS** (Structure des pages, modal d'édition, responsive mobile)
+- **XAMPP** (Serveur local Apache + PHP + MariaDB)
+
+---
+
+## 📐 Structure des Sessions
+
+```php
+$_SESSION['user_id']       // ID de l'utilisateur connecté
+$_SESSION['username']      // Prénom
+$_SESSION['lastname']      // Nom
+$_SESSION['email']         // Email
+$_SESSION['role']          // ID du rôle (1=admin, 2=seller, 3=customer)
+$_SESSION['role_name']     // Nom du rôle
+$_SESSION['profile_image'] // Image de profil
+$_SESSION['id_customer']   // ID customer (si role=customer)
+$_SESSION['id_seller']     // ID seller (si role=seller)
+$_SESSION['store_name']    // Nom de la boutique (si role=seller)
+```
+
+---
+
+## 🚀 Comment tester ma partie
+
+1. Lancer **XAMPP** (Apache + MySQL)
+2. Importer `ecommerce.sql` dans phpMyAdmin
+3. Accéder à `http://localhost/e-commerce-multi-role/pages/authentification/login.php`
+
+### Comptes de test disponibles :
+
+| Email | Mot de passe | Rôle | Résultat attendu |
+|---|---|---|---|
+| `ghita@test.com` | `1234` | Customer | Redirection vers profil customer |
+| `karim@test.com` | `1234` | Seller | Redirection vers profil vendeur |
+| Nouveau compte Seller | — | Seller | Message "en attente d'approbation" |
+| Nouveau compte Customer | — | Customer | Redirection directe vers profil |
+
+### Scénarios à tester :
+- ✅ Login avec un compte customer → profil customer avec données BDD
+- ✅ Login avec un compte seller → profil vendeur avec boutique et produits
+- ✅ Login avec un compte inactif → message d'erreur affiché
+- ✅ Inscription d'un customer → session créée, redirection vers profil
+- ✅ Inscription d'un seller → statut pending, message d'attente
+- ✅ Modifier le profil via le modal → données mises à jour en BDD
+- ✅ Logout → session détruite, retour au login
+- ✅ Accès direct à user-profil.php sans être connecté → redirection login
+
+---
+
+## 🌿 Collaboration GitHub
+
+Pour ne pas impacter le travail des coéquipiers, j'ai travaillé sur une branche dédiée :
+
+```bash
+git checkout -b feature/auth-profiles
+git add pages/authentification/
+git add pages/customer/
+git add pages/vendor/logout.php
+git add pages/vendor/seller-profile.php
+git commit -m "feat: add login, register, user-profile, seller-profile with PHP & JS"
+git push origin feature/auth-profiles
+```
+
+Une **Pull Request** a été créée pour merger dans `main` après validation de l'équipe.
+
+---
+
+## 👨‍💻 Auteur
+
+**EL MIR Ghita** — Responsable Authentification & Gestion des Profils  
+Projet réalisé dans le cadre du module Développement Web — S6  
+Université Mundiapolis, Campus Nouaceur | 2025–2026
+
 # 👤 EL OUARDINI Anwar — Dashboard Admin / Vendeur
 
 > **Partie back-office** du projet E-Commerce Multi-Rôles  
