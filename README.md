@@ -155,8 +155,9 @@ $_SESSION['store_name']    // Nom de la boutique (si role=seller)
 
 | Email | Mot de passe | Rôle | Résultat attendu |
 |---|---|---|---|
-| `ghita@test.com` | `1234` | Customer | Redirection vers profil customer |
-| `karim@test.com` | `1234` | Seller | Redirection vers profil vendeur |
+| `admin@gaam.com` | `admin123` | Admin | Redirection vers profil admin |
+| `ghita.elmir@gaam.com` | `customer123` | Customer | Redirection vers profil customer |
+| `youssef.seller1@gaam.com` | `seller123` | Seller | Redirection vers profil vendeur |
 | Nouveau compte Seller | — | Seller | Message "en attente d'approbation" |
 | Nouveau compte Customer | — | Customer | Redirection directe vers profil |
 
